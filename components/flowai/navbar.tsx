@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 
 export function Navbar() {
   return (
@@ -46,26 +47,31 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/login"
-            className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:inline"
-          >
-            Login
-          </Link>
-          <Button
-            asChild
-            size="sm"
-            className={cn(
-              "rounded-full px-4",
-              "bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white",
-              "shadow-lg hover:shadow-xl transition-all duration-200",
-            )}
-          >
-            <Link href="/signup" aria-label="Try MediKarya for free">
-              <span className="mr-1">Start Learning</span>
-              <ArrowRight className="h-4 w-4" />
+          <SignedOut>
+            <Link
+              href="/login"
+              className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:inline"
+            >
+              Login
             </Link>
-          </Button>
+            <Button
+              asChild
+              size="sm"
+              className={cn(
+                "rounded-full px-4",
+                "bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white",
+                "shadow-lg hover:shadow-xl transition-all duration-200",
+              )}
+            >
+              <Link href="/signup" aria-label="Try MediKarya for free">
+                <span className="mr-1">Start Learning</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </nav>
     </header>

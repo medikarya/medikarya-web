@@ -2,7 +2,10 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { cn } from "@/lib/utils"
+import { ClerkProvider } from "@clerk/nextjs"
+import { ClientLayout } from "@/components/ClientLayout"
 import "./globals.css"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -23,8 +26,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={cn(geistSans.variable, geistMono.variable, geistSans.className)}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="scroll-smooth">
+        <body className={cn(geistSans.variable, geistMono.variable, geistSans.className)}>
+          <ClientLayout>
+            {children}
+            <SpeedInsights />
+          </ClientLayout>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
