@@ -1,23 +1,11 @@
 "use client"
 
-import { useUser } from "@clerk/nextjs"
-import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState, useRef } from "react"
 import { Loader2 } from "lucide-react"
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
-  const { isSignedIn } = useUser()
-  const router = useRouter()
-  const pathname = usePathname()
   const [isTransitioning, setIsTransitioning] = useState(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-
-  useEffect(() => {
-    if (isSignedIn && (pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/signup"))) {
-      setIsTransitioning(true)
-      router.push("/dashboard")
-    }
-  }, [isSignedIn, pathname, router])
 
   useEffect(() => {
     // Show spinner on any pathname change
@@ -38,7 +26,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
         clearTimeout(timeoutRef.current)
       }
     }
-  }, [pathname])
+  }, [])
 
   return (
     <>

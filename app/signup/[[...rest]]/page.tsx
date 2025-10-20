@@ -1,29 +1,11 @@
 "use client"
 
-import { SignUp, useUser } from "@clerk/nextjs"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { SignUp } from "@clerk/nextjs"
 import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/lib/scroll-animation"
 
 export default function SignUpPage() {
-  const { user, isLoaded } = useUser()
-  const router = useRouter()
   const { ref, isVisible } = useScrollAnimation()
-
-  useEffect(() => {
-    if (isLoaded && user) {
-      router.push("/dashboard")
-    }
-  }, [isLoaded, user, router])
-
-  if (!isLoaded) {
-    return (
-      <main className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </main>
-    )
-  }
 
   return (
     <main className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 via-white to-teal-50">

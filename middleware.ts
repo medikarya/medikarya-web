@@ -6,14 +6,26 @@ const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)"
 ]);
 
+const isAuthRoute = createRouteMatcher([
+  "/login(.*)",
+  "/signup(.*)"
+]);
+
 export default clerkMiddleware(async (auth, req) => {
+  const { userId } = await auth();
+
+  // Protect dashboard routes - redirect unauthenticated users to login
   if (isProtectedRoute(req)) {
-    const { userId } = await auth();
     if (!userId) {
-      // Redirect to local login page instead of Clerk's hosted version
       const loginUrl = new URL("/login", req.url);
       return NextResponse.redirect(loginUrl);
     }
+  }
+
+  // Handle authenticated users trying to access auth pages
+  if (isAuthRoute(req) && userId) {
+    const dashboardUrl = new URL("/dashboard", req.url);
+    return NextResponse.redirect(dashboardUrl);
   }
 });
 
