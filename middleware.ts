@@ -22,8 +22,8 @@ export default clerkMiddleware(async (auth, req) => {
     }
   }
 
-  // Handle authenticated users trying to access auth pages
-  if (isAuthRoute(req) && userId) {
+  // Redirect authenticated users from the landing page to the dashboard
+  if (req.nextUrl.pathname === "/" && userId) {
     const dashboardUrl = new URL("/dashboard", req.url);
     return NextResponse.redirect(dashboardUrl);
   }
