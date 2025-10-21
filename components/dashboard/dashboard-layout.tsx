@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ClientLayout } from "@/components/ClientLayout"
 import {
   LayoutDashboard,
   Stethoscope,
@@ -84,9 +83,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50 flex">
-      {/* Wrap dashboard in client-level layout for transitions */}
-      {/* Importing ClientLayout here keeps client-only code out of RootLayout */}
-      <ClientLayout>
       {/* Background decorative elements */}
       <div className="pointer-events-none fixed inset-0">
         <div className="absolute top-20 left-20 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl" />
@@ -306,7 +302,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         </main>
       </div>
-      </ClientLayout>
-      </div>
+    </div>
   )
 }

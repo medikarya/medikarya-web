@@ -12,18 +12,7 @@ const isAuthRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-  // Measure how long Clerk auth() takes to help diagnose latency
-  const start = Date.now();
   const { userId } = await auth();
-  const durationMs = Date.now() - start;
-  try {
-    // Log minimal info for diagnostics; hosting logs will show this
-    // Avoid logging sensitive data — only path and duration
-    // eslint-disable-next-line no-console
-    console.log(`[middleware] path=${req.nextUrl?.pathname || req.url} clerkAuthMs=${durationMs}`);
-  } catch (e) {
-    // swallow logging errors
-  }
 
   // Protect dashboard routes - redirect unauthenticated users to login
   if (isProtectedRoute(req)) {
@@ -42,10 +31,9 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    // Only run middleware for auth and protected routes and API endpoints
-    "/dashboard(.*)",
-    "/login(.*)",
-    "/signup(.*)",
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };

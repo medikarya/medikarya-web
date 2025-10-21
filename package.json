@@ -6,8 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start",
-    "analyze": "cross-env ANALYZE=true next build"
+    "start": "next start"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.33.7",
@@ -72,16 +71,6 @@
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
-    "typescript": "^5",
-    "@next/bundle-analyzer": "^15.2.4",
-    "cross-env": "^7.0.3"
-  },
-  "browserslist": [
-    "defaults and supports es6-module",
-    ">0.2%",
-    "not dead",
-    "not op_mini all",
-    "maintained node versions"
-  ]
+    "typescript": "^5"
+  }
 }
-
