@@ -61,9 +61,9 @@ export default function LoginPage() {
                 card: "shadow-none bg-transparent border-none",
                 headerTitle: "hidden",
                 headerSubtitle: "hidden",
-                socialButtons: "hidden",
-                dividerLine: "hidden",
-                dividerText: "hidden",
+                socialButtons: "block", // Enable Google OAuth buttons
+                dividerLine: "block",
+                dividerText: "block",
                 formFieldInput: "rounded-xl border-slate-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-blue-400 transition-all duration-200 text-sm sm:text-base",
                 formFieldLabel: "text-sm font-medium text-slate-700",
                 footerActionText: "hidden",

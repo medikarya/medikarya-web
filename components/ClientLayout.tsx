@@ -1,39 +1,39 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import { Loader2 } from "lucide-react"
 
-export function ClientLayout({ children }: { children: React.ReactNode }) {
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+interface AppWrapperProps {
+  children: React.ReactNode
+}
+
+export function AppWrapper({ children }: AppWrapperProps) {
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    // Show spinner on any pathname change
-    setIsTransitioning(true)
-
-    // Clear existing timeout
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
+    // Handle route transitions if needed
+    const handleRouteChange = () => {
+      setIsLoading(true)
+      setTimeout(() => setIsLoading(false), 100)
     }
 
-    // Hide spinner after 1.5 seconds (adjust based on typical load times)
-    timeoutRef.current = setTimeout(() => {
-      setIsTransitioning(false)
-    }, 1500)
+    // Only show loading for actual navigation, not initial load
+    const handlePopState = () => handleRouteChange()
+
+    window.addEventListener('popstate', handlePopState)
 
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
+      window.removeEventListener('popstate', handlePopState)
     }
   }, [])
 
+  // Don't show loading spinner on initial render to avoid hydration mismatch
   return (
     <>
-      <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+      <div className={`transition-opacity duration-300 ${isLoading ? 'opacity-50' : 'opacity-100'}`}>
         {children}
       </div>
-      {isTransitioning && (
+      {isLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
@@ -44,3 +44,6 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
     </>
   )
 }
+
+// Legacy export for backward compatibility (if needed)
+export const ClientLayout = AppWrapper

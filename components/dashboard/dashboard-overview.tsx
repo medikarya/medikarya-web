@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useUser } from "@clerk/nextjs"
 import {
   Trophy,
   Target,
@@ -23,6 +24,29 @@ import {
 import { cn } from "@/lib/utils"
 
 export function DashboardOverview() {
+  const { user, isLoaded } = useUser()
+
+  // Helper function to get display name
+  const getDisplayName = () => {
+    if (!isLoaded || !user) return "Doctor"
+
+    if (user.firstName || user.lastName) {
+      return `${user.firstName || ""} ${user.lastName || ""}`.trim()
+    }
+
+    // Extract name from email for Gmail signups
+    if (user.primaryEmailAddress?.emailAddress) {
+      const email = user.primaryEmailAddress.emailAddress
+      const username = email.split("@")[0]
+      // Convert email username to a more readable format
+      return username
+        .split(/[._-]/)
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join(" ")
+    }
+
+    return "Doctor"
+  }
   // Mock data - in a real app, this would come from your API/database
   const userStats = {
     casesSolved: 47,
@@ -78,7 +102,7 @@ export function DashboardOverview() {
       {/* Header */}
       <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between">
         <div className="text-center md:text-left">
-          <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl tracking-tight">Welcome back, Dr. Doe!</h1>
+          <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl tracking-tight">Welcome back, {getDisplayName()}!</h1>
           <p className="text-slate-600 mt-1 sm:mt-2 text-sm sm:text-base leading-relaxed">Ready to continue your medical education journey?</p>
         </div>
         <Button className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11">
