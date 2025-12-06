@@ -14,6 +14,20 @@ const isAuthRoute = createRouteMatcher([
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
 
+  // Don't redirect if this is a Clerk OAuth callback or internal route
+  if (req.nextUrl.pathname.includes('/sso-callback') ||
+      req.nextUrl.pathname.includes('/oauth') ||
+      req.nextUrl.pathname.startsWith('/_next/') ||
+      req.nextUrl.pathname.includes('.')) {
+    return;
+  }
+
+  // Redirect authenticated users from the landing page to the dashboard
+  if (req.nextUrl.pathname === "/" && userId) {
+    const dashboardUrl = new URL("/dashboard", req.url);
+    return NextResponse.redirect(dashboardUrl);
+  }
+
   // Protect dashboard routes - redirect unauthenticated users to login
   if (isProtectedRoute(req)) {
     if (!userId) {
@@ -22,8 +36,8 @@ export default clerkMiddleware(async (auth, req) => {
     }
   }
 
-  // Redirect authenticated users from the landing page to the dashboard
-  if (req.nextUrl.pathname === "/" && userId) {
+  // Redirect authenticated users away from auth pages to dashboard
+  if (isAuthRoute(req) && userId) {
     const dashboardUrl = new URL("/dashboard", req.url);
     return NextResponse.redirect(dashboardUrl);
   }

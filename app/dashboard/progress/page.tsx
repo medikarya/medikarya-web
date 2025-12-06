@@ -1,12 +1,5 @@
-"use client"
-
-import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
-import { LearningProgress } from "@/components/dashboard/progress"
+import { ComingSoon } from "@/components/coming-soon"
 
 export default function ProgressPage() {
-  return (
-    <DashboardLayout>
-      <LearningProgress />
-    </DashboardLayout>
-  )
+  return <ComingSoon />
 }

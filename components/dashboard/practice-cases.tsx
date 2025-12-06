@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -8,7 +9,6 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Search,
-  Filter,
   Clock,
   Users,
   Star,
@@ -19,14 +19,20 @@ import {
   Stethoscope,
   Activity,
   TrendingUp,
-  Award
+  Award,
+  Loader2
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { CaseMetadata } from "@/data/cases"
 
 export function PracticeCases() {
+  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [selectedDifficulty, setSelectedDifficulty] = useState("all")
+  const [cases, setCases] = useState<CaseMetadata[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   const categories = [
     { id: "cardiology", name: "Cardiology", icon: Heart, count: 12 },
@@ -37,80 +43,54 @@ export function PracticeCases() {
     { id: "general", name: "General Medicine", icon: BookOpen, count: 18 }
   ]
 
-  const cases = [
-    {
-      id: 1,
-      title: "Acute Chest Pain - 45 Year Old Male",
-      category: "cardiology",
-      difficulty: "intermediate",
-      duration: "25-30 min",
-      xpReward: 150,
-      completionRate: 87,
-      tags: ["ECG", "Cardiac biomarkers", "Risk stratification"],
-      description: "A 45-year-old male presents with acute chest pain radiating to the left arm. Evaluate symptoms, order appropriate tests, and determine the diagnosis."
-    },
-    {
-      id: 2,
-      title: "Pediatric Fever - 6 Year Old Female",
-      category: "pediatrics",
-      difficulty: "beginner",
-      duration: "15-20 min",
-      xpReward: 120,
-      completionRate: 92,
-      tags: ["Fever", "Pediatric assessment", "Infectious disease"],
-      description: "A 6-year-old girl presents with high fever and rash. Take a focused history and perform appropriate physical examination."
-    },
-    {
-      id: 3,
-      title: "Chronic Fatigue - 32 Year Old Female",
-      category: "general",
-      difficulty: "advanced",
-      duration: "35-40 min",
-      xpReward: 200,
-      completionRate: 73,
-      tags: ["Chronic fatigue", "Differential diagnosis", "Lab interpretation"],
-      description: "A 32-year-old female with progressive fatigue over 6 months. Comprehensive evaluation including history, examination, and diagnostic workup."
-    },
-    {
-      id: 4,
-      title: "Acute Stroke - 68 Year Old Male",
-      category: "neurology",
-      difficulty: "advanced",
-      duration: "40-45 min",
-      xpReward: 220,
-      completionRate: 68,
-      tags: ["Stroke", "Neurological exam", "Emergency management"],
-      description: "68-year-old male with sudden onset weakness and speech difficulty. Rapid assessment and management decisions required."
-    },
-    {
-      id: 5,
-      title: "COPD Exacerbation - 72 Year Old Male",
-      category: "pulmonology",
-      difficulty: "intermediate",
-      duration: "30-35 min",
-      xpReward: 180,
-      completionRate: 81,
-      tags: ["COPD", "Respiratory distress", "Oxygen therapy"],
-      description: "72-year-old male with known COPD presents with increased shortness of breath and cough. Evaluate and manage acute exacerbation."
-    },
-    {
-      id: 6,
-      title: "Trauma Assessment - 28 Year Old Male",
-      category: "emergency",
-      difficulty: "advanced",
-      duration: "45-50 min",
-      xpReward: 250,
-      completionRate: 65,
-      tags: ["Trauma", "ATLS", "Primary survey"],
-      description: "28-year-old male involved in motor vehicle accident. Systematic trauma evaluation and critical decision making."
-    }
-  ]
+  // Map case categories to their display names and icons
+  const categoryMap = {
+    'Gastroenterology': { id: 'gastroenterology', icon: Stethoscope, description: 'Digestive system and liver disorders' },
+    'Cardiology': { id: 'cardiology', icon: Heart, description: 'Heart and cardiovascular system' },
+    'Neurology': { id: 'neurology', icon: Brain, description: 'Nervous system and brain disorders' },
+    'Pulmonology': { id: 'pulmonology', icon: Activity, description: 'Respiratory system and lungs' },
+    'Emergency Medicine': { id: 'emergency', icon: Stethoscope, description: 'Acute medical conditions' },
+    'General Medicine': { id: 'general', icon: BookOpen, description: 'Common medical conditions' }
+  } as const
+
+  // Enhance case data with UI-specific properties
+  const enhanceCaseData = (caseData: CaseMetadata[]): CaseMetadata[] => {
+    return caseData.map(caseItem => ({
+      ...caseItem,
+      xpReward: caseItem.estimatedTime * 5, // Calculate XP based on estimated time
+      completionRate: Math.floor(Math.random() * 30) + 70, // Random completion rate between 70-99%
+      description: caseItem.description || `Practice your skills with this ${caseItem.difficulty.toLowerCase()} case in ${caseItem.category}.`
+    }));
+  };
+
+  // Fetch cases from API
+  useEffect(() => {
+    const fetchCases = async () => {
+      try {
+        const response = await fetch('/api/cases');
+        if (!response.ok) {
+          throw new Error('Failed to fetch cases');
+        }
+        const data = await response.json();
+        setCases(enhanceCaseData(data));
+      } catch (err) {
+        console.error('Error fetching cases:', err);
+        setError('Failed to load cases. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCases();
+  }, []);
 
   const filteredCases = cases.filter(case_ => {
     const matchesSearch = case_.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          case_.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-    const matchesCategory = selectedCategory === "all" || case_.category === selectedCategory
-    const matchesDifficulty = selectedDifficulty === "all" || case_.difficulty === selectedDifficulty
+    const matchesCategory = selectedCategory === "all" || 
+                          (case_.category && categoryMap[case_.category as keyof typeof categoryMap]?.id === selectedCategory)
+    const matchesDifficulty = selectedDifficulty === "all" || 
+                            case_.difficulty.toLowerCase() === selectedDifficulty.toLowerCase()
 
     return matchesSearch && matchesCategory && matchesDifficulty
   })
@@ -124,9 +104,39 @@ export function PracticeCases() {
     }
   }
 
-  const getCategoryIcon = (categoryId: string) => {
-    const category = categories.find(cat => cat.id === categoryId)
-    return category ? category.icon : BookOpen
+  const getCategoryIcon = (categoryName: string) => {
+    if (!categoryName) return BookOpen
+    const category = categoryMap[categoryName as keyof typeof categoryMap]
+    return category?.icon || BookOpen
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center space-y-4">
+          <Loader2 className="h-8 w-8 animate-spin text-blue-500 mx-auto" />
+          <p className="text-slate-600">Loading cases...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center space-y-4 p-6 bg-red-50 rounded-lg max-w-md mx-auto">
+          <div className="text-red-500 font-medium">Error loading cases</div>
+          <p className="text-slate-700">{error}</p>
+          <Button 
+            onClick={() => window.location.reload()}
+            variant="outline"
+            className="mt-2"
+          >
+            Retry
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -159,8 +169,8 @@ export function PracticeCases() {
                 className="px-3 py-2 rounded-lg border border-slate-200 bg-white/70 text-sm h-10 sm:h-11 min-w-[160px]"
               >
                 <option value="all">All Categories</option>
-                {categories.map(category => (
-                  <option key={category.id} value={category.id}>{category.name}</option>
+                {Object.entries(categoryMap).map(([name, { id }]) => (
+                  <option key={id} value={id}>{name}</option>
                 ))}
               </select>
               <select
@@ -185,15 +195,15 @@ export function PracticeCases() {
             <TabsTrigger value="all" className="px-3 py-2 text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm">
               All Cases
             </TabsTrigger>
-            {categories.map(category => (
+            {Object.entries(categoryMap).map(([name, { id, icon: Icon }]) => (
               <TabsTrigger
-                key={category.id}
-                value={category.id}
+                key={id}
+                value={id}
                 className="flex items-center gap-1 sm:gap-2 px-3 py-2 text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm"
               >
-                <category.icon className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">{category.name}</span>
-                <span className="sm:hidden">{category.name.split(' ')[0]}</span>
+                <Icon className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden sm:inline">{name}</span>
+                <span className="sm:hidden">{name.split(' ')[0]}</span>
               </TabsTrigger>
             ))}
           </TabsList>
@@ -209,17 +219,17 @@ export function PracticeCases() {
                   <CardHeader className="pb-3 sm:pb-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                        <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center flex-shrink-0">
-                          <CategoryIcon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-                        </div>
-                        <Badge className={cn("text-xs font-medium", getDifficultyColor(case_.difficulty))}>
-                          {case_.difficulty}
-                        </Badge>
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center flex-shrink-0">
+                        <CategoryIcon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                       </div>
-                      <div className="text-right flex-shrink-0">
-                        <div className="text-sm font-semibold text-green-600">+{case_.xpReward} XP</div>
-                        <div className="text-xs text-slate-500">{case_.duration}</div>
-                      </div>
+                      <Badge className={cn("text-xs font-medium", getDifficultyColor(case_.difficulty.toLowerCase()))}>
+                        {case_.difficulty}
+                      </Badge>
+                    </div>
+                    <div className="text-right flex-shrink-0">
+                      <div className="text-sm font-semibold text-green-600">+{case_.estimatedTime * 5} XP</div>
+                      <div className="text-xs text-slate-500">{case_.estimatedTime} min</div>
+                    </div>
                     </div>
                     <CardTitle className="text-base sm:text-lg text-slate-900 group-hover:text-blue-600 transition-colors leading-tight line-clamp-2">
                       {case_.title}
@@ -228,16 +238,16 @@ export function PracticeCases() {
 
                   <CardContent className="space-y-3 sm:space-y-4">
                     <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
-                      {case_.description}
+                      {case_.description || 'No description available for this case.'}
                     </p>
 
                     <div className="flex flex-wrap gap-1">
-                      {case_.tags.slice(0, 2).map(tag => (
+                      {case_.tags?.slice(0, 2).map((tag: string) => (
                         <Badge key={tag} variant="outline" className="text-xs bg-slate-50">
                           {tag}
                         </Badge>
                       ))}
-                      {case_.tags.length > 2 && (
+                      {case_.tags?.length > 2 && (
                         <Badge variant="outline" className="text-xs bg-slate-50">
                           +{case_.tags.length - 2}
                         </Badge>
@@ -256,7 +266,10 @@ export function PracticeCases() {
                         </div>
                       </div>
 
-                      <Button className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-sm hover:shadow-md transition-all duration-200 h-9 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm min-w-0">
+                      <Button 
+                        onClick={() => router.push(`/dashboard/cases/${case_.id}`)}
+                        className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-sm hover:shadow-md transition-all duration-200 h-9 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm min-w-0"
+                      >
                         <Play className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                         <span className="hidden sm:inline truncate">Start Case</span>
                         <span className="sm:hidden truncate">Start</span>
@@ -290,16 +303,16 @@ export function PracticeCases() {
         <Card className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200/50 shadow-sm hover:shadow-md transition-all duration-200">
           <CardContent className="p-3 sm:p-4 text-center">
             <div className="text-xl sm:text-2xl font-bold text-green-600 mb-1">
-              {Math.round(cases.reduce((acc, c) => acc + c.completionRate, 0) / cases.length)}%
+              {cases.length > 0 ? Math.round(cases.reduce((acc, c) => acc + c.estimatedTime, 0) / cases.length) : 0} min
             </div>
-            <div className="text-xs sm:text-sm text-green-700 font-medium">Avg Completion</div>
+            <div className="text-xs sm:text-sm text-green-700 font-medium">Avg Duration</div>
           </CardContent>
         </Card>
 
         <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200/50 shadow-sm hover:shadow-md transition-all duration-200">
           <CardContent className="p-3 sm:p-4 text-center">
             <div className="text-xl sm:text-2xl font-bold text-purple-600 mb-1">
-              {Math.round(cases.reduce((acc, c) => acc + c.xpReward, 0) / cases.length)}
+              {cases.length > 0 ? Math.round(cases.reduce((acc, c) => acc + c.xpReward, 0) / cases.length) : 0}
             </div>
             <div className="text-xs sm:text-sm text-purple-700 font-medium">Avg XP Reward</div>
           </CardContent>

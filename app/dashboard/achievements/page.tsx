@@ -1,12 +1,5 @@
-"use client"
-
-import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
-import { Achievements } from "@/components/dashboard/achievements"
+import { ComingSoon } from "@/components/coming-soon"
 
 export default function AchievementsPage() {
-  return (
-    <DashboardLayout>
-      <Achievements />
-    </DashboardLayout>
-  )
+  return <ComingSoon />
 }

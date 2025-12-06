@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useUser, useAuth } from "@clerk/nextjs"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -43,25 +44,25 @@ const sidebarItems = [
     title: "Rankings",
     href: "/dashboard/rankings",
     icon: Trophy,
-    description: "Leaderboard and standings"
+    description: "Coming Soon"
   },
   {
     title: "Achievements",
     href: "/dashboard/achievements",
     icon: Award,
-    description: "Badges and milestones"
+    description: "Coming Soon"
   },
   {
     title: "Progress",
     href: "/dashboard/progress",
     icon: TrendingUp,
-    description: "Learning analytics"
+    description: "Coming Soon"
   },
   {
     title: "Study Materials",
     href: "/dashboard/study",
     icon: BookOpen,
-    description: "Resources and guides"
+    description: "Coming Soon"
   },
   {
     title: "Profile",
@@ -80,6 +81,67 @@ const sidebarItems = [
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
+  const { user, isLoaded } = useUser()
+  const { signOut } = useAuth()
+
+  // Handle sign out
+  const handleSignOut = () => {
+    signOut({ redirectUrl: "/" })
+  }
+
+  // Helper function to get display name
+  const getDisplayName = () => {
+    if (!isLoaded) return "Loading..."
+
+    if (!user) return "User"
+
+    if (user.firstName || user.lastName) {
+      return `${user.firstName || ""} ${user.lastName || ""}`.trim()
+    }
+
+    // Extract name from email for Gmail signups
+    if (user.primaryEmailAddress?.emailAddress) {
+      const email = user.primaryEmailAddress.emailAddress
+      const username = email.split("@")[0]
+      // Convert email username to a more readable format
+      return username
+        .split(/[._-]/)
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join(" ")
+    }
+
+    return "User"
+  }
+
+  // Helper function to get user initials for avatar
+  const getUserInitials = () => {
+    const displayName = getDisplayName()
+    if (displayName === "Loading..." || displayName === "User") return "U"
+
+    return displayName
+      .split(" ")
+      .map(name => name.charAt(0).toUpperCase())
+      .slice(0, 2)
+      .join("")
+  }
+
+  // Get user role/title (default to Medical Student if not set)
+  const getUserTitle = () => {
+    // You can extend this later to pull from user metadata or database
+    return "Medical Student"
+  }
+
+  // Show loading state while Clerk is loading
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-teal-50">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+          <p className="text-sm text-slate-600">Loading dashboard...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50 flex">
@@ -102,8 +164,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Header */}
         <div className="flex h-16 items-center justify-between px-6 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-teal-600 shadow-sm">
-              <Stethoscope className="h-4 w-4 text-white" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl overflow-hidden">
+              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
             </div>
             <span className="font-semibold text-slate-800 text-lg">MediKarya</span>
           </div>
@@ -122,14 +184,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="p-6 border-b border-slate-100">
           <div className="flex items-center gap-3">
             <Avatar className="h-12 w-12 ring-2 ring-slate-200/50 shadow-sm">
-              <AvatarImage src="/placeholder-user.jpg" alt="User" />
+              <AvatarImage src={user?.imageUrl} alt={getDisplayName()} />
               <AvatarFallback className="bg-gradient-to-br from-blue-50 to-teal-50 text-slate-700 font-medium">
-                JD
+                {getUserInitials()}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <div className="font-medium text-slate-900 truncate">Dr. Jane Doe</div>
-              <div className="text-sm text-slate-500 truncate">Medical Student</div>
+              <div className="font-medium text-slate-900 truncate">{getDisplayName()}</div>
+              <div className="text-sm text-slate-500 truncate">{getUserTitle()}</div>
             </div>
           </div>
         </div>
@@ -174,6 +236,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="border-t border-slate-100 p-6">
           <Button
             variant="ghost"
+            onClick={handleSignOut}
             className="w-full justify-start text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-xl"
           >
             <LogOut className="h-4 w-4 mr-3" />
@@ -190,8 +253,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Header */}
         <div className="flex h-16 items-center justify-between px-4 border-b border-slate-200/50">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-teal-600 shadow-lg">
-              <Stethoscope className="h-4 w-4 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl overflow-hidden">
+              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
             </div>
             <span className="font-bold text-slate-900">MediKarya</span>
           </div>
@@ -209,14 +272,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="p-4 border-b border-slate-200/50">
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10 ring-2 ring-blue-200">
-              <AvatarImage src="/placeholder-user.jpg" alt="User" />
+              <AvatarImage src={user?.imageUrl} alt={getDisplayName()} />
               <AvatarFallback className="bg-gradient-to-br from-blue-100 to-teal-100 text-slate-600">
-                JD
+                {getUserInitials()}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <div className="font-medium text-slate-900 truncate">Dr. Jane Doe</div>
-              <div className="text-xs text-slate-500 truncate">Medical Student</div>
+              <div className="font-medium text-slate-900 truncate">{getDisplayName()}</div>
+              <div className="text-xs text-slate-500 truncate">{getUserTitle()}</div>
             </div>
           </div>
         </div>
@@ -259,6 +322,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="p-4 border-t border-slate-200/50">
           <Button
             variant="ghost"
+            onClick={handleSignOut}
             className="w-full justify-start text-slate-700 hover:text-slate-900 hover:bg-slate-100"
           >
             <LogOut className="mr-3 h-4 w-4" />
@@ -281,8 +345,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </Button>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-teal-600 shadow-sm">
-              <Stethoscope className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+            <div className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg overflow-hidden">
+              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
             </div>
             <span className="font-semibold text-slate-900 text-sm sm:text-base">MediKarya</span>
           </div>
@@ -290,7 +354,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           {/* User info on mobile */}
           <div className="ml-auto flex items-center gap-2">
             <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center">
-              <span className="text-xs font-medium text-slate-600">JD</span>
+              <span className="text-xs font-medium text-slate-600">{getUserInitials()}</span>
             </div>
           </div>
         </div>

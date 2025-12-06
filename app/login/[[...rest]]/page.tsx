@@ -41,12 +41,8 @@ export default function LoginPage() {
         >
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
-            <div className="mx-auto mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-teal-600 shadow-lg">
-              <svg className="h-5 w-5 sm:h-6 sm:w-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM9 4.5L4 8v8.5h12V8l-5-3.5L9 4.5z" clipRule="evenodd" />
-                <path d="M10 10a2 2 0 100-4 2 2 0 000 4z" />
-                <path fillRule="evenodd" d="M10 12a4 4 0 100-8 4 4 0 000 8z" clipRule="evenodd" />
-              </svg>
+            <div className="mx-auto mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full overflow-hidden">
+              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Welcome back</h1>
             <p className="text-sm sm:text-base text-slate-600">Sign in to continue your medical education journey</p>
@@ -61,9 +57,9 @@ export default function LoginPage() {
                 card: "shadow-none bg-transparent border-none",
                 headerTitle: "hidden",
                 headerSubtitle: "hidden",
-                socialButtons: "hidden",
-                dividerLine: "hidden",
-                dividerText: "hidden",
+                socialButtons: "block", // Enable Google OAuth buttons
+                dividerLine: "block",
+                dividerText: "block",
                 formFieldInput: "rounded-xl border-slate-200 bg-white/50 backdrop-blur-sm focus:bg-white focus:border-blue-400 transition-all duration-200 text-sm sm:text-base",
                 formFieldLabel: "text-sm font-medium text-slate-700",
                 footerActionText: "hidden",
