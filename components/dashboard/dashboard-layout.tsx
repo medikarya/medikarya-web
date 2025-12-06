@@ -44,25 +44,25 @@ const sidebarItems = [
     title: "Rankings",
     href: "/dashboard/rankings",
     icon: Trophy,
-    description: "Leaderboard and standings"
+    description: "Coming Soon"
   },
   {
     title: "Achievements",
     href: "/dashboard/achievements",
     icon: Award,
-    description: "Badges and milestones"
+    description: "Coming Soon"
   },
   {
     title: "Progress",
     href: "/dashboard/progress",
     icon: TrendingUp,
-    description: "Learning analytics"
+    description: "Coming Soon"
   },
   {
     title: "Study Materials",
     href: "/dashboard/study",
     icon: BookOpen,
-    description: "Resources and guides"
+    description: "Coming Soon"
   },
   {
     title: "Profile",
@@ -164,8 +164,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Header */}
         <div className="flex h-16 items-center justify-between px-6 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-teal-600 shadow-sm">
-              <Stethoscope className="h-4 w-4 text-white" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl overflow-hidden">
+              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
             </div>
             <span className="font-semibold text-slate-800 text-lg">MediKarya</span>
           </div>
@@ -253,8 +253,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Header */}
         <div className="flex h-16 items-center justify-between px-4 border-b border-slate-200/50">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-teal-600 shadow-lg">
-              <Stethoscope className="h-4 w-4 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl overflow-hidden">
+              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
             </div>
             <span className="font-bold text-slate-900">MediKarya</span>
           </div>
@@ -345,8 +345,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </Button>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-teal-600 shadow-sm">
-              <Stethoscope className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+            <div className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg overflow-hidden">
+              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
             </div>
             <span className="font-semibold text-slate-900 text-sm sm:text-base">MediKarya</span>
           </div>

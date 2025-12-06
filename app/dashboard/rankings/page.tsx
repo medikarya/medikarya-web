@@ -1,12 +1,5 @@
-"use client"
-
-import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
-import { Rankings } from "@/components/dashboard/rankings"
+import { ComingSoon } from "@/components/coming-soon"
 
 export default function RankingsPage() {
-  return (
-    <DashboardLayout>
-      <Rankings />
-    </DashboardLayout>
-  )
+  return <ComingSoon />
 }

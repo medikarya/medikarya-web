@@ -1,12 +1,5 @@
-"use client"
-
-import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
-import { StudyMaterials } from "@/components/dashboard/study-materials"
+import { ComingSoon } from "@/components/coming-soon"
 
 export default function StudyPage() {
-  return (
-    <DashboardLayout>
-      <StudyMaterials />
-    </DashboardLayout>
-  )
+  return <ComingSoon />
 }

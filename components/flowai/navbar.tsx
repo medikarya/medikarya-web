@@ -18,12 +18,8 @@ export function Navbar() {
         aria-label="Primary"
       >
         <div className="flex items-center gap-2">
-          <div className="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-teal-600 text-white text-xs font-semibold shadow-lg">
-            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM9 4.5L4 8v8.5h12V8l-5-3.5L9 4.5z" clipRule="evenodd" />
-              <path d="M10 10a2 2 0 100-4 2 2 0 000 4z" />
-              <path fillRule="evenodd" d="M10 12a4 4 0 100-8 4 4 0 000 8z" clipRule="evenodd" />
-            </svg>
+          <div className="flex h-7 w-7 items-center justify-center rounded-full overflow-hidden">
+            <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
           </div>
           <span className="font-semibold text-slate-800">MediKarya</span>
         </div>
