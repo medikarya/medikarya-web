@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/flowai/navbar"
 import { Hero } from "@/components/flowai/hero"
 import { DashboardPreview } from "@/components/flowai/dashboard-preview"
-import FeaturesSection from "@/components/flowai/sections/features"
 import HowItWorksSection from "@/components/flowai/sections/how-it-works"
 import PricingSection from "@/components/flowai/sections/pricing"
 import TestimonialsSection from "@/components/flowai/sections/testimonials"
@@ -17,13 +16,12 @@ export default function Page() {
         <div className="mx-auto max-w-6xl px-4 py-6 md:py-8">
           <Navbar />
           <Hero />
-          <DashboardPreview />
         </div>
       </div>
 
       {/* sections */}
-      <FeaturesSection />
       <HowItWorksSection />
+      <DashboardPreview />
       <TestimonialsSection />
       <PricingSection />
       <FAQSection />

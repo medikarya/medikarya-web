@@ -31,7 +31,7 @@ export function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="#how-it-works" className="transition-colors hover:text-foreground">
+            <Link href="#video-demo" className="transition-colors hover:text-foreground">
               How it Works
             </Link>
           </li>
@@ -44,24 +44,26 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <SignedOut>
-            <Link
-              href="/login"
-              className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:inline"
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="hidden rounded-full text-muted-foreground hover:text-blue-600 hover:bg-blue-50 transition-colors md:inline-flex"
             >
-              Login
-            </Link>
+              <Link href="/login">Login</Link>
+            </Button>
             <Button
               asChild
               size="sm"
               className={cn(
-                "rounded-full px-4",
+                "group rounded-full px-4 h-auto py-2",
                 "bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white",
-                "shadow-lg hover:shadow-xl transition-all duration-200",
+                "shadow-lg hover:shadow-blue-500/20 hover:scale-[1.005] transition-all duration-300 ease-out",
               )}
             >
-              <Link href="/signup" aria-label="Try MediKarya for free">
+              <Link href="/signup" aria-label="Try MediKarya for free" className="flex items-center justify-center">
                 <span className="mr-1">Start Learning</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
           </SignedOut>

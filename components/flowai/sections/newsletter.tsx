@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { CheckCircle, Mail } from "lucide-react"
+import { CheckCircle, Mail, ArrowRight } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { useScrollAnimation } from "@/lib/scroll-animation"
 import { cn } from "@/lib/utils"
@@ -113,9 +113,14 @@ export default function NewsletterSection() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="rounded-full bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 px-6 shadow-lg hover:shadow-xl transition-all duration-200 whitespace-nowrap"
+                className="group rounded-full bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 px-6 shadow-lg hover:shadow-blue-500/25 transition-all duration-200 whitespace-nowrap"
               >
-                {isLoading ? "Subscribing..." : "Subscribe"}
+                {isLoading ? "Subscribing..." : (
+                  <span className="flex items-center gap-2">
+                    Subscribe
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                )}
               </Button>
             </form>
 

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useScrollAnimation } from "@/lib/scroll-animation"
 import { cn } from "@/lib/utils"
@@ -65,8 +66,8 @@ function Plan({
 }) {
   return (
     <Card className={cn(
-      highlight ? "border-2 border-blue-200 bg-gradient-to-br from-blue-50/50 to-cyan-50/50 shadow-lg" : "border-slate-200 hover:shadow-md transition-shadow",
-      "transition-all duration-300 ease-out h-full flex flex-col"
+      highlight ? "border-2 border-blue-200 bg-gradient-to-br from-blue-50/50 to-cyan-50/50 shadow-lg scale-105" : "border-slate-200 hover:shadow-lg hover:scale-[1.005] hover:border-blue-100",
+      "group transition-all duration-300 ease-out h-full flex flex-col"
     )}>
       <CardHeader>
         <CardTitle className="flex items-baseline justify-between">
@@ -77,15 +78,23 @@ function Plan({
       <CardContent className="flex flex-col flex-1">
         <ul className="mb-6 space-y-2 text-sm flex-1">
           {features.map((f) => (
-            <li key={f} className="text-slate-600 flex items-center gap-2">
-              <div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div>
+            <li key={f} className="text-slate-600 flex items-center gap-2 group-hover:text-slate-700 transition-colors">
+              <div className="h-1.5 w-1.5 rounded-full bg-blue-500 group-hover:scale-125 transition-transform duration-300"></div>
               {f}
             </li>
           ))}
         </ul>
-        <Button asChild className={`w-full rounded-full mt-auto ${highlight ? 'bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transition-all duration-200' : ''}`}>
-          <Link href={contact ? "/contact" : "/signup"}>
+        <Button
+          asChild
+          variant={highlight ? "default" : "outline"}
+          className={`w-full rounded-full mt-auto ${highlight
+            ? 'bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-lg hover:shadow-blue-500/25'
+            : 'border-slate-200 hover:border-blue-200 hover:bg-blue-50 text-slate-700 hover:text-blue-700'
+            } transition-all duration-300`}
+        >
+          <Link href={contact ? "/contact" : "/signup"} className="flex items-center justify-center gap-2">
             {contact ? "Contact Us" : "Get Started"}
+            {!contact && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
           </Link>
         </Button>
       </CardContent>

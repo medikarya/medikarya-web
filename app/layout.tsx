@@ -19,9 +19,44 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "MediKarya - AI-Powered Medical Education",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://medikarya.com"),
+  title: {
+    default: "MediKarya - AI-Powered Medical Education",
+    template: "%s | MediKarya"
+  },
   description: "Advance your clinical skills with AI patient simulations. Practice consultations, diagnostics, and clinical reasoning with our advanced medical education platform.",
-    generator: 'v0.app'
+  keywords: ["Medical Education", "AI Patient Simulation", "Clinical Training", "Medical Students", "Diagnosis Practice"],
+  authors: [{ name: "MediKarya Team" }], // Replace with actual author if known
+  creator: "MediKarya",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    title: "MediKarya - AI-Powered Medical Education",
+    description: "Advance your clinical skills with AI patient simulations. Practice consultations, diagnostics, and clinical reasoning.",
+    siteName: "MediKarya",
+    images: [
+      {
+        url: "/medikarya.png", // Next.js will resolve this to absolute URL using metadataBase
+        width: 1200,
+        height: 630,
+        alt: "MediKarya Platform Preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MediKarya - AI-Powered Medical Education",
+    description: "Advance your clinical skills with AI patient simulations.",
+    images: ["/medikarya.png"],
+    creator: "@medikarya", // Replace with actual handle
+  },
+  icons: {
+    icon: "/favicon.ico", // Assuming standard nextjs output or we can use the svg
+    shortcut: "/medikarya.svg",
+    apple: "/medikarya.png", // Usually needs specific size but this is a safe fallback
+  },
+  generator: 'v0.app'
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

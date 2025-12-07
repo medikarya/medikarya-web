@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { ArrowRight, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useScrollAnimation } from "@/lib/scroll-animation"
@@ -68,19 +69,25 @@ export function Hero() {
           "mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 px-4 transition-all duration-1000 delay-800 ease-out",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
+
+
           <Button
             asChild
             className={cn(
-              "rounded-full px-5 py-5 sm:py-6 text-sm sm:text-base w-full sm:w-auto",
+              "group rounded-full px-6 py-4 sm:py-5 h-auto text-sm font-medium w-full sm:w-auto",
               "bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-lg",
-              "hover:shadow-xl transition-all duration-200",
+              "hover:shadow-blue-500/20 hover:scale-[1.005] transition-all duration-300 ease-out",
             )}
           >
-            <Link href="/signup">Start Your First Simulation</Link>
+            <Link href="/signup" className="flex items-center justify-center gap-2">
+              Start Your First Simulation
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </Button>
-          <Button asChild variant="outline" className="rounded-full border-slate-300 bg-white/80 backdrop-blur hover:bg-white/90 w-full sm:w-auto">
-            <Link href="#how-it-works" aria-label="See how MediKarya works">
-              Explore Features
+          <Button asChild variant="outline" className="rounded-full border-slate-300 bg-white/80 backdrop-blur hover:bg-white/80 hover:border-blue-300 transition-colors duration-300 w-full sm:w-auto">
+            <Link href="#video-demo" aria-label="Watch MediKarya in action" className="flex items-center justify-center gap-2">
+              <Play className="h-4 w-4 fill-slate-900 text-slate-900" />
+              Watch Demo
             </Link>
           </Button>
         </div>

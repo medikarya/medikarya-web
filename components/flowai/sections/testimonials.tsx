@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Star, Quote } from "lucide-react"
+import { Star, Quote, ArrowRight } from "lucide-react"
 import { useScrollAnimation } from "@/lib/scroll-animation"
 import { cn } from "@/lib/utils"
 
@@ -89,8 +89,8 @@ export default function TestimonialsSection() {
             key={index}
             className={cn(
               "group relative overflow-hidden rounded-3xl border-0 bg-white/80 shadow-lg backdrop-blur-sm",
-              "hover:shadow-2xl hover:bg-white/90 transition-all duration-500 ease-out",
-              "hover:-translate-y-2",
+              "hover:shadow-xl hover:bg-white/90 transition-all duration-500 ease-out",
+              "hover:-translate-y-[2px]",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
             style={{
@@ -163,11 +163,9 @@ export default function TestimonialsSection() {
         <p className="text-slate-600 text-sm sm:text-base mb-4">
           Join thousands of medical professionals already using MediKarya
         </p>
-        <div className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors cursor-pointer">
+        <div className="group inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors cursor-pointer">
           <span>Read more success stories</span>
-          <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </div>
       </div>
     </section>

@@ -15,46 +15,55 @@ export default function HowItWorksSection() {
       subtitle: "Interactive AI Assessment",
       desc: "Engage in dynamic conversations with AI patients presenting realistic symptoms and comprehensive medical histories.",
       icon: Stethoscope,
+      color: "bg-blue-50",
+      iconColor: "text-blue-600",
       features: [
         "Natural language processing",
         "Contextual patient responses",
         "Comprehensive symptom analysis"
       ],
       duration: "5-8 min",
-      metric: "95% realism score"
+      metric: "95% realism score",
+      hoverBorder: "hover:border-blue-200"
     },
     {
       title: "Diagnostic Testing",
       subtitle: "Evidence-Based Ordering",
       desc: "Order appropriate diagnostic tests and receive clinically accurate results with detailed interpretations.",
       icon: TestTube,
+      color: "bg-purple-50",
+      iconColor: "text-purple-600",
       features: [
         "Laboratory test selection",
         "Radiology interpretation",
         "Real-time result delivery"
       ],
       duration: "3-5 min",
-      metric: "98% accuracy rate"
+      metric: "98% accuracy rate",
+      hoverBorder: "hover:border-purple-200"
     },
     {
       title: "Clinical Decision Making",
       subtitle: "AI-Guided Diagnosis",
       desc: "Analyze results, formulate diagnoses, and develop comprehensive treatment plans with personalized feedback.",
       icon: FileText,
+      color: "bg-green-50",
+      iconColor: "text-green-600",
       features: [
         "Differential diagnosis",
         "Treatment recommendations",
         "Clinical reasoning analysis"
       ],
       duration: "7-10 min",
-      metric: "92% improvement rate"
+      metric: "92% improvement rate",
+      hoverBorder: "hover:border-green-200"
     }
   ]
 
   return (
     <section
       ref={ref}
-      id="how-it-works"
+      id="features"
       className={cn(
         "mx-auto max-w-7xl px-4 py-16 sm:py-20 bg-gradient-to-b from-white to-slate-50/30 transition-all duration-1000 ease-out",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -98,24 +107,24 @@ export default function HowItWorksSection() {
             <div
               key={step.title}
               className={cn(
-                "group relative h-full transform transition-all duration-700 ease-out",
+                "transform transition-all duration-1000 ease-out",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               )}
               style={{ transitionDelay: `${1000 + index * 100}ms` }}
             >
-              <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+              <div className={`group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-md ${step.hoverBorder} transition-all duration-200 hover:-translate-y-[1px] h-full flex flex-col`}>
                 <div className="p-8 flex-1 flex flex-col">
                   {/* Icon */}
                   <div className="mb-6">
-                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50">
-                      <Icon className="h-8 w-8 text-blue-600" />
+                    <div className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl ${step.color} transition-transform duration-300 group-hover:scale-105`}>
+                      <Icon className={`h-8 w-8 ${step.iconColor}`} />
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="space-y-4 flex-1">
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold mb-2 text-slate-900">
+                      <h3 className="text-xl font-bold mb-2 text-slate-900 transition-colors duration-300 group-hover:text-blue-700">
                         {step.title}
                       </h3>
                       <p className="text-sm font-medium text-blue-600 mb-3">
@@ -157,32 +166,6 @@ export default function HowItWorksSection() {
         })}
       </div>
 
-      {/* Professional CTA section */}
-      <div className={cn(
-        "mt-20 text-center transition-all duration-1000 delay-1200 ease-out",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-      )}>
-        <div className="inline-flex flex-col items-center gap-6 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-8 text-white shadow-2xl max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 text-lg font-medium">
-            <Users className="h-6 w-6" />
-            <span>Trusted by leading medical institutions worldwide</span>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full text-center">
-            <div className="flex flex-col items-center gap-2">
-              <div className="text-3xl font-bold">15,000+</div>
-              <div className="text-slate-300 text-sm">Medical Students</div>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="text-3xl font-bold">500+</div>
-              <div className="text-slate-300 text-sm">Clinical Cases</div>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="text-3xl font-bold">95%</div>
-              <div className="text-slate-300 text-sm">Satisfaction Rate</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   )
 }
