@@ -43,9 +43,9 @@ export default function NewsletterSection() {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}
       >
-        <Card className="rounded-3xl border-2 border-blue-200 bg-gradient-to-br from-blue-50/50 to-cyan-50/50">
+        <Card className="rounded-3xl border-2 border-brand-200 bg-gradient-to-br from-brand-50/50 to-accent-50/50">
           <CardContent className="p-8 text-center">
-            <CheckCircle className="mx-auto h-16 w-16 text-blue-600 mb-4" />
+            <CheckCircle className="mx-auto h-16 w-16 text-brand-600 mb-4" />
             <h2 className="text-2xl font-semibold mb-2 text-slate-900">Welcome to MediKarya Updates!</h2>
             <p className="text-slate-600 mb-4">
               You're now subscribed to our newsletter. Expect monthly insights on medical education,
@@ -54,7 +54,7 @@ export default function NewsletterSection() {
             <Button
               variant="outline"
               onClick={() => setIsSubscribed(false)}
-              className="rounded-full border-blue-200 text-blue-600 hover:bg-blue-50"
+              className="rounded-full border-brand-200 text-brand-600 hover:bg-brand-50"
             >
               Subscribe Another Email
             </Button>
@@ -72,14 +72,14 @@ export default function NewsletterSection() {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
     >
-      <Card className="rounded-3xl border-2 border-blue-200 bg-gradient-to-br from-blue-50/50 to-cyan-50/50 shadow-lg">
+      <Card className="rounded-3xl border-2 border-brand-200 bg-gradient-to-br from-brand-50/50 to-accent-50/50 shadow-lg">
         <CardContent className="p-6 sm:p-8">
           <div className="text-center">
             <div className={cn(
-              "mb-4 inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 transition-all duration-1000 delay-200 ease-out",
+              "mb-4 inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-100 to-accent-100 transition-all duration-1000 delay-200 ease-out",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}>
-              <Mail className="h-7 w-7 sm:h-8 sm:w-8 text-blue-600" />
+              <Mail className="h-7 w-7 sm:h-8 sm:w-8 text-brand-600" />
             </div>
 
             <h2 className={cn(
@@ -108,12 +108,12 @@ export default function NewsletterSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="rounded-full border-slate-200 focus:border-blue-300 focus:ring-blue-200 flex-1"
+                className="rounded-full border-slate-200 focus:border-brand-300 focus:ring-brand-200 flex-1"
               />
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="group rounded-full bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 px-6 shadow-lg hover:shadow-blue-500/25 transition-all duration-200 whitespace-nowrap"
+                className="group rounded-full bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 px-6 shadow-lg hover:shadow-brand-500/25 transition-all duration-200 whitespace-nowrap"
               >
                 {isLoading ? "Subscribing..." : (
                   <span className="flex items-center gap-2">

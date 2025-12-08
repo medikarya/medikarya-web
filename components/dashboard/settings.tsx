@@ -89,7 +89,7 @@ export function Settings() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5 text-blue-600" />
+                <User className="h-5 w-5 text-brand-600" />
                 Profile Information
               </CardTitle>
             </CardHeader>
@@ -97,15 +97,15 @@ export function Settings() {
               {/* Avatar Section */}
               <div className="flex items-center gap-6">
                 <div className="relative">
-                  <Avatar className="h-20 w-20 ring-4 ring-blue-200">
+                  <Avatar className="h-20 w-20 ring-4 ring-brand-200">
                     <AvatarImage src="/placeholder-user.jpg" alt={profile.name} />
-                    <AvatarFallback className="bg-gradient-to-br from-blue-100 to-teal-100 text-slate-600 text-xl font-semibold">
+                    <AvatarFallback className="bg-gradient-to-br from-brand-100 to-accent-100 text-slate-600 text-xl font-semibold">
                       {profile.name.split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
                   <Button
                     size="sm"
-                    className="absolute -bottom-2 -right-2 h-8 w-8 rounded-full bg-blue-600 hover:bg-blue-700 p-0"
+                    className="absolute -bottom-2 -right-2 h-8 w-8 rounded-full bg-brand-600 hover:bg-brand-700 p-0"
                   >
                     <Camera className="h-4 w-4 text-white" />
                   </Button>
@@ -115,7 +115,7 @@ export function Settings() {
                   <p className="text-sm text-slate-600">Medical Student</p>
                   <div className="flex gap-2 mt-2">
                     <Badge className="bg-green-100 text-green-700">Level 12</Badge>
-                    <Badge className="bg-blue-100 text-blue-700">2,840 XP</Badge>
+                    <Badge className="bg-brand-100 text-brand-700">2,840 XP</Badge>
                   </div>
                 </div>
               </div>
@@ -196,7 +196,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end">
-                <Button onClick={handleSave} className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white">
+                <Button onClick={handleSave} className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white">
                   <Save className="mr-2 h-4 w-4" />
                   Save Changes
                 </Button>
@@ -210,7 +210,7 @@ export function Settings() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Bell className="h-5 w-5 text-blue-600" />
+                <Bell className="h-5 w-5 text-brand-600" />
                 Notification Preferences
               </CardTitle>
             </CardHeader>
@@ -280,7 +280,7 @@ export function Settings() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Palette className="h-5 w-5 text-blue-600" />
+                <Palette className="h-5 w-5 text-brand-600" />
                 App Preferences
               </CardTitle>
             </CardHeader>
@@ -351,7 +351,7 @@ export function Settings() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-blue-600" />
+                <Shield className="h-5 w-5 text-brand-600" />
                 Security Settings
               </CardTitle>
             </CardHeader>
@@ -395,7 +395,7 @@ export function Settings() {
                   />
                 </div>
 
-                <Button className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white">
+                <Button className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white">
                   <Key className="mr-2 h-4 w-4" />
                   Update Password
                 </Button>

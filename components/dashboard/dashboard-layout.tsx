@@ -134,9 +134,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   // Show loading state while Clerk is loading
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-teal-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-50 via-white to-accent-50">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-200 border-t-brand-600"></div>
           <p className="text-sm text-slate-600">Loading dashboard...</p>
         </div>
       </div>
@@ -144,11 +144,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50 flex">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-accent-50 flex">
       {/* Background decorative elements */}
       <div className="pointer-events-none fixed inset-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-teal-200/20 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-20 w-72 h-72 bg-brand-200/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent-200/20 rounded-full blur-3xl" />
       </div>
 
       {/* Mobile sidebar overlay */}
@@ -185,7 +185,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex items-center gap-3">
             <Avatar className="h-12 w-12 ring-2 ring-slate-200/50 shadow-sm">
               <AvatarImage src={user?.imageUrl} alt={getDisplayName()} />
-              <AvatarFallback className="bg-gradient-to-br from-blue-50 to-teal-50 text-slate-700 font-medium">
+              <AvatarFallback className="bg-gradient-to-br from-brand-50 to-accent-50 text-slate-700 font-medium">
                 {getUserInitials()}
               </AvatarFallback>
             </Avatar>
@@ -209,7 +209,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   className={cn(
                     "group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200 ease-out",
                     isActive
-                      ? "bg-gradient-to-r from-blue-600 to-teal-600 text-white shadow-sm"
+                      ? "bg-gradient-to-r from-brand-600 to-accent-600 text-white shadow-sm"
                       : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                   )}
                 >
@@ -221,7 +221,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     <div className="font-medium">{item.title}</div>
                     <div className={cn(
                       "text-xs transition-all duration-200",
-                      isActive ? "text-blue-100" : "text-slate-500"
+                      isActive ? "text-brand-100" : "text-slate-500"
                     )}>
                       {item.description}
                     </div>
@@ -271,9 +271,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* User profile section */}
         <div className="p-4 border-b border-slate-200/50">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 ring-2 ring-blue-200">
+            <Avatar className="h-10 w-10 ring-2 ring-brand-200">
               <AvatarImage src={user?.imageUrl} alt={getDisplayName()} />
-              <AvatarFallback className="bg-gradient-to-br from-blue-100 to-teal-100 text-slate-600">
+              <AvatarFallback className="bg-gradient-to-br from-brand-100 to-accent-100 text-slate-600">
                 {getUserInitials()}
               </AvatarFallback>
             </Avatar>
@@ -296,7 +296,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 className={cn(
                   "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                   isActive
-                    ? "bg-gradient-to-r from-blue-600 to-teal-600 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-brand-600 to-accent-600 text-white shadow-lg"
                     : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
                 )}
               >
@@ -308,7 +308,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <div>{item.title}</div>
                   <div className={cn(
                     "text-xs transition-all duration-200",
-                    isActive ? "text-blue-100" : "text-slate-500"
+                    isActive ? "text-brand-100" : "text-slate-500"
                   )}>
                     {item.description}
                   </div>
@@ -353,7 +353,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
           {/* User info on mobile */}
           <div className="ml-auto flex items-center gap-2">
-            <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center">
+            <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center">
               <span className="text-xs font-medium text-slate-600">{getUserInitials()}</span>
             </div>
           </div>

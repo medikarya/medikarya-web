@@ -113,11 +113,11 @@ export function Support() {
         {quickActions.map((action) => (
           <Card key={action.id} className="group bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer">
             <CardContent className="p-6 text-center space-y-3">
-              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
-                <action.icon className="h-6 w-6 text-blue-600" />
+              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                <action.icon className="h-6 w-6 text-brand-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                <h3 className="font-semibold text-slate-900 group-hover:text-brand-600 transition-colors">
                   {action.title}
                 </h3>
                 <p className="text-xs text-slate-600 mt-1">{action.description}</p>
@@ -134,7 +134,7 @@ export function Support() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-slate-900">
-                <HelpCircle className="h-5 w-5 text-blue-600" />
+                <HelpCircle className="h-5 w-5 text-brand-600" />
                 Frequently Asked Questions
               </CardTitle>
             </CardHeader>
@@ -142,8 +142,8 @@ export function Support() {
               {faqs.map((faq) => (
                 <div key={faq.id} className="p-4 rounded-xl bg-slate-50/80 hover:bg-slate-100/80 transition-colors">
                   <div className="flex items-start gap-3">
-                    <div className="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold text-blue-600">{faq.id}</span>
+                    <div className="h-6 w-6 rounded-full bg-brand-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-brand-600">{faq.id}</span>
                     </div>
                     <div className="flex-1">
                       <h3 className="font-medium text-slate-900 mb-2">{faq.question}</h3>
@@ -162,7 +162,7 @@ export function Support() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-slate-900">
-                <MessageSquare className="h-5 w-5 text-blue-600" />
+                <MessageSquare className="h-5 w-5 text-brand-600" />
                 Contact Support
               </CardTitle>
             </CardHeader>
@@ -208,7 +208,7 @@ export function Support() {
                 />
               </div>
 
-              <Button className="w-full bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-lg">
+              <Button className="w-full bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-lg">
                 Send Message
               </Button>
 
@@ -232,23 +232,23 @@ export function Support() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-slate-900">
-                <BookOpen className="h-5 w-5 text-blue-600" />
+                <BookOpen className="h-5 w-5 text-brand-600" />
                 Support Resources
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {supportResources.map((resource) => (
                 <div key={resource.id} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 hover:bg-slate-100/80 transition-colors cursor-pointer group">
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <resource.icon className="h-4 w-4 text-blue-600" />
+                  <div className="h-8 w-8 rounded-full bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <resource.icon className="h-4 w-4 text-brand-600" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-slate-900 text-sm group-hover:text-blue-600 transition-colors">
+                    <h4 className="font-medium text-slate-900 text-sm group-hover:text-brand-600 transition-colors">
                       {resource.title}
                     </h4>
                     <p className="text-xs text-slate-600">{resource.description}</p>
                     <div className="flex items-center gap-2 mt-1">
-                      <Badge className="bg-blue-100 text-blue-700 text-xs">
+                      <Badge className="bg-brand-100 text-brand-700 text-xs">
                         {resource.type}
                       </Badge>
                       <span className="text-xs text-slate-500">{resource.duration}</span>
@@ -260,10 +260,10 @@ export function Support() {
           </Card>
 
           {/* Quick Tips */}
-          <Card className="bg-gradient-to-r from-blue-50 to-teal-50 border-0 shadow-lg">
+          <Card className="bg-gradient-to-r from-brand-50 to-accent-50 border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-slate-900">
-                <Zap className="h-5 w-5 text-blue-600" />
+                <Zap className="h-5 w-5 text-brand-600" />
                 Quick Tips
               </CardTitle>
             </CardHeader>

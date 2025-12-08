@@ -88,18 +88,18 @@ export function DiagnosisSubmission({
     <ScrollArea className="h-[500px] sm:h-[550px] md:h-[600px]">
       <div className="p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-5 md:space-y-6">
         {/* Summary Section */}
-        <Card className="bg-blue-50/50 border-blue-200">
+        <Card className="bg-brand-50/50 border-brand-200">
           <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
             <CardTitle className="text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
-              <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-blue-600" />
+              <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600" />
               Case Summary
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 sm:space-y-3 px-3 sm:px-6 pb-3 sm:pb-6">
             <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 text-center">
               <div>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-600">{chatHistory.length}</div>
-                <div className="text-[10px] sm:text-xs text-blue-700">Questions</div>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-brand-600">{chatHistory.length}</div>
+                <div className="text-[10px] sm:text-xs text-brand-700">Questions</div>
               </div>
               <div>
                 <div className="text-lg sm:text-xl md:text-2xl font-bold text-purple-600">{completedTests.length}</div>
@@ -116,7 +116,7 @@ export function DiagnosisSubmission({
         {/* Primary Diagnosis */}
         <div className="space-y-1.5 sm:space-y-2">
           <Label htmlFor="primary-diagnosis" className="text-xs sm:text-sm font-semibold flex items-center gap-1.5 sm:gap-2">
-            <Stethoscope className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-blue-600" />
+            <Stethoscope className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600" />
             Primary Diagnosis *
           </Label>
           <Input
@@ -293,7 +293,7 @@ export function DiagnosisSubmission({
           <Button
             onClick={handleSubmit}
             disabled={!primaryDiagnosis.trim()}
-            className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 w-full sm:min-w-[150px] text-xs sm:text-sm h-9 sm:h-10"
+            className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 w-full sm:min-w-[150px] text-xs sm:text-sm h-9 sm:h-10"
           >
             <Send className="mr-1.5 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
             Submit Diagnosis

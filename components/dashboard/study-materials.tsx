@@ -123,7 +123,7 @@ export function StudyMaterials() {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Beginner": return "bg-green-100 text-green-700 border-green-200"
-      case "Intermediate": return "bg-blue-100 text-blue-700 border-blue-200"
+      case "Intermediate": return "bg-brand-100 text-brand-700 border-brand-200"
       case "Advanced": return "bg-purple-100 text-purple-700 border-purple-200"
       default: return "bg-slate-100 text-slate-700 border-slate-200"
     }
@@ -188,8 +188,8 @@ export function StudyMaterials() {
                 <CardHeader className="pb-3 sm:pb-4">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center flex-shrink-0">
-                        <CategoryIcon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center flex-shrink-0">
+                        <CategoryIcon className="h-4 w-4 sm:h-5 sm:w-5 text-brand-600" />
                       </div>
                       <Badge className={cn("text-xs font-medium", getDifficultyColor(material.difficulty))}>
                         {material.difficulty}
@@ -199,7 +199,7 @@ export function StudyMaterials() {
                       Featured
                     </Badge>
                   </div>
-                  <CardTitle className="text-base sm:text-lg text-slate-900 group-hover:text-blue-600 transition-colors leading-tight line-clamp-2">
+                  <CardTitle className="text-base sm:text-lg text-slate-900 group-hover:text-brand-600 transition-colors leading-tight line-clamp-2">
                     {material.title}
                   </CardTitle>
                 </CardHeader>
@@ -238,7 +238,7 @@ export function StudyMaterials() {
                       <Button size="sm" variant="outline" className="h-8 px-2 sm:px-3 min-w-0">
                         <ExternalLink className="h-3 w-3 flex-shrink-0" />
                       </Button>
-                      <Button size="sm" className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-sm h-8 px-2 sm:px-3 min-w-0">
+                      <Button size="sm" className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-sm h-8 px-2 sm:px-3 min-w-0">
                         <Play className="h-3 w-3 mr-1 flex-shrink-0" />
                         <span className="hidden sm:inline truncate">Start</span>
                       </Button>
@@ -280,11 +280,11 @@ export function StudyMaterials() {
                     <Card key={material.id} className="group bg-white/90 backdrop-blur-sm border border-slate-200/50 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
                       <CardContent className="p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
                         <div className="flex items-start gap-3">
-                          <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center flex-shrink-0">
-                            <CategoryIcon className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
+                          <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center flex-shrink-0">
+                            <CategoryIcon className="h-5 w-5 sm:h-6 sm:w-6 text-brand-600" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors text-sm sm:text-base leading-tight line-clamp-2">
+                            <h3 className="font-semibold text-slate-900 group-hover:text-brand-600 transition-colors text-sm sm:text-base leading-tight line-clamp-2">
                               {material.title}
                             </h3>
                             <p className="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2">
@@ -325,7 +325,7 @@ export function StudyMaterials() {
                             <span className="hidden sm:inline truncate">Download</span>
                             <span className="sm:hidden truncate">DL</span>
                           </Button>
-                          <Button size="sm" className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-sm flex-1 min-w-0 h-9 sm:h-10 text-xs sm:text-sm px-2">
+                          <Button size="sm" className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-sm flex-1 min-w-0 h-9 sm:h-10 text-xs sm:text-sm px-2">
                             <Play className="h-3 w-3 mr-1 flex-shrink-0" />
                             <span className="hidden sm:inline truncate">Start</span>
                             <span className="sm:hidden truncate">Go</span>
@@ -350,11 +350,11 @@ export function StudyMaterials() {
 
       {/* Quick Stats */}
       <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-2 md:grid-cols-4">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200/50 shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-gradient-to-br from-brand-50 to-brand-100 border border-brand-200/50 shadow-sm hover:shadow-md transition-all duration-200">
           <CardContent className="p-3 sm:p-4 text-center">
-            <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 mx-auto mb-2" />
-            <div className="text-xl sm:text-2xl font-bold text-blue-700 mb-1">{materials.length}</div>
-            <div className="text-xs sm:text-sm text-blue-600 font-medium">Total Materials</div>
+            <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-brand-600 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-brand-700 mb-1">{materials.length}</div>
+            <div className="text-xs sm:text-sm text-brand-600 font-medium">Total Materials</div>
           </CardContent>
         </Card>
 

@@ -98,14 +98,14 @@ export function DashboardOverview() {
   const progressToNextLevel = ((userStats.totalXP - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100
 
   return (
-    <div className="p-3 sm:p-4 md:p-6 lg:p-8 space-y-4 sm:space-y-6 md:space-y-8 bg-gradient-to-br from-slate-50/50 via-white to-blue-50/30 min-h-full">
+    <div className="p-3 sm:p-4 md:p-6 lg:p-8 space-y-4 sm:space-y-6 md:space-y-8 bg-gradient-to-br from-slate-50/50 via-white to-brand-50/30 min-h-full">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between">
         <div className="text-center md:text-left">
           <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl tracking-tight">Welcome back, {getDisplayName()}!</h1>
           <p className="text-slate-600 mt-1 sm:mt-2 text-sm sm:text-base leading-relaxed">Ready to continue your medical education journey?</p>
         </div>
-        <Button className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11">
+        <Button className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11">
           <Play className="mr-2 h-4 w-4" />
           <span className="hidden sm:inline">Start New Case</span>
           <span className="sm:hidden">Start Case</span>
@@ -121,8 +121,8 @@ export function DashboardOverview() {
                 <p className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Cases Solved</p>
                 <p className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 truncate">{userStats.casesSolved}</p>
               </div>
-              <div className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center flex-shrink-0 shadow-sm">
-                <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
+              <div className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 rounded-xl bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6 text-brand-600" />
               </div>
             </div>
           </CardContent>
@@ -182,8 +182,8 @@ export function DashboardOverview() {
         <Card className="bg-white/90 backdrop-blur-sm border border-slate-200/50 shadow-sm hover:shadow-md transition-all duration-200 touch-manipulation">
           <CardHeader className="pb-3 sm:pb-4">
             <CardTitle className="flex items-center gap-2 sm:gap-3 text-slate-900 text-base sm:text-lg font-semibold">
-              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
+              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center">
+                <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-brand-600" />
               </div>
               Level Progress
             </CardTitle>
@@ -191,7 +191,7 @@ export function DashboardOverview() {
           <CardContent className="space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-slate-600">Level {userStats.currentLevel}</span>
-              <Badge variant="secondary" className="bg-blue-100 text-blue-700 text-xs sm:text-sm font-medium">
+              <Badge variant="secondary" className="bg-brand-100 text-brand-700 text-xs sm:text-sm font-medium">
                 {Math.round(progressToNextLevel)}% to Level {userStats.currentLevel + 1}
               </Badge>
             </div>
@@ -206,8 +206,8 @@ export function DashboardOverview() {
         <Card className="bg-white/90 backdrop-blur-sm border border-slate-200/50 shadow-sm hover:shadow-md transition-all duration-200 touch-manipulation">
           <CardHeader className="pb-3 sm:pb-4">
             <CardTitle className="flex items-center gap-2 sm:gap-3 text-slate-900 text-base sm:text-lg font-semibold">
-              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gradient-to-br from-teal-100 to-teal-200 flex items-center justify-center">
-                <Target className="h-3 w-3 sm:h-4 sm:w-4 text-teal-600" />
+              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gradient-to-br from-accent-100 to-accent-200 flex items-center justify-center">
+                <Target className="h-3 w-3 sm:h-4 sm:w-4 text-accent-600" />
               </div>
               Weekly Goal
             </CardTitle>
@@ -303,12 +303,12 @@ export function DashboardOverview() {
       </div>
 
       {/* Quick Actions */}
-      <Card className="bg-gradient-to-r from-blue-600 to-teal-600 text-white border-0 shadow-lg overflow-hidden touch-manipulation">
+      <Card className="bg-gradient-to-r from-brand-600 to-accent-600 text-white border-0 shadow-lg overflow-hidden touch-manipulation">
         <CardContent className="p-4 sm:p-5 md:p-6 lg:p-8">
           <div className="flex flex-col gap-4 sm:gap-5 md:flex-row md:items-center md:justify-between">
             <div className="text-center md:text-left">
               <h3 className="font-bold text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2 tracking-tight">Ready for your next challenge?</h3>
-              <p className="text-blue-100 text-sm sm:text-base leading-relaxed opacity-90">Continue building your clinical expertise with new AI-powered cases.</p>
+              <p className="text-brand-100 text-sm sm:text-base leading-relaxed opacity-90">Continue building your clinical expertise with new AI-powered cases.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
               <Button
@@ -319,7 +319,7 @@ export function DashboardOverview() {
                 <span className="hidden sm:inline">Browse Cases</span>
                 <span className="sm:hidden">Browse</span>
               </Button>
-              <Button className="bg-white text-blue-600 hover:bg-blue-50 shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11 text-sm sm:text-base touch-manipulation">
+              <Button className="bg-white text-brand-600 hover:bg-brand-50 shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11 text-sm sm:text-base touch-manipulation">
                 <Play className="mr-2 h-4 w-4" />
                 <span className="hidden sm:inline">Start Random Case</span>
                 <span className="sm:hidden">Start Case</span>

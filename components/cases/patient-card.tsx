@@ -55,7 +55,7 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
     <div className="space-y-6 animate-in fade-in duration-500">
       {/* Header */}
       <div className="text-center space-y-3">
-        <Badge className="bg-blue-100 text-blue-700 border-blue-200 px-4 py-1">
+        <Badge className="bg-brand-100 text-brand-700 border-brand-200 px-4 py-1">
           Case Study
         </Badge>
         <h1 className="text-3xl font-bold text-slate-900">{caseTitle}</h1>
@@ -66,10 +66,10 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
 
       {/* Patient Information Card */}
       <Card className="bg-white/90 backdrop-blur-sm border-2 border-slate-200 shadow-lg">
-        <CardHeader className="bg-gradient-to-r from-blue-50 to-teal-50 border-b border-slate-200">
+        <CardHeader className="bg-gradient-to-r from-brand-50 to-accent-50 border-b border-slate-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="h-16 w-16 rounded-full bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center">
+              <div className="h-16 w-16 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center">
                 <User className="h-8 w-8 text-white" />
               </div>
               <div>
@@ -105,7 +105,7 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
           {/* Vital Signs */}
           <div>
             <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-              <Activity className="h-5 w-5 text-blue-600" />
+              <Activity className="h-5 w-5 text-brand-600" />
               Vital Signs
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -135,7 +135,7 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
 
               <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
                 <div className="flex items-center gap-2 mb-1">
-                  <Wind className="h-4 w-4 text-blue-500" />
+                  <Wind className="h-4 w-4 text-brand-500" />
                   <span className="text-xs text-slate-600 font-medium">Respiratory Rate</span>
                 </div>
                 <p className="text-sm font-semibold text-slate-900">{patient.vitalSigns.respiratoryRate}</p>
@@ -143,7 +143,7 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
 
               <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
                 <div className="flex items-center gap-2 mb-1">
-                  <Droplets className="h-4 w-4 text-cyan-500" />
+                  <Droplets className="h-4 w-4 text-accent-500" />
                   <span className="text-xs text-slate-600 font-medium">O₂ Saturation</span>
                 </div>
                 <p className="text-sm font-semibold text-slate-900">{patient.vitalSigns.oxygenSaturation}</p>
@@ -206,7 +206,7 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
         <Button
           size="lg"
           onClick={onStartCase}
-          className="min-w-[200px] bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+          className="min-w-[200px] bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
         >
           <Play className="mr-2 h-5 w-5" />
           Start Case

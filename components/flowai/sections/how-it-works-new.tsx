@@ -62,7 +62,7 @@ export default function HowItWorksSection() {
     >
       <div className="mx-auto max-w-4xl text-center mb-12 sm:mb-16">
         <div className={cn(
-          "inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-50 to-cyan-50 px-4 sm:px-6 py-2 text-sm font-medium text-blue-700 border border-blue-100 mb-6 transition-all duration-1000 delay-200 ease-out",
+          "inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-50 to-accent-50 px-4 sm:px-6 py-2 text-sm font-medium text-brand-700 border border-brand-100 mb-6 transition-all duration-1000 delay-200 ease-out",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
           <Activity className="h-4 w-4" />
@@ -75,7 +75,7 @@ export default function HowItWorksSection() {
           <span className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
             Clinical Excellence Through
           </span>
-          <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 bg-clip-text text-transparent block mt-2">
+          <span className="bg-gradient-to-r from-brand-600 via-accent-600 to-accent-600 bg-clip-text text-transparent block mt-2">
             AI-Powered Simulation
           </span>
         </h2>
@@ -107,8 +107,8 @@ export default function HowItWorksSection() {
                 <div className="p-8 flex-1 flex flex-col">
                   {/* Icon */}
                   <div className="mb-6">
-                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50">
-                      <Icon className="h-8 w-8 text-blue-600" />
+                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-accent-50">
+                      <Icon className="h-8 w-8 text-brand-600" />
                     </div>
                   </div>
 
@@ -118,7 +118,7 @@ export default function HowItWorksSection() {
                       <h3 className="text-xl font-bold mb-2 text-slate-900">
                         {step.title}
                       </h3>
-                      <p className="text-sm font-medium text-blue-600 mb-3">
+                      <p className="text-sm font-medium text-brand-600 mb-3">
                         {step.subtitle}
                       </p>
                       <p className="text-slate-600 leading-relaxed">
@@ -130,7 +130,7 @@ export default function HowItWorksSection() {
                     <div className="space-y-2">
                       {step.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-slate-600">
-                          <div className="h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0"></div>
+                          <div className="h-1.5 w-1.5 rounded-full bg-brand-500 flex-shrink-0"></div>
                           <span>{feature}</span>
                         </div>
                       ))}

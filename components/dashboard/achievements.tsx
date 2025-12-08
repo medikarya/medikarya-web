@@ -111,7 +111,7 @@ export function Achievements() {
     switch (rarity) {
       case "common": return "bg-slate-100 text-slate-700 border-slate-200"
       case "uncommon": return "bg-green-100 text-green-700 border-green-200"
-      case "rare": return "bg-blue-100 text-blue-700 border-blue-200"
+      case "rare": return "bg-brand-100 text-brand-700 border-brand-200"
       case "epic": return "bg-purple-100 text-purple-700 border-purple-200"
       case "legendary": return "bg-amber-100 text-amber-700 border-amber-200"
       default: return "bg-slate-100 text-slate-700 border-slate-200"
@@ -154,7 +154,7 @@ export function Achievements() {
 
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300">
           <CardContent className="p-6 text-center">
-            <Star className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+            <Star className="h-8 w-8 text-brand-600 mx-auto mb-2" />
             <div className="text-2xl font-bold text-slate-900 mb-1">{totalPoints.toLocaleString()}</div>
             <div className="text-sm text-slate-600">Achievement Points</div>
           </CardContent>
@@ -281,10 +281,10 @@ export function Achievements() {
       </Card>
 
       {/* Upcoming Challenges */}
-      <Card className="bg-gradient-to-r from-blue-50 to-teal-50 border-0 shadow-lg">
+      <Card className="bg-gradient-to-r from-brand-50 to-accent-50 border-0 shadow-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-slate-900">
-            <Target className="h-5 w-5 text-blue-600" />
+            <Target className="h-5 w-5 text-brand-600" />
             Next Challenges
           </CardTitle>
         </CardHeader>

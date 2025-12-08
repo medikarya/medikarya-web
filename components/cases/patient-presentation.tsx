@@ -41,7 +41,7 @@ export function PatientPresentation({ patient }: PatientPresentationProps) {
       <Card className="bg-white/90 backdrop-blur-sm border border-slate-200 shadow-sm">
         <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center flex-shrink-0">
+            <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center flex-shrink-0">
               <User className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </div>
             <div className="min-w-0 flex-1">
@@ -75,7 +75,7 @@ export function PatientPresentation({ patient }: PatientPresentationProps) {
       <Card className="bg-white/90 backdrop-blur-sm border border-slate-200 shadow-sm">
         <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
           <CardTitle className="text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
-            <Activity className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-blue-600" />
+            <Activity className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600" />
             Vital Signs
           </CardTitle>
         </CardHeader>
@@ -107,7 +107,7 @@ export function PatientPresentation({ patient }: PatientPresentationProps) {
             
             <div className="flex items-center justify-between text-[10px] sm:text-xs">
               <div className="flex items-center gap-1.5 sm:gap-2 text-slate-600">
-                <Wind className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-500 flex-shrink-0" />
+                <Wind className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-brand-500 flex-shrink-0" />
                 <span>RR</span>
               </div>
               <span className="font-medium text-slate-900">{patient.vitalSigns.respiratoryRate}</span>
@@ -115,7 +115,7 @@ export function PatientPresentation({ patient }: PatientPresentationProps) {
             
             <div className="flex items-center justify-between text-[10px] sm:text-xs">
               <div className="flex items-center gap-1.5 sm:gap-2 text-slate-600">
-                <Droplets className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-cyan-500 flex-shrink-0" />
+                <Droplets className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-accent-500 flex-shrink-0" />
                 <span>SpO₂</span>
               </div>
               <span className="font-medium text-slate-900">{patient.vitalSigns.oxygenSaturation}</span>

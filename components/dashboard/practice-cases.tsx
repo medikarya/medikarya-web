@@ -98,7 +98,7 @@ export function PracticeCases() {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "beginner": return "bg-green-100 text-green-700 border-green-200"
-      case "intermediate": return "bg-blue-100 text-blue-700 border-blue-200"
+      case "intermediate": return "bg-brand-100 text-brand-700 border-brand-200"
       case "advanced": return "bg-purple-100 text-purple-700 border-purple-200"
       default: return "bg-slate-100 text-slate-700 border-slate-200"
     }
@@ -114,7 +114,7 @@ export function PracticeCases() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center space-y-4">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-500 mx-auto" />
+          <Loader2 className="h-8 w-8 animate-spin text-brand-500 mx-auto" />
           <p className="text-slate-600">Loading cases...</p>
         </div>
       </div>
@@ -219,8 +219,8 @@ export function PracticeCases() {
                   <CardHeader className="pb-3 sm:pb-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center flex-shrink-0">
-                        <CategoryIcon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center flex-shrink-0">
+                        <CategoryIcon className="h-4 w-4 sm:h-5 sm:w-5 text-brand-600" />
                       </div>
                       <Badge className={cn("text-xs font-medium", getDifficultyColor(case_.difficulty.toLowerCase()))}>
                         {case_.difficulty}
@@ -231,7 +231,7 @@ export function PracticeCases() {
                       <div className="text-xs text-slate-500">{case_.estimatedTime} min</div>
                     </div>
                     </div>
-                    <CardTitle className="text-base sm:text-lg text-slate-900 group-hover:text-blue-600 transition-colors leading-tight line-clamp-2">
+                    <CardTitle className="text-base sm:text-lg text-slate-900 group-hover:text-brand-600 transition-colors leading-tight line-clamp-2">
                       {case_.title}
                     </CardTitle>
                   </CardHeader>
@@ -268,7 +268,7 @@ export function PracticeCases() {
 
                       <Button 
                         onClick={() => router.push(`/dashboard/cases/${case_.id}`)}
-                        className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-sm hover:shadow-md transition-all duration-200 h-9 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm min-w-0"
+                        className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-sm hover:shadow-md transition-all duration-200 h-9 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm min-w-0"
                       >
                         <Play className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                         <span className="hidden sm:inline truncate">Start Case</span>
@@ -293,10 +293,10 @@ export function PracticeCases() {
 
       {/* Quick Stats */}
       <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-2 md:grid-cols-4">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200/50 shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-gradient-to-br from-brand-50 to-brand-100 border border-brand-200/50 shadow-sm hover:shadow-md transition-all duration-200">
           <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-blue-600 mb-1">{cases.length}</div>
-            <div className="text-xs sm:text-sm text-blue-700 font-medium">Total Cases</div>
+            <div className="text-xl sm:text-2xl font-bold text-brand-600 mb-1">{cases.length}</div>
+            <div className="text-xs sm:text-sm text-brand-700 font-medium">Total Cases</div>
           </CardContent>
         </Card>
 

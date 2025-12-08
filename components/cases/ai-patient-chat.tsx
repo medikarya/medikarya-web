@@ -157,8 +157,8 @@ export function AIPatientChat({ caseData, onMessageSent }: AIPatientChatProps) {
               )}
             >
               {message.role === "assistant" && (
-                <Avatar className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 border-2 border-blue-200 flex-shrink-0">
-                  <AvatarFallback className="bg-gradient-to-br from-blue-500 to-teal-500 text-white text-xs">
+                <Avatar className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 border-2 border-brand-200 flex-shrink-0">
+                  <AvatarFallback className="bg-gradient-to-br from-brand-500 to-accent-500 text-white text-xs">
                     <User className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
                   </AvatarFallback>
                 </Avatar>
@@ -168,7 +168,7 @@ export function AIPatientChat({ caseData, onMessageSent }: AIPatientChatProps) {
                 className={cn(
                   "max-w-[85%] sm:max-w-[80%] rounded-lg px-2.5 py-2 sm:px-3 sm:py-2 md:px-4 md:py-2.5",
                   message.role === "user"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-brand-600 text-white"
                     : "bg-slate-100 text-slate-900 border border-slate-200"
                 )}
               >
@@ -190,8 +190,8 @@ export function AIPatientChat({ caseData, onMessageSent }: AIPatientChatProps) {
 
           {isLoading && (
             <div className="flex gap-1.5 sm:gap-2 md:gap-3 justify-start animate-in fade-in">
-              <Avatar className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 border-2 border-blue-200 flex-shrink-0">
-                <AvatarFallback className="bg-gradient-to-br from-blue-500 to-teal-500 text-white text-xs">
+              <Avatar className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 border-2 border-brand-200 flex-shrink-0">
+                <AvatarFallback className="bg-gradient-to-br from-brand-500 to-accent-500 text-white text-xs">
                   <User className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
                 </AvatarFallback>
               </Avatar>
@@ -219,7 +219,7 @@ export function AIPatientChat({ caseData, onMessageSent }: AIPatientChatProps) {
                 variant="outline"
                 size="sm"
                 onClick={() => setInput(question)}
-                className="text-[10px] sm:text-xs h-6 sm:h-7 px-2 sm:px-3 bg-white hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 whitespace-normal text-left leading-tight"
+                className="text-[10px] sm:text-xs h-6 sm:h-7 px-2 sm:px-3 bg-white hover:bg-brand-50 hover:text-brand-700 hover:border-brand-300 whitespace-normal text-left leading-tight"
               >
                 {question}
               </Button>
@@ -263,7 +263,7 @@ export function AIPatientChat({ caseData, onMessageSent }: AIPatientChatProps) {
           <Button
             onClick={handleSendMessage}
             disabled={!input.trim() || isLoading}
-            className="bg-blue-600 hover:bg-blue-700 flex-shrink-0 h-9 sm:h-10 w-9 sm:w-10 p-0"
+            className="bg-brand-600 hover:bg-brand-700 flex-shrink-0 h-9 sm:h-10 w-9 sm:w-10 p-0"
           >
             {isLoading ? (
               <Loader2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin" />

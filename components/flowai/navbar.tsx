@@ -48,7 +48,7 @@ export function Navbar() {
               asChild
               variant="ghost"
               size="sm"
-              className="hidden rounded-full text-muted-foreground hover:text-blue-600 hover:bg-blue-50 transition-colors md:inline-flex"
+              className="hidden rounded-full text-muted-foreground hover:text-brand-600 hover:bg-brand-50 transition-colors md:inline-flex"
             >
               <Link href="/login">Login</Link>
             </Button>
@@ -57,8 +57,8 @@ export function Navbar() {
               size="sm"
               className={cn(
                 "group rounded-full px-4 h-auto py-2",
-                "bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white",
-                "shadow-lg hover:shadow-blue-500/20 hover:scale-[1.005] transition-all duration-300 ease-out",
+                "bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white",
+                "shadow-lg hover:shadow-brand-500/20 hover:scale-[1.005] transition-all duration-300 ease-out",
               )}
             >
               <Link href="/signup" aria-label="Try MediKarya for free" className="flex items-center justify-center">

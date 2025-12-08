@@ -6,6 +6,7 @@ import PricingSection from "@/components/flowai/sections/pricing"
 import TestimonialsSection from "@/components/flowai/sections/testimonials"
 import FAQSection from "@/components/flowai/sections/faq"
 import NewsletterSection from "@/components/flowai/sections/newsletter"
+import ProblemsSection from "@/components/flowai/sections/problems-section"
 import { Footer } from "@/components/flowai/footer"
 
 export default function Page() {
@@ -20,6 +21,7 @@ export default function Page() {
       </div>
 
       {/* sections */}
+      <ProblemsSection />
       <HowItWorksSection />
       <DashboardPreview />
       <TestimonialsSection />

@@ -14,7 +14,7 @@ export function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-teal-600 text-white text-sm font-semibold shadow-lg">
+              <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-brand-600 to-accent-600 text-white text-sm font-semibold shadow-lg">
                 <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM9 4.5L4 8v8.5h12V8l-5-3.5L9 4.5z" clipRule="evenodd" />
                   <path d="M10 10a2 2 0 100-4 2 2 0 000 4z" />
@@ -27,13 +27,13 @@ export function Footer() {
               Empowering medical students with AI-powered patient simulation technology for better clinical training and education.
             </p>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+              <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-brand-50 hover:text-brand-600 transition-colors">
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-blue-50 hover:text-blue-400 transition-colors">
+              <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-brand-50 hover:text-brand-400 transition-colors">
                 <Twitter className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+              <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-brand-50 hover:text-brand-700 transition-colors">
                 <Linkedin className="h-4 w-4" />
               </Button>
               <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-pink-50 hover:text-pink-600 transition-colors">
@@ -102,15 +102,15 @@ export function Footer() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                <span>support@medikarya.com</span>
+                <span>medikarya.in@gmail.com</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 9711638511</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>San Francisco, CA</span>
+                <span>Faridabad, NCR</span>
               </div>
             </div>
 
@@ -120,7 +120,7 @@ export function Footer() {
               </p>
               <div className="flex gap-2">
                 <Input placeholder="Enter your email" className="text-sm" />
-                <Button size="sm" className="px-3 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transition-all duration-200">
+                <Button size="sm" className="px-3 bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-lg hover:shadow-xl transition-all duration-200">
                   Subscribe
                 </Button>
               </div>
@@ -132,7 +132,7 @@ export function Footer() {
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-sm text-muted-foreground">
-            © 2024 MediKarya. All rights reserved.
+            © 2025 MediKarya. All rights reserved.
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <Link href="/privacy" className="hover:text-foreground transition-colors">

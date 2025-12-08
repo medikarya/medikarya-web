@@ -53,7 +53,7 @@ export function LearningProgress() {
 
   const categoryProgress = [
     { category: "Cardiology", completed: 12, total: 15, percentage: 80, color: "bg-red-500", icon: Heart },
-    { category: "Neurology", completed: 8, total: 12, percentage: 67, color: "bg-blue-500", icon: Brain },
+    { category: "Neurology", completed: 8, total: 12, percentage: 67, color: "bg-brand-500", icon: Brain },
     { category: "Emergency Medicine", completed: 15, total: 20, percentage: 75, color: "bg-green-500", icon: Stethoscope },
     { category: "Pediatrics", completed: 9, total: 14, percentage: 64, color: "bg-purple-500", icon: Shield },
     { category: "General Medicine", completed: 18, total: 25, percentage: 72, color: "bg-amber-500", icon: Award }
@@ -115,7 +115,7 @@ export function LearningProgress() {
         title: "Great Progress! 🌟",
         message: `Great progress, ${displayName}! You're doing well in most areas. Focus on ${weakestCategory.category} to reach the next level.`,
         type: "encouragement",
-        color: "from-blue-400 to-teal-500"
+        color: "from-brand-400 to-accent-500"
       }
     } else {
       return {
@@ -139,9 +139,9 @@ export function LearningProgress() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-teal-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-50 via-white to-accent-50">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-200 border-t-brand-600"></div>
           <p className="text-sm text-slate-600">Loading your progress...</p>
         </div>
       </div>
@@ -164,13 +164,13 @@ export function LearningProgress() {
       {/* Personalized Header */}
       <div className="text-center space-y-4 relative">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-gradient-to-r from-blue-200 to-teal-200 rounded-full blur-3xl opacity-30"></div>
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-gradient-to-r from-brand-200 to-accent-200 rounded-full blur-3xl opacity-30"></div>
         </div>
 
         <div className="relative">
           <div className="flex items-center justify-center gap-3 mb-2">
             <PartyPopper className="h-8 w-8 text-yellow-500 animate-pulse" />
-            <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+            <span className="text-sm font-medium text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
               Level {currentLevel} Medical Professional
             </span>
             <Sparkles className="h-8 w-8 text-purple-500 animate-pulse" />
@@ -195,7 +195,7 @@ export function LearningProgress() {
                 value={nextLevelProgress}
                 className="h-3 bg-slate-200"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full opacity-20 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-500 to-accent-500 rounded-full opacity-20 animate-pulse"></div>
             </div>
             <div className="flex justify-between text-xs text-slate-500 mt-1">
               <span>Level {currentLevel}</span>
@@ -230,14 +230,14 @@ export function LearningProgress() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-slate-600">Avg Score</p>
-                <p className="text-3xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">87%</p>
-                <p className="text-xs text-blue-600 mt-1 flex items-center gap-1">
+                <p className="text-3xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors">87%</p>
+                <p className="text-xs text-brand-600 mt-1 flex items-center gap-1">
                   <Target className="h-3 w-3" />
                   +5% improvement
                 </p>
               </div>
-              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Target className="h-7 w-7 text-blue-600" />
+              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Target className="h-7 w-7 text-brand-600" />
               </div>
             </div>
           </CardContent>
@@ -284,9 +284,9 @@ export function LearningProgress() {
       <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="h-5 w-5 text-blue-600" />
+            <BarChart3 className="h-5 w-5 text-brand-600" />
             Weekly Activity
-            <Badge className="ml-auto bg-blue-100 text-blue-700">This Week</Badge>
+            <Badge className="ml-auto bg-brand-100 text-brand-700">This Week</Badge>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -463,7 +463,7 @@ export function LearningProgress() {
       <Card className={cn(
         "border-0 shadow-lg transition-all duration-500",
         insight.type === 'celebration' && "bg-gradient-to-r from-yellow-50 to-orange-50",
-        insight.type === 'encouragement' && "bg-gradient-to-r from-blue-50 to-teal-50",
+        insight.type === 'encouragement' && "bg-gradient-to-r from-brand-50 to-accent-50",
         insight.type === 'motivation' && "bg-gradient-to-r from-purple-50 to-pink-50"
       )}>
         <CardContent className="p-6">

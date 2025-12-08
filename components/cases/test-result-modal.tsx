@@ -97,12 +97,12 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
         <ScrollArea className="max-h-[calc(90vh-140px)] sm:max-h-[calc(90vh-160px)] md:max-h-[calc(90vh-180px)]">
           <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 space-y-4 sm:space-y-5 md:space-y-6">
             {/* Summary */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
-              <h3 className="font-semibold text-blue-900 mb-1.5 sm:mb-2 flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base">
+            <div className="bg-brand-50 border border-brand-200 rounded-lg p-3 sm:p-4">
+              <h3 className="font-semibold text-brand-900 mb-1.5 sm:mb-2 flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base">
                 <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5" />
                 Summary
               </h3>
-              <p className="text-blue-800 text-xs sm:text-sm leading-relaxed">{result.results.summary}</p>
+              <p className="text-brand-800 text-xs sm:text-sm leading-relaxed">{result.results.summary}</p>
             </div>
 
             {/* Test Values */}
@@ -157,7 +157,7 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
             {/* Clinical Interpretation */}
             <div>
               <h3 className="font-semibold text-slate-900 mb-2 sm:mb-3 text-base sm:text-lg flex items-center gap-1.5 sm:gap-2">
-                <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+                <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-brand-600" />
                 Clinical Interpretation
               </h3>
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 sm:p-4">
@@ -218,7 +218,7 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
             <Button variant="outline" onClick={onClose} className="w-full sm:w-auto h-9 sm:h-10 text-xs sm:text-sm">
               Close
             </Button>
-            <Button onClick={onClose} className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto h-9 sm:h-10 text-xs sm:text-sm">
+            <Button onClick={onClose} className="bg-brand-600 hover:bg-brand-700 w-full sm:w-auto h-9 sm:h-10 text-xs sm:text-sm">
               Continue Case
             </Button>
           </div>

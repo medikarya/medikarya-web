@@ -82,7 +82,11 @@ You must reply only as the mother. Nothing else.
       }
     ];
 
-    const response = await fetch("http://192.168.1.24:1234/v1/chat/completions", {
+    const aiUrl = process.env.LM_STUDIO_CHAT_URL || "http://127.0.0.1:1234/v1/chat/completions";
+
+    console.log("Attempting AI connection to:", aiUrl);
+
+    const response = await fetch(aiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

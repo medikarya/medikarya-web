@@ -72,15 +72,15 @@ export function Profile() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardContent className="p-6 text-center space-y-4">
               <div className="relative mx-auto">
-                <Avatar className="h-24 w-24 mx-auto ring-4 ring-blue-200">
+                <Avatar className="h-24 w-24 mx-auto ring-4 ring-brand-200">
                   <AvatarImage src="/placeholder-user.jpg" alt={userProfile.name} />
-                  <AvatarFallback className="bg-gradient-to-br from-blue-100 to-teal-100 text-slate-600 text-2xl font-semibold">
+                  <AvatarFallback className="bg-gradient-to-br from-brand-100 to-accent-100 text-slate-600 text-2xl font-semibold">
                     {userProfile.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 <Button
                   size="sm"
-                  className="absolute bottom-0 right-0 h-8 w-8 rounded-full bg-blue-600 hover:bg-blue-700 p-0"
+                  className="absolute bottom-0 right-0 h-8 w-8 rounded-full bg-brand-600 hover:bg-brand-700 p-0"
                 >
                   <Camera className="h-4 w-4 text-white" />
                 </Button>
@@ -89,7 +89,7 @@ export function Profile() {
               <div>
                 <h2 className="text-xl font-bold text-slate-900">{userProfile.name}</h2>
                 <p className="text-slate-600">{userProfile.title}</p>
-                <Badge className="mt-2 bg-blue-100 text-blue-700">Level {userProfile.stats.currentLevel}</Badge>
+                <Badge className="mt-2 bg-brand-100 text-brand-700">Level {userProfile.stats.currentLevel}</Badge>
               </div>
 
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200">
@@ -109,7 +109,7 @@ export function Profile() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-slate-900">
-                <Activity className="h-5 w-5 text-blue-600" />
+                <Activity className="h-5 w-5 text-brand-600" />
                 Quick Stats
               </CardTitle>
             </CardHeader>
@@ -147,7 +147,7 @@ export function Profile() {
               <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-slate-900">
-                    <User className="h-5 w-5 text-blue-600" />
+                    <User className="h-5 w-5 text-brand-600" />
                     Personal Information
                   </CardTitle>
                 </CardHeader>
@@ -211,7 +211,7 @@ export function Profile() {
               <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-slate-900">
-                    <GraduationCap className="h-5 w-5 text-blue-600" />
+                    <GraduationCap className="h-5 w-5 text-brand-600" />
                     Academic Information
                   </CardTitle>
                 </CardHeader>
@@ -254,7 +254,7 @@ export function Profile() {
               <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-slate-900">
-                    <Clock className="h-5 w-5 text-blue-600" />
+                    <Clock className="h-5 w-5 text-brand-600" />
                     Recent Activity
                   </CardTitle>
                 </CardHeader>

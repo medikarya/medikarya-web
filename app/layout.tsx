@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: "MediKarya - AI-Powered Medical Education",
     template: "%s | MediKarya"
   },
-  description: "Advance your clinical skills with AI patient simulations. Practice consultations, diagnostics, and clinical reasoning with our advanced medical education platform.",
+  description: "Gain clinical confidence before your first real patient. Simulate consults, order diagnostics, and get instant feedback with our advanced AI medical education platform.",
   keywords: ["Medical Education", "AI Patient Simulation", "Clinical Training", "Medical Students", "Diagnosis Practice"],
   authors: [{ name: "MediKarya Team" }], // Replace with actual author if known
   creator: "MediKarya",
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: "MediKarya - AI-Powered Medical Education",
-    description: "Advance your clinical skills with AI patient simulations. Practice consultations, diagnostics, and clinical reasoning.",
+    title: "MediKarya - Gain Clinical Confidence",
+    description: "Gain clinical confidence before your first real patient. Simulate consults, order diagnostics, and get instant feedback.",
     siteName: "MediKarya",
     images: [
       {

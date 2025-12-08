@@ -221,8 +221,8 @@ export function TestOrdering({ orderedTests, testResults, onOrderTest }: TestOrd
                     <CardContent className="p-2 sm:p-3">
                       <div className="flex items-start justify-between gap-2 sm:gap-3">
                         <div className="flex items-start gap-2 sm:gap-3 flex-1 min-w-0">
-                          <div className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-                            <TestIcon className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5 text-blue-600" />
+                          <div className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0">
+                            <TestIcon className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5 text-brand-600" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <h4 className="font-medium text-xs sm:text-sm text-slate-900 mb-0.5 sm:mb-1 line-clamp-1">{test.name}</h4>
@@ -242,7 +242,7 @@ export function TestOrdering({ orderedTests, testResults, onOrderTest }: TestOrd
                             e.stopPropagation()
                             onOrderTest(test)
                           }}
-                          className="bg-blue-600 hover:bg-blue-700 h-7 sm:h-8 px-2 sm:px-3 text-xs flex-shrink-0"
+                          className="bg-brand-600 hover:bg-brand-700 h-7 sm:h-8 px-2 sm:px-3 text-xs flex-shrink-0"
                         >
                           <Plus className="h-3 w-3 sm:mr-1" />
                           <span className="hidden sm:inline">Order</span>
@@ -276,8 +276,8 @@ export function TestOrdering({ orderedTests, testResults, onOrderTest }: TestOrd
                     <CardContent className="p-3">
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex items-start gap-3 flex-1">
-                          <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-                            <TestIcon className="h-5 w-5 text-blue-600" />
+                          <div className="h-10 w-10 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0">
+                            <TestIcon className="h-5 w-5 text-brand-600" />
                           </div>
                           <div className="flex-1">
                             <h4 className="font-medium text-sm text-slate-900 mb-1">{test.name}</h4>
@@ -294,7 +294,7 @@ export function TestOrdering({ orderedTests, testResults, onOrderTest }: TestOrd
                         <Button
                           size="sm"
                           onClick={() => onOrderTest(test)}
-                          className="bg-blue-600 hover:bg-blue-700 h-8"
+                          className="bg-brand-600 hover:bg-brand-700 h-8"
                         >
                           <Plus className="h-3 w-3 mr-1" />
                           Order
@@ -385,7 +385,7 @@ export function TestOrdering({ orderedTests, testResults, onOrderTest }: TestOrd
                             <div className="flex items-start justify-between gap-2 mb-1 sm:mb-2">
                               <h4 className="font-medium text-xs sm:text-sm text-slate-900 line-clamp-1">{test.name}</h4>
                               {test.status === "processing" && (
-                                <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-[9px] sm:text-xs px-1 sm:px-2 py-0.5 flex-shrink-0">
+                                <Badge className="bg-brand-100 text-brand-700 border-brand-200 text-[9px] sm:text-xs px-1 sm:px-2 py-0.5 flex-shrink-0">
                                   <Loader2 className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1 animate-spin" />
                                   <span className="hidden xs:inline">Processing</span>
                                 </Badge>

@@ -66,7 +66,7 @@ function Plan({
 }) {
   return (
     <Card className={cn(
-      highlight ? "border-2 border-blue-200 bg-gradient-to-br from-blue-50/50 to-cyan-50/50 shadow-lg scale-105" : "border-slate-200 hover:shadow-lg hover:scale-[1.005] hover:border-blue-100",
+      highlight ? "border-2 border-brand-200 bg-gradient-to-br from-brand-50/50 to-accent-50/50 shadow-lg scale-105" : "border-slate-200 hover:shadow-lg hover:scale-[1.005] hover:border-brand-100",
       "group transition-all duration-300 ease-out h-full flex flex-col"
     )}>
       <CardHeader>
@@ -79,7 +79,7 @@ function Plan({
         <ul className="mb-6 space-y-2 text-sm flex-1">
           {features.map((f) => (
             <li key={f} className="text-slate-600 flex items-center gap-2 group-hover:text-slate-700 transition-colors">
-              <div className="h-1.5 w-1.5 rounded-full bg-blue-500 group-hover:scale-125 transition-transform duration-300"></div>
+              <div className="h-1.5 w-1.5 rounded-full bg-brand-500 group-hover:scale-125 transition-transform duration-300"></div>
               {f}
             </li>
           ))}
@@ -88,8 +88,8 @@ function Plan({
           asChild
           variant={highlight ? "default" : "outline"}
           className={`w-full rounded-full mt-auto ${highlight
-            ? 'bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-lg hover:shadow-blue-500/25'
-            : 'border-slate-200 hover:border-blue-200 hover:bg-blue-50 text-slate-700 hover:text-blue-700'
+            ? 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-lg hover:shadow-brand-500/25'
+            : 'border-slate-200 hover:border-brand-200 hover:bg-brand-50 text-slate-700 hover:text-brand-700'
             } transition-all duration-300`}
         >
           <Link href={contact ? "/contact" : "/signup"} className="flex items-center justify-center gap-2">

@@ -123,7 +123,7 @@ export function Rankings() {
   const getBadgeColor = (badge: string) => {
     switch (badge) {
       case "Expert": return "bg-purple-100 text-purple-700 border-purple-200"
-      case "Advanced": return "bg-blue-100 text-blue-700 border-blue-200"
+      case "Advanced": return "bg-brand-100 text-brand-700 border-brand-200"
       case "Intermediate": return "bg-green-100 text-green-700 border-green-200"
       case "Beginner": return "bg-amber-100 text-amber-700 border-amber-200"
       default: return "bg-slate-100 text-slate-700 border-slate-200"
@@ -161,7 +161,7 @@ export function Rankings() {
 
       {/* Current User Stats */}
       {currentUser && (
-        <Card className="bg-gradient-to-r from-blue-600 to-teal-600 text-white border-0 shadow-xl">
+        <Card className="bg-gradient-to-r from-brand-600 to-accent-600 text-white border-0 shadow-xl">
           <CardContent className="p-6">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <div className="flex items-center gap-4">
@@ -178,7 +178,7 @@ export function Rankings() {
                 </div>
                 <div>
                   <h3 className="font-bold text-xl mb-1">{currentUser.name}</h3>
-                  <div className="flex items-center gap-4 text-blue-100">
+                  <div className="flex items-center gap-4 text-brand-100">
                     <span>{currentUser.xp.toLocaleString()} XP</span>
                     <span>{currentUser.casesSolved} Cases</span>
                     <span>{currentUser.streak} Day Streak</span>
@@ -187,11 +187,11 @@ export function Rankings() {
               </div>
 
               <div className="text-right">
-                <div className="text-sm text-blue-100 mb-1">Global Ranking</div>
+                <div className="text-sm text-brand-100 mb-1">Global Ranking</div>
                 <div className="text-3xl font-bold">#{currentUser.rank}</div>
                 <div className="flex items-center gap-1 mt-2">
                   {getChangeIcon(currentUser.change, currentUser.changeAmount)}
-                  <span className="text-sm text-blue-100">
+                  <span className="text-sm text-brand-100">
                     {currentUser.changeAmount > 0 ? `+${currentUser.changeAmount}` : currentUser.changeAmount} this week
                   </span>
                 </div>
@@ -224,12 +224,12 @@ export function Rankings() {
                     key={user.rank}
                     className={cn(
                       "flex items-center gap-4 p-4 hover:bg-slate-50/80 transition-colors",
-                      user.isCurrentUser && "bg-blue-50/50 border-l-4 border-blue-600"
+                      user.isCurrentUser && "bg-brand-50/50 border-l-4 border-brand-600"
                     )}
                   >
                     <div className="flex items-center justify-center w-12">
                       {user.isCurrentUser ? (
-                        <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center">
+                        <div className="h-8 w-8 rounded-full bg-brand-600 flex items-center justify-center">
                           <span className="text-white font-bold text-sm">You</span>
                         </div>
                       ) : (
@@ -273,7 +273,7 @@ export function Rankings() {
       <div className="grid gap-4 sm:gap-6 grid-cols-2 lg:grid-cols-4">
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300">
           <CardContent className="p-6 text-center">
-            <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+            <Users className="h-8 w-8 text-brand-600 mx-auto mb-2" />
             <div className="text-2xl font-bold text-slate-900 mb-1">1,247</div>
             <div className="text-sm text-slate-600">Total Users</div>
           </CardContent>
@@ -312,7 +312,7 @@ export function Rankings() {
           <p className="text-slate-600 mb-4">
             Complete more cases and maintain your streak to improve your position on the leaderboard.
           </p>
-          <Button className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-lg">
+          <Button className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-lg">
             Start Practicing
           </Button>
         </CardContent>

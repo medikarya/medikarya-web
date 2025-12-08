@@ -104,7 +104,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-brand-50/30 to-accent-50/30">
       {/* Header */}
       <div className="bg-white/90 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-3">
@@ -131,7 +131,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
                 </SheetContent>
               </Sheet>
 
-              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center flex-shrink-0">
+              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center flex-shrink-0">
                 <User className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </div>
               <div className="min-w-0 flex-1">
@@ -144,7 +144,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
             </div>
             
             <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
-              <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 hidden xs:flex">
+              <Badge variant="outline" className="bg-brand-50 text-brand-700 border-brand-200 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 hidden xs:flex">
                 +{caseData.xpReward} XP
               </Badge>
               <Button
@@ -180,7 +180,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
                     <TabsList className="w-full justify-start h-auto p-0 bg-transparent rounded-none inline-flex min-w-full">
                       <TabsTrigger
                         value="chat"
-                        className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-[11px] sm:text-xs md:text-sm whitespace-nowrap flex-1 sm:flex-none"
+                        className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-brand-600 rounded-none text-[11px] sm:text-xs md:text-sm whitespace-nowrap flex-1 sm:flex-none"
                       >
                         <MessageSquare className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
                         <span className="hidden xs:inline">Interview</span>
@@ -188,7 +188,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
                       </TabsTrigger>
                       <TabsTrigger
                         value="tests"
-                        className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-[11px] sm:text-xs md:text-sm whitespace-nowrap flex-1 sm:flex-none relative"
+                        className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-brand-600 rounded-none text-[11px] sm:text-xs md:text-sm whitespace-nowrap flex-1 sm:flex-none relative"
                       >
                         <FlaskConical className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
                         <span className="hidden xs:inline">Tests</span>
@@ -201,7 +201,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
                       </TabsTrigger>
                       <TabsTrigger
                         value="diagnosis"
-                        className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-[11px] sm:text-xs md:text-sm whitespace-nowrap flex-1 sm:flex-none"
+                        className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-brand-600 rounded-none text-[11px] sm:text-xs md:text-sm whitespace-nowrap flex-1 sm:flex-none"
                       >
                         <Stethoscope className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
                         <span className="hidden xs:inline">Diagnosis</span>
@@ -238,12 +238,12 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
             </Card>
 
             {/* Quick Tips */}
-            <Card className="mt-3 sm:mt-4 bg-blue-50/50 border-blue-200">
+            <Card className="mt-3 sm:mt-4 bg-brand-50/50 border-brand-200">
               <div className="p-3 sm:p-4 flex items-start gap-2 sm:gap-3">
-                <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                <div className="text-xs sm:text-sm text-blue-900 min-w-0">
+                <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-brand-600 flex-shrink-0 mt-0.5" />
+                <div className="text-xs sm:text-sm text-brand-900 min-w-0">
                   <p className="font-medium mb-1">Clinical Tip</p>
-                  <p className="text-blue-800 leading-relaxed">
+                  <p className="text-brand-800 leading-relaxed">
                     Start by taking a thorough history. Ask about the onset, duration, and characteristics of symptoms. 
                     Order tests strategically based on your clinical suspicion.
                   </p>
