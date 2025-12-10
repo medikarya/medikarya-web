@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://medikarya.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://medikarya.in"),
   title: {
     default: "MediKarya - AI-Powered Medical Education",
     template: "%s | MediKarya"

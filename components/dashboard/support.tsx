@@ -182,7 +182,7 @@ export function Support() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="your.email@example.com"
+                    placeholder="yourname@gmail.com"
                     className="bg-white/50 border-slate-200"
                   />
                 </div>
@@ -215,11 +215,11 @@ export function Support() {
               <div className="flex items-center gap-4 pt-4 border-t border-slate-200 text-sm text-slate-600">
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  <span>support@medikarya.com</span>
+                  <span>medikarya.in@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4" />
-                  <span>1-800-MEDIKARYA</span>
+                  <span>+91 9711638511</span>
                 </div>
               </div>
             </CardContent>

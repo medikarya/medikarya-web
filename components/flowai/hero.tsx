@@ -78,8 +78,8 @@ export function Hero() {
               "hover:shadow-brand-500/20 hover:scale-[1.005] transition-all duration-300 ease-out",
             )}
           >
-            <Link href="/signup" className="flex items-center justify-center gap-2">
-              Start Your First Simulation
+            <Link href="/waitlist" className="flex items-center justify-center gap-2">
+              Join the Waitlist
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>

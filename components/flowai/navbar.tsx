@@ -18,8 +18,8 @@ export function Navbar() {
         aria-label="Primary"
       >
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full overflow-hidden">
-            <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
+          <div className="flex h-7 w-7 items-center justify-center">
+            <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
           </div>
           <span className="font-semibold text-slate-800">MediKarya</span>
         </div>
@@ -43,33 +43,21 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <SignedOut>
-            <Button
-              asChild
-              variant="ghost"
-              size="sm"
-              className="hidden rounded-full text-muted-foreground hover:text-brand-600 hover:bg-brand-50 transition-colors md:inline-flex"
-            >
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button
-              asChild
-              size="sm"
-              className={cn(
-                "group rounded-full px-4 h-auto py-2",
-                "bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white",
-                "shadow-lg hover:shadow-brand-500/20 hover:scale-[1.005] transition-all duration-300 ease-out",
-              )}
-            >
-              <Link href="/signup" aria-label="Try MediKarya for free" className="flex items-center justify-center">
-                <span className="mr-1">Start Learning</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+
+          <Button
+            asChild
+            size="sm"
+            className={cn(
+              "group rounded-full px-4 h-auto py-2",
+              "bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white",
+              "shadow-lg hover:shadow-brand-500/20 hover:scale-[1.005] transition-all duration-300 ease-out",
+            )}
+          >
+            <Link href="/waitlist" aria-label="Join MediKarya Waitlist" className="flex items-center justify-center">
+              <span className="mr-1">Join Waitlist</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Button>
         </div>
       </nav>
     </header>

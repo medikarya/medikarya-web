@@ -41,8 +41,8 @@ export default function SignUpPage() {
         >
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
-            <div className="mx-auto mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full overflow-hidden">
-              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-cover" />
+            <div className="mx-auto mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center">
+              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Join MediKarya</h1>
             <p className="text-sm sm:text-base text-slate-600">Start your journey in AI-powered medical education</p>

@@ -33,17 +33,17 @@ export default function PricingSection() {
         "mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 delay-600 ease-out",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
       )}>
-        <Plan title="Student" price="$0" features={["5 simulations/month", "Basic patient cases", "Community support"]} />
+        <Plan title="Student" price="$0" features={["5 Practice Runs/month", "Common Clinical Cases", "Community support"]} />
         <Plan
           title="Medical Student"
           price="$15"
           highlight
-          features={["Unlimited simulations", "Advanced patient cases", "Detailed feedback reports", "Priority support"]}
+          features={["Unlimited Practice Runs", "Complex & Rare Cases", "Detailed Feedback Reports", "Priority Support"]}
         />
         <Plan
           title="Institution"
           price="Custom"
-          features={["Everything in Pro", "Bulk student access", "Custom case creation", "Analytics dashboard", "Dedicated support"]}
+          features={["Everything in Pro", "Bulk Student Access", "Custom Case Creation", "Analytics Dashboard", "Dedicated Support"]}
           contact
         />
       </div>
@@ -92,8 +92,8 @@ function Plan({
             : 'border-slate-200 hover:border-brand-200 hover:bg-brand-50 text-slate-700 hover:text-brand-700'
             } transition-all duration-300`}
         >
-          <Link href={contact ? "/contact" : "/signup"} className="flex items-center justify-center gap-2">
-            {contact ? "Contact Us" : "Get Started"}
+          <Link href={contact ? "/contact" : "/waitlist"} className="flex items-center justify-center gap-2">
+            {contact ? "Contact Us" : "Join Waitlist"}
             {!contact && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
           </Link>
         </Button>
