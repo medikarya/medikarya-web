@@ -43,27 +43,51 @@ export default function WaitlistPage() {
     setIsLoading(true)
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const endpoint = role === "student"
+        ? process.env.NEXT_PUBLIC_FORMSPREE_STUDENT
+        : process.env.NEXT_PUBLIC_FORMSPREE_WRITER;
 
-      console.log({ role, email, name, specialty, experience })
+      if (!endpoint) {
+        console.warn("Formspree endpoint not set. Simulating success.");
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      } else {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email,
+            name,
+            role,
+            specialty,
+            experience,
+            source: "medikarya_waitlist_page"
+          })
+        });
 
-      setIsSubmitted(true)
+        if (!response.ok) {
+          throw new Error("Form submission failed");
+        }
+      }
+
+      setIsSubmitted(true);
       toast({
         title: role === "student" ? "You're on the list! 🎉" : "Application Received! 🎓",
         description: role === "student"
           ? "We'll notify you when beta access opens."
           : "Our clinical board will review your profile shortly.",
-      })
+      });
     } catch (error) {
-      console.error("Error submitting form:", error)
+      console.error("Error submitting form:", error);
       toast({
         title: "Something went wrong",
-        description: "Please try again later.",
+        description: "Please try again later or email us directly.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -77,11 +101,16 @@ export default function WaitlistPage() {
 
       {/* Navigation */}
       <header className="absolute top-0 left-0 w-full p-6 z-20">
-        <div className="container mx-auto">
-          <Link href="/" className="inline-flex items-center text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Link>
+        <div className="container mx-auto flex items-center justify-between">
+          {/* Hidden logo for spacing balance if needed, or just keep simple back link */}
+          <div />
+
+          <Button asChild variant="ghost" size="sm" className="text-slate-500 hover:text-brand-600 hover:bg-slate-200">
+            <Link href="/" className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
         </div>
       </header>
 
@@ -212,7 +241,7 @@ export default function WaitlistPage() {
                       <Input
                         id="email"
                         type="email"
-                        placeholder={role === "student" ? "doctor@gmail.com" : "name@hospital.com"}
+                        placeholder={role === "student" ? "arjun.kumar@gmail.com" : "priya.sharma@hospital.com"}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -227,7 +256,7 @@ export default function WaitlistPage() {
                       <Input
                         id="name"
                         type="text"
-                        placeholder={role === "student" ? "Dr. Jane Smith" : "e.g. Sarah Chen (Final Year Student)"}
+                        placeholder={role === "student" ? "Dr. Priya Sharma" : "e.g. Rahul Verma (Final Year Student)"}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="h-11 rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500/20 bg-white/50"

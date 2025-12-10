@@ -172,7 +172,7 @@ export function Support() {
                   <Label htmlFor="name">Name</Label>
                   <Input
                     id="name"
-                    placeholder="Your full name"
+                    placeholder="Rahul Kumar"
                     className="bg-white/50 border-slate-200"
                   />
                 </div>

@@ -42,11 +42,11 @@ export default function CookiesPage() {
                         This Cookie Policy explains how MediKarya uses cookies and similar technologies to recognize you when you visit our website. It explains what these technologies are and why we use them, as well as your rights to control our use of them.
                     </p>
 
-                    <div className="not-prose my-10 bg-blue-50 border border-blue-100 rounded-2xl p-6 flex gap-4">
-                        <Cookie className="h-8 w-8 text-blue-600 flex-shrink-0" />
+                    <div className="not-prose my-10 bg-brand-50 border border-brand-100 rounded-2xl p-6 flex gap-4">
+                        <Cookie className="h-8 w-8 text-brand-600 flex-shrink-0" />
                         <div>
-                            <h3 className="font-bold text-blue-900 text-lg mb-1">What are cookies?</h3>
-                            <p className="text-blue-800 text-sm">Cookies are small data files that are placed on your computer or mobile device when you visit a website. They are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.</p>
+                            <h3 className="font-bold text-brand-900 text-lg mb-1">What are cookies?</h3>
+                            <p className="text-brand-800 text-sm">Cookies are small data files that are placed on your computer or mobile device when you visit a website. They are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.</p>
                         </div>
                     </div>
 

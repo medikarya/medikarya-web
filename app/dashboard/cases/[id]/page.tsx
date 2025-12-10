@@ -111,7 +111,7 @@ export default function CasePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-brand-500" />
       </div>
     )
   }
@@ -131,7 +131,7 @@ export default function CasePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-brand-50/30 to-accent-50/30">
       {!caseStarted ? (
         <div className="container mx-auto px-4 py-8 max-w-5xl">
           <Button
