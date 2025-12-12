@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import "./globals.css"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { LayoutClient } from "@/components/LayoutClient"
+import { SmoothScroller } from "@/components/smooth-scroller"
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -109,9 +110,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               `
             }}
           />
-          <LayoutClient>
-            {children}
-          </LayoutClient>
+          <SmoothScroller>
+            <LayoutClient>
+              {children}
+            </LayoutClient>
+          </SmoothScroller>
           <SpeedInsights />
         </body>
       </html>

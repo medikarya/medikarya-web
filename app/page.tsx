@@ -1,13 +1,30 @@
+import dynamic from "next/dynamic"
 import { Navbar } from "@/components/flowai/navbar"
 import { Hero } from "@/components/flowai/hero"
-import { DashboardPreview } from "@/components/flowai/dashboard-preview"
-import HowItWorksSection from "@/components/flowai/sections/how-it-works"
-import PricingSection from "@/components/flowai/sections/pricing"
-import TestimonialsSection from "@/components/flowai/sections/testimonials"
-import FAQSection from "@/components/flowai/sections/faq"
-import NewsletterSection from "@/components/flowai/sections/newsletter"
 import ProblemsSection from "@/components/flowai/sections/problems-section"
-import { Footer } from "@/components/flowai/footer"
+
+// Lazy Load Heavy Sections (Below the fold)
+const FeaturesBento = dynamic(() => import("@/components/flowai/sections/features-bento"), {
+  loading: () => <div className="h-[800px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
+})
+const DashboardPreview = dynamic(() => import("@/components/flowai/dashboard-preview").then(mod => mod.DashboardPreview), {
+  loading: () => <div className="h-[600px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
+})
+const PricingSection = dynamic(() => import("@/components/flowai/sections/pricing"), {
+  loading: () => <div className="h-[600px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
+})
+const TestimonialsSection = dynamic(() => import("@/components/flowai/sections/testimonials"), {
+  loading: () => <div className="h-[400px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
+})
+const FAQSection = dynamic(() => import("@/components/flowai/sections/faq"), {
+  loading: () => <div className="h-[400px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
+})
+const NewsletterSection = dynamic(() => import("@/components/flowai/sections/newsletter"), {
+  loading: () => <div className="h-[300px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
+})
+const Footer = dynamic(() => import("@/components/flowai/footer").then(mod => mod.Footer), {
+  loading: () => <div className="h-[300px] w-full bg-slate-900 animate-pulse" />
+})
 
 export default function Page() {
   return (
@@ -22,7 +39,7 @@ export default function Page() {
 
       {/* sections */}
       <ProblemsSection />
-      <HowItWorksSection />
+      <FeaturesBento />
       <DashboardPreview />
       <TestimonialsSection />
       <PricingSection />

@@ -6,9 +6,20 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, Youtube } from "lucide-react"
 
+import { useScrollAnimation } from "@/lib/scroll-animation"
+import { cn } from "@/lib/utils"
+
 export function Footer() {
+  const { ref, isVisible } = useScrollAnimation()
+
   return (
-    <footer className="bg-slate-50 border-t">
+    <footer
+      ref={ref}
+      className={cn(
+        "bg-slate-50 border-t transition-all duration-1000 ease-out",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      )}
+    >
       <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Company Info */}

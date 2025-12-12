@@ -1,9 +1,13 @@
+"use client"
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { cn } from "@/lib/utils"
+import { motion, Variants } from "framer-motion"
 
 export default function FAQSection() {
   const faqs = [
@@ -41,29 +45,68 @@ export default function FAQSection() {
     }
   ]
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.25, 0.4, 0.25, 1]
+      }
+    }
+  }
+
   return (
-    <section className="mx-auto max-w-4xl px-4 py-16">
-      <div className="mx-auto max-w-2xl text-center">
+    <section
+      id="faq"
+      className="mx-auto max-w-4xl px-4 py-16"
+    >
+      <motion.div
+        className="mx-auto max-w-2xl text-center"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: [0.25, 0.4, 0.25, 1] }}
+      >
         <h2 className="text-3xl font-semibold tracking-tight">Frequently Asked Questions</h2>
         <p className="mt-2 text-muted-foreground">
           Everything you need to know about MediKarya's AI-powered medical education platform.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="mt-8">
+      <motion.div
+        className="mt-8"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+      >
         <Accordion type="single" collapsible className="space-y-4">
           {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`} className="rounded-2xl border px-6">
-              <AccordionTrigger className="text-left text-base font-medium hover:no-underline">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
+            <motion.div key={index} variants={itemVariants}>
+              <AccordionItem value={`item-${index}`} className="rounded-2xl border px-6 bg-slate-50/50">
+                <AccordionTrigger className="text-left text-base font-medium hover:no-underline">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            </motion.div>
           ))}
         </Accordion>
-      </div>
+      </motion.div>
     </section>
   )
 }

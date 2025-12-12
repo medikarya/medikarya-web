@@ -7,46 +7,75 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useScrollAnimation } from "@/lib/scroll-animation"
 import { cn } from "@/lib/utils"
 
+import { motion, Variants } from "framer-motion"
+
 export default function PricingSection() {
-  const { ref, isVisible } = useScrollAnimation()
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2, // Slightly slower stagger for cinematic feel
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.25, 0.4, 0.25, 1]
+      }
+    }
+  }
 
   return (
-    <section
-      ref={ref}
-      id="pricing"
-      className={cn(
-        "mx-auto max-w-6xl px-4 py-16 transition-all duration-1000 ease-out",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      )}
-    >
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className={cn(
-          "text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl transition-all duration-1000 delay-200 ease-out",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        )}>Choose Your Plan</h2>
-        <p className={cn(
-          "mt-2 text-slate-600 text-sm sm:text-base px-4 transition-all duration-1000 delay-400 ease-out",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        )}>Start free. Scale as your medical education needs grow.</p>
-      </div>
-      <div className={cn(
-        "mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 delay-600 ease-out",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-      )}>
-        <Plan title="Student" price="$0" features={["5 Practice Runs/month", "Common Clinical Cases", "Community support"]} />
-        <Plan
-          title="Medical Student"
-          price="$15"
-          highlight
-          features={["Unlimited Practice Runs", "Complex & Rare Cases", "Detailed Feedback Reports", "Priority Support"]}
-        />
-        <Plan
-          title="Institution"
-          price="Custom"
-          features={["Everything in Pro", "Bulk Student Access", "Custom Case Creation", "Analytics Dashboard", "Dedicated Support"]}
-          contact
-        />
-      </div>
+    <section id="pricing" className="bg-slate-50 py-24 sm:py-32 overflow-hidden">
+      <motion.div
+        className="mx-auto max-w-7xl px-6 lg:px-8"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <div className="mx-auto max-w-2xl text-center mb-16">
+          <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            Choose Your Plan
+          </motion.h2>
+          <motion.p variants={itemVariants} className="mt-6 text-lg leading-8 text-slate-600">
+            Start free. Scale as your medical education needs grow.
+          </motion.p>
+        </div>
+
+        <motion.div
+          className="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3"
+          variants={containerVariants}
+        >
+          <motion.div variants={itemVariants}>
+            <Plan title="Student" price="$0" features={["5 Practice Runs/month", "Common Clinical Cases", "Community support"]} />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Plan
+              title="Medical Student"
+              price="$15"
+              highlight
+              features={["Unlimited Practice Runs", "Complex & Rare Cases", "Detailed Feedback Reports", "Priority Support"]}
+            />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Plan
+              title="Institution"
+              price="Custom"
+              features={["Everything in Pro", "Bulk Student Access", "Custom Case Creation", "Analytics Dashboard", "Dedicated Support"]}
+              contact
+            />
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }
