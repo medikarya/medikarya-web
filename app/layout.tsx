@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "MediKarya",
     images: [
       {
-        url: "/medikarya.png", // Next.js will resolve this to absolute URL using metadataBase
+        url: "/og-image.png", // Next.js will resolve this to absolute URL using metadataBase
         width: 1200,
         height: 630,
         alt: "MediKarya Platform Preview",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MediKarya - AI-Powered Medical Education",
     description: "Advance your clinical skills with AI patient simulations.",
-    images: ["/medikarya.png"],
+    images: ["/og-image.png"],
     creator: "@medikarya", // Replace with actual handle
   },
   icons: {
