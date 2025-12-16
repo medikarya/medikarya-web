@@ -56,12 +56,12 @@ export default function PricingSection() {
           variants={containerVariants}
         >
           <motion.div variants={itemVariants}>
-            <Plan title="Student" price="$0" features={["5 Practice Runs/month", "Common Clinical Cases", "Community support"]} />
+            <Plan title="Student" price="Free" features={["5 Practice Runs/month", "Common Clinical Cases", "Community support"]} />
           </motion.div>
           <motion.div variants={itemVariants}>
             <Plan
               title="Medical Student"
-              price="$15"
+              price="₹1,299"
               highlight
               features={["Unlimited Practice Runs", "Complex & Rare Cases", "Detailed Feedback Reports", "Priority Support"]}
             />

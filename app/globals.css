@@ -237,3 +237,29 @@ html {
 .animate-marquee-right {
   animation: marquee-right 20s linear infinite;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-200);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-300);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--brand-800);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-700);
+}
