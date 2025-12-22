@@ -19,7 +19,7 @@ export function Navbar() {
       >
         <div className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center">
-            <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
+            <img src="https://www.medikarya.in/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
           </div>
           <span className="font-semibold text-slate-800">MediKarya</span>
         </div>

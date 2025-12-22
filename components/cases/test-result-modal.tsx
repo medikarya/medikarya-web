@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import {
@@ -70,8 +70,8 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] sm:max-w-3xl md:max-w-4xl max-h-[90vh] p-0">
-        <DialogHeader className="px-3 sm:px-4 md:px-6 pt-3 sm:pt-4 md:pt-6 pb-3 sm:pb-4 border-b border-slate-200">
+      <DialogContent className="max-w-[95vw] sm:max-w-3xl md:max-w-4xl max-h-[90vh] p-0 flex flex-col">
+        <DialogHeader className="px-4 py-3 sm:px-6 sm:py-4 border-b border-slate-200 flex-shrink-0 pr-12 sm:pr-16">
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
               <DialogTitle className="text-base sm:text-lg md:text-2xl font-bold text-slate-900 mb-1 sm:mb-2 line-clamp-2">
@@ -94,7 +94,10 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
           </div>
         </DialogHeader>
 
-        <ScrollArea className="max-h-[calc(90vh-140px)] sm:max-h-[calc(90vh-160px)] md:max-h-[calc(90vh-180px)]">
+        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400"
+          style={{ scrollbarWidth: 'thin' }}
+          data-lenis-prevent
+        >
           <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 space-y-4 sm:space-y-5 md:space-y-6">
             {/* Summary */}
             <div className="bg-brand-50 border border-brand-200 rounded-lg p-3 sm:p-4">
@@ -104,6 +107,26 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
               </h3>
               <p className="text-brand-800 text-xs sm:text-sm leading-relaxed">{result.results.summary}</p>
             </div>
+
+            {/* Test Image */}
+            {test.imageUrl && (
+              <div className="border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
+                <div className="p-2 sm:p-3 border-b border-slate-200">
+                  <h3 className="font-semibold text-slate-900 text-xs sm:text-sm flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-brand-600" />
+                    Microscopy / Imaging Findings
+                  </h3>
+                </div>
+                <div className="relative aspect-video w-full bg-black/5">
+                  {/* Use Next.js Image if available, otherwise standard img */}
+                  <img
+                    src={test.imageUrl}
+                    alt={test.name}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </div>
+            )}
 
             {/* Test Values */}
             {result.results.values && result.results.values.length > 0 && (
@@ -211,19 +234,19 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
               </p>
             </div>
           </div>
-        </ScrollArea>
+        </div>
 
-        <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 border-t border-slate-200 bg-slate-50">
+        <div className="px-4 py-3 sm:px-6 sm:py-4 border-t border-slate-200 bg-slate-50 flex-shrink-0">
           <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3">
-            <Button variant="outline" onClick={onClose} className="w-full sm:w-auto h-9 sm:h-10 text-xs sm:text-sm">
+            <Button variant="outline" onClick={onClose} className="w-full sm:w-auto h-10 sm:h-9 text-sm">
               Close
             </Button>
-            <Button onClick={onClose} className="bg-brand-600 hover:bg-brand-700 w-full sm:w-auto h-9 sm:h-10 text-xs sm:text-sm">
+            <Button onClick={onClose} className="bg-brand-600 hover:bg-brand-700 w-full sm:w-auto h-10 sm:h-9 text-sm">
               Continue Case
             </Button>
           </div>
         </div>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   )
 }

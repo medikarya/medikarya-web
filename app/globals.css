@@ -263,3 +263,18 @@ html {
 .dark ::-webkit-scrollbar-thumb:hover {
   background: var(--brand-700);
 }
+
+.native-scrollbar::-webkit-scrollbar {
+  width: revert;
+  height: revert;
+  appearance: auto;
+}
+
+.native-scrollbar::-webkit-scrollbar-track {
+  background: revert;
+}
+
+.native-scrollbar::-webkit-scrollbar-thumb {
+  background: revert;
+  border-radius: revert;
+}

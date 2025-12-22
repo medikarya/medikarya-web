@@ -102,8 +102,29 @@
     "investigations": {
       "specimen": "Feces",
       "tests": [
-        "Immunoelectron Microscopy (Triple-shelled capsid, wheel appearance)",
-        "ELISA"
+        {
+          "name": "Immunoelectron Microscopy (Triple-shelled capsid, wheel appearance)",
+          "imageUrl": "/cases/viral-gastroenteritis/IEM.png"
+        },
+        {
+          "name": "ELISA for Rotavirus",
+          "results": {
+            "summary": "Positive for Rotavirus Antigen",
+            "interpretation": "Stool ELISA is positive for Group A Rotavirus antigen.",
+            "values": [
+              {
+                "parameter": "Rotavirus Antigen",
+                "value": "Positive",
+                "unit": "",
+                "normalRange": "Negative",
+                "status": "critical"
+              }
+            ],
+            "criticalFindings": [
+              "Rotavirus Antigen Detected"
+            ]
+          }
+        }
       ]
     },
     "final_diagnosis": "Viral Gastroenteritis due to Rotavirus infection",
@@ -124,7 +145,66 @@
       "Hygiene"
     ]
   },
-  "patient_brief": "Child: Rohan Kumar, 2-year-old boy.\n\nMain problems:\n- Vomiting for 3 days, started suddenly. Getting a bit better. Moderate amount each time.\n- Watery loose stools for 2 days, 5–10 times per day. No blood. Looks pale and smells bad.\n- Fever.\n- Abdominal pain.\n- Weak, poor appetite, some weight loss.\n- Feels dizzy sometimes.\n\nPast history:\n- Vaccines are not fully up to date under government schedule.\n- No past similar episodes.\n- No known allergies.\n- No regular medicines.\n- No self medication this time.\n\nLifestyle:\n- Mixed diet.\n- Some unhygienic habits.",
+  "patient_text_brief": "Child: Rohan Kumar, 2-year-old boy.\n\nMain problem:\n- He has been vomiting for the last 3 days.\n- It started suddenly and is getting a bit better.\n- The amount each time is moderate.\n\nOther problems (only if asked):\n- Loose watery stools for 2 days, about 5 to 10 times a day.\n- No blood in stools.\n- He has fever.\n- He complains of stomach pain.\n- He looks weak and is not eating well.\n- He has lost some weight.\n- He feels dizzy sometimes.\n\nPast history:\n- No similar illness before.\n- No known allergies.\n- No regular medicines.\n- No medicines given at home this time.\n- Vaccinations are not fully up to date.\n\nLifestyle:\n- Eats a mixed diet.\n- Hygiene at home is not very good.",
+  "patient_facts": {
+    "identity": {
+      "name": "Rohan Kumar",
+      "age_years": 2,
+      "gender": "male"
+    },
+    "chief_complaint": "vomiting",
+    "vomiting": {
+      "present": true,
+      "duration_days": 3,
+      "onset": "sudden",
+      "progression": "improving",
+      "quantity": "moderate",
+      "forceful": null,
+      "projectile": null,
+      "bilious": false,
+      "blood": false
+    },
+    "diarrhea": {
+      "present": true,
+      "duration_days": 2,
+      "frequency_per_day": "5-10",
+      "watery": true,
+      "bloody": false,
+      "appearance": "pale and offensive"
+    },
+    "fever": {
+      "present": true
+    },
+    "abdominal_pain": {
+      "present": true
+    },
+    "general": {
+      "weakness": true,
+      "poor_appetite": true,
+      "weight_loss": true,
+      "dizziness": true
+    },
+    "hydration": {
+      "severe_dehydration": false
+    },
+    "past_history": {
+      "similar_episodes": false,
+      "allergies": false,
+      "regular_medications": false,
+      "self_medication": false,
+      "immunization_complete": false
+    },
+    "lifestyle": {
+      "diet": "Mixed diet",
+      "hygiene": "poor"
+    },
+    "red_flags": {
+      "blood_in_stool": false,
+      "bilious_or_projectile_vomit": false,
+      "seizures": false,
+      "altered_consciousness": false
+    }
+  },
   "ai_personality": {
     "role": "Mother/Guardian of a sick 2-year-old child",
     "communication_style": "Stressed, tired, and very direct. Speaks in short fragments or single sentences. Does NOT give long explanations.",
@@ -139,7 +219,7 @@
       "do_not": [
         "Do not use medical terms.",
         "Do not be polite or chatty.",
-        "Do not say you are an AI."
+        "Do not use the doctor's name."
       ],
       "example_tone": [
         "He's just... so weak.",

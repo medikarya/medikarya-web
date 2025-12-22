@@ -13,6 +13,7 @@ export default function CasePage() {
   const [caseStarted, setCaseStarted] = useState(false)
   const [caseData, setCaseData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   const handleStartCase = async () => {
     // If case is already in progress, just resume it
@@ -57,49 +58,11 @@ export default function CasePage() {
           //   setCaseStarted(true);
           // }
         } else {
-          // Fallback to mock data if API fails
-          console.warn('Using mock data as fallback');
-          const mockCase = {
-            id: params.id,
-            title: "Acute Chest Pain - 45 Year Old Male",
-            status: 'not-started',
-            patient: {
-              name: "John Smith",
-              age: 45,
-              gender: "Male",
-              mrn: "MRN-2024-001234",
-              admissionDate: new Date().toISOString(),
-              chiefComplaint: "Acute chest pain radiating to left arm",
-              vitalSigns: {
-                bloodPressure: "145/92 mmHg",
-                heartRate: "98 bpm",
-                temperature: "37.2°C (98.9°F)",
-                respiratoryRate: "18 breaths/min",
-                oxygenSaturation: "97% on room air"
-              },
-              allergies: ["Penicillin"],
-              currentMedications: ["Aspirin 81mg daily", "Atorvastatin 20mg daily"]
-            },
-            difficulty: "intermediate",
-            category: "cardiology",
-            xpReward: 150,
-            aiPersonality: {
-              traits: ["anxious", "cooperative", "detailed"],
-              background: "The patient is a 45-year-old male with a history of hypertension and hyperlipidemia. He works as an accountant and has been under significant work-related stress recently.",
-              communicationStyle: "The patient provides detailed information but tends to be somewhat anxious about his symptoms. He asks many questions and seeks reassurance."
-            },
-            learningObjectives: [
-              "Assess and manage acute chest pain in an adult patient",
-              "Develop a differential diagnosis for chest pain",
-              "Order and interpret appropriate diagnostic tests",
-              "Initiate appropriate management for acute coronary syndrome"
-            ]
-          };
-          setCaseData(mockCase);
+          setError('Failed to load case data');
         }
       } catch (error) {
         console.error('Error loading case data:', error);
-        // Handle error (e.g., show error message)
+        setError('An error occurred while loading the case');
       } finally {
         setLoading(false);
       }

@@ -42,7 +42,7 @@ export default function LoginPage() {
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
             <div className="mx-auto mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center">
-              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
+              <img src="https://www.medikarya.in/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Welcome back</h1>
             <p className="text-sm sm:text-base text-slate-600">Sign in to continue your medical education journey</p>

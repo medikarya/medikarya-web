@@ -26,7 +26,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center">
-                <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
+                <img src="https://www.medikarya.in/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
               </div>
               <span className="text-xl font-bold text-slate-800">MediKarya</span>
             </div>

@@ -13,7 +13,7 @@ export default function TermsPage() {
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 font-bold text-slate-800 text-lg">
                         <div className="flex h-8 w-8 items-center justify-center">
-                            <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
+                            <img src="https://www.medikarya.in/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
                         </div>
                         MediKarya
                     </Link>

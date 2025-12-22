@@ -1,7 +1,7 @@
 "use client"
 
-import { useRef, useState, MouseEvent } from "react"
-import { motion } from "framer-motion"
+import { useRef, MouseEvent } from "react"
+import { motion, useMotionValue, useSpring } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface MagneticButtonProps {
@@ -12,7 +12,15 @@ interface MagneticButtonProps {
 
 export function MagneticButton({ children, className, strength = 0.5 }: MagneticButtonProps) {
     const ref = useRef<HTMLDivElement>(null)
-    const [position, setPosition] = useState({ x: 0, y: 0 })
+
+    // Use motion values instead of state to avoid re-renders
+    const x = useMotionValue(0)
+    const y = useMotionValue(0)
+
+    // Smooth spring animation for the movement
+    const springConfig = { damping: 15, stiffness: 150, mass: 0.1 }
+    const xSpring = useSpring(x, springConfig)
+    const ySpring = useSpring(y, springConfig)
 
     const handleMouse = (e: MouseEvent) => {
         const { clientX, clientY } = e
@@ -21,11 +29,13 @@ export function MagneticButton({ children, className, strength = 0.5 }: Magnetic
         const middleX = clientX - (left + width / 2)
         const middleY = clientY - (top + height / 2)
 
-        setPosition({ x: middleX * strength, y: middleY * strength })
+        x.set(middleX * strength)
+        y.set(middleY * strength)
     }
 
     const reset = () => {
-        setPosition({ x: 0, y: 0 })
+        x.set(0)
+        y.set(0)
     }
 
     return (
@@ -33,8 +43,7 @@ export function MagneticButton({ children, className, strength = 0.5 }: Magnetic
             ref={ref}
             onMouseMove={handleMouse}
             onMouseLeave={reset}
-            animate={{ x: position.x, y: position.y }}
-            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+            style={{ x: xSpring, y: ySpring }}
             className={cn("", className)}
         >
             {children}

@@ -101,7 +101,7 @@ export default function ContactPage() {
                         <div className="text-center mb-8">
                             <div className="inline-flex items-center justify-center p-3 bg-white rounded-2xl shadow-md mb-6 ring-1 ring-slate-100">
                                 <div className="flex h-12 w-12 items-center justify-center">
-                                    <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
+                                    <img src="https://www.medikarya.in/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
                                 </div>
                             </div>
                             <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl mb-3">

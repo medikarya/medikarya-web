@@ -165,7 +165,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="flex h-16 items-center justify-between px-6 border-b border-slate-100">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center">
-              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
+              <img src="https://www.medikarya.in/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
             </div>
             <span className="font-semibold text-slate-800 text-lg">MediKarya</span>
           </div>
@@ -254,7 +254,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="flex h-16 items-center justify-between px-4 border-b border-slate-200/50">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center">
-              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
+              <img src="https://www.medikarya.in/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
             </div>
             <span className="font-bold text-slate-900">MediKarya</span>
           </div>
@@ -346,7 +346,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center">
-              <img src="/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
+              <img src="https://www.medikarya.in/medikarya.svg" alt="MediKarya Logo" className="h-full w-full object-contain" />
             </div>
             <span className="font-semibold text-slate-900 text-sm sm:text-base">MediKarya</span>
           </div>

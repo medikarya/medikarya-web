@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
   try {
     // Authenticate the user
     const { userId } = await auth()
-    
+
     if (!userId) {
       return NextResponse.json(
         { error: "Unauthorized" },
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const { diagnosis, orderedTests, chatHistory, caseData } = body
 
     // TODO: Replace with actual AI API call to generate comprehensive feedback
-    
+
     // Example: Call AI to generate feedback
     /*
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -91,45 +91,40 @@ export async function POST(request: NextRequest) {
 function generateMockFeedback(diagnosis: any, orderedTests: any[], chatHistory: any[], caseData: any) {
   const correctDiagnosis = "Acute Myocardial Infarction"
   const studentDiagnosis = diagnosis.primaryDiagnosis
-  
+
   // Check if diagnosis is correct (case-insensitive partial match)
   const isCorrect = studentDiagnosis.toLowerCase().includes("myocardial infarction") ||
-                    studentDiagnosis.toLowerCase().includes("heart attack") ||
-                    studentDiagnosis.toLowerCase().includes("mi")
+    studentDiagnosis.toLowerCase().includes("heart attack") ||
+    studentDiagnosis.toLowerCase().includes("mi")
 
   // Calculate score based on various factors
   let score = 0
-  
+
   // Diagnosis correctness (40 points)
   if (isCorrect) {
     score += 40
-  } else if (studentDiagnosis.toLowerCase().includes("cardiac") || 
-             studentDiagnosis.toLowerCase().includes("heart")) {
+  } else if (studentDiagnosis.toLowerCase().includes("cardiac") ||
+    studentDiagnosis.toLowerCase().includes("heart")) {
     score += 20
   }
-  
+
   // History taking (20 points)
   const questionsAsked = chatHistory.filter(m => m.role === "user").length
   if (questionsAsked >= 8) score += 20
   else if (questionsAsked >= 5) score += 15
   else if (questionsAsked >= 3) score += 10
-  
+
   // Test ordering (20 points)
   const completedTests = orderedTests.filter(t => t.status === "completed")
-  const hasECG = completedTests.some(t => t.id === "ecg")
-  const hasTroponin = completedTests.some(t => t.id === "troponin")
-  
-  if (hasECG && hasTroponin) score += 20
-  else if (hasECG || hasTroponin) score += 15
-  else if (completedTests.length > 0) score += 10
-  
+  if (completedTests.length > 0) score += 20
+
   // Clinical reasoning (10 points)
   if (diagnosis.clinicalReasoning && diagnosis.clinicalReasoning.length > 50) {
     score += 10
   } else if (diagnosis.clinicalReasoning && diagnosis.clinicalReasoning.length > 20) {
     score += 5
   }
-  
+
   // Treatment plan (10 points)
   if (diagnosis.treatmentPlan && diagnosis.treatmentPlan.length > 50) {
     score += 10
@@ -142,11 +137,8 @@ function generateMockFeedback(diagnosis: any, orderedTests: any[], chatHistory: 
   if (questionsAsked >= 5) {
     strengths.push("Thorough history taking with comprehensive questioning")
   }
-  if (hasECG) {
-    strengths.push("Appropriately ordered ECG as first-line diagnostic test")
-  }
-  if (hasTroponin) {
-    strengths.push("Correctly identified need for cardiac biomarkers")
+  if (completedTests.length > 0) {
+    strengths.push("Appropriately ordered diagnostic tests")
   }
   if (diagnosis.differentialDiagnoses.length >= 2) {
     strengths.push("Good differential diagnosis consideration")
@@ -157,17 +149,11 @@ function generateMockFeedback(diagnosis: any, orderedTests: any[], chatHistory: 
 
   // Generate improvements
   const improvements = []
-  if (!hasTroponin) {
-    improvements.push("Consider ordering troponin levels earlier in chest pain evaluation")
-  }
-  if (!hasECG) {
-    improvements.push("ECG should be performed within 10 minutes for chest pain patients")
-  }
   if (questionsAsked < 5) {
     improvements.push("More detailed history taking would strengthen your assessment")
   }
   if (!isCorrect) {
-    improvements.push("Review the classic presentation of acute myocardial infarction")
+    improvements.push("Review the classic presentation of this condition")
   }
   if (orderedTests.length > 8) {
     improvements.push("Focus on high-yield tests to improve diagnostic efficiency")
@@ -175,13 +161,8 @@ function generateMockFeedback(diagnosis: any, orderedTests: any[], chatHistory: 
 
   // Identify missed tests
   const missedTests = []
-  if (!hasTroponin) missedTests.push("Troponin I/T")
-  if (!hasECG) missedTests.push("12-Lead ECG")
-  
-  const hasCBC = completedTests.some(t => t.id === "cbc")
-  const hasBMP = completedTests.some(t => t.id === "bmp")
-  if (!hasCBC) missedTests.push("Complete Blood Count")
-  if (!hasBMP) missedTests.push("Basic Metabolic Panel")
+  // Dynamic missed tests logic to be implemented based on case data
+
 
   return {
     correctDiagnosis,
@@ -195,22 +176,17 @@ function generateMockFeedback(diagnosis: any, orderedTests: any[], chatHistory: 
       ],
       improvements: improvements.length > 0 ? improvements : [
         "Continue practicing systematic clinical evaluation",
-        "Review diagnostic criteria for common cardiac conditions"
+        "Review diagnostic criteria for common conditions"
       ],
       testingEfficiency: {
-        appropriateTests: completedTests.filter(t => 
-          ["ecg", "troponin", "cbc", "bmp", "chest-xray"].includes(t.id)
-        ).length,
-        unnecessaryTests: completedTests.filter(t => 
-          !["ecg", "troponin", "cbc", "bmp", "chest-xray", "lipid", "bnp"].includes(t.id)
-        ).length,
+        appropriateTests: completedTests.length,
+        unnecessaryTests: 0,
         missedTests: missedTests.slice(0, 3)
       }
     },
     recommendations: [
-      "Review the STEMI protocol and time-sensitive interventions",
-      "Practice systematic approach to chest pain evaluation",
-      "Study ECG interpretation for acute coronary syndromes"
+      "Review the clinical presentation",
+      "Correlate findings with diagnostic results"
     ]
   }
 }

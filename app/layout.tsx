@@ -8,6 +8,7 @@ import NextTopLoader from 'nextjs-toploader';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { LayoutClient } from "@/components/LayoutClient"
 import { SmoothScroller } from "@/components/smooth-scroller"
+import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "MediKarya",
     images: [
       {
-        url: "/og-image.png", // Next.js will resolve this to absolute URL using metadataBase
+        url: "https://www.medikarya.in/og-image.png",
         width: 1200,
         height: 630,
         alt: "MediKarya Platform Preview",
@@ -50,13 +51,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MediKarya - AI-Powered Medical Education",
     description: "Advance your clinical skills with AI patient simulations.",
-    images: ["/og-image.png"],
+    images: ["https://www.medikarya.in/og-image.png"],
     creator: "@medikarya", // Replace with actual handle
   },
   icons: {
-    icon: "/favicon.ico", // Assuming standard nextjs output or we can use the svg
-    shortcut: "/medikarya.svg",
-    apple: "/medikarya.png", // Usually needs specific size but this is a safe fallback
+    icon: "https://www.medikarya.in/favicon.ico",
+    shortcut: "https://www.medikarya.in/medikarya.svg",
+    apple: "https://www.medikarya.in/medikarya.png",
   },
   generator: 'v0.app'
 }
@@ -128,6 +129,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </LayoutClient>
           </SmoothScroller>
           <SpeedInsights />
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

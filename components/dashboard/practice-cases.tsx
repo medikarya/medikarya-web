@@ -50,7 +50,8 @@ export function PracticeCases() {
     'Neurology': { id: 'neurology', icon: Brain, description: 'Nervous system and brain disorders' },
     'Pulmonology': { id: 'pulmonology', icon: Activity, description: 'Respiratory system and lungs' },
     'Emergency Medicine': { id: 'emergency', icon: Stethoscope, description: 'Acute medical conditions' },
-    'General Medicine': { id: 'general', icon: BookOpen, description: 'Common medical conditions' }
+    'General Medicine': { id: 'general', icon: BookOpen, description: 'Common medical conditions' },
+    'Pediatrics': { id: 'pediatrics', icon: Users, description: 'Medical care of infants, children, and adolescents' }
   } as const
 
   // Enhance case data with UI-specific properties
@@ -86,11 +87,11 @@ export function PracticeCases() {
 
   const filteredCases = cases.filter(case_ => {
     const matchesSearch = case_.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         case_.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-    const matchesCategory = selectedCategory === "all" || 
-                          (case_.category && categoryMap[case_.category as keyof typeof categoryMap]?.id === selectedCategory)
-    const matchesDifficulty = selectedDifficulty === "all" || 
-                            case_.difficulty.toLowerCase() === selectedDifficulty.toLowerCase()
+      case_.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    const matchesCategory = selectedCategory === "all" ||
+      (case_.category && categoryMap[case_.category as keyof typeof categoryMap]?.id === selectedCategory)
+    const matchesDifficulty = selectedDifficulty === "all" ||
+      case_.difficulty.toLowerCase() === selectedDifficulty.toLowerCase()
 
     return matchesSearch && matchesCategory && matchesDifficulty
   })
@@ -127,7 +128,7 @@ export function PracticeCases() {
         <div className="text-center space-y-4 p-6 bg-red-50 rounded-lg max-w-md mx-auto">
           <div className="text-red-500 font-medium">Error loading cases</div>
           <p className="text-slate-700">{error}</p>
-          <Button 
+          <Button
             onClick={() => window.location.reload()}
             variant="outline"
             className="mt-2"
@@ -219,17 +220,17 @@ export function PracticeCases() {
                   <CardHeader className="pb-3 sm:pb-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center flex-shrink-0">
-                        <CategoryIcon className="h-4 w-4 sm:h-5 sm:w-5 text-brand-600" />
+                        <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center flex-shrink-0">
+                          <CategoryIcon className="h-4 w-4 sm:h-5 sm:w-5 text-brand-600" />
+                        </div>
+                        <Badge className={cn("text-xs font-medium", getDifficultyColor(case_.difficulty.toLowerCase()))}>
+                          {case_.difficulty}
+                        </Badge>
                       </div>
-                      <Badge className={cn("text-xs font-medium", getDifficultyColor(case_.difficulty.toLowerCase()))}>
-                        {case_.difficulty}
-                      </Badge>
-                    </div>
-                    <div className="text-right flex-shrink-0">
-                      <div className="text-sm font-semibold text-green-600">+{case_.estimatedTime * 5} XP</div>
-                      <div className="text-xs text-slate-500">{case_.estimatedTime} min</div>
-                    </div>
+                      <div className="text-right flex-shrink-0">
+                        <div className="text-sm font-semibold text-green-600">+{case_.estimatedTime * 5} XP</div>
+                        <div className="text-xs text-slate-500">{case_.estimatedTime} min</div>
+                      </div>
                     </div>
                     <CardTitle className="text-base sm:text-lg text-slate-900 group-hover:text-brand-600 transition-colors leading-tight line-clamp-2">
                       {case_.title}
@@ -266,7 +267,7 @@ export function PracticeCases() {
                         </div>
                       </div>
 
-                      <Button 
+                      <Button
                         onClick={() => router.push(`/dashboard/cases/${case_.id}`)}
                         className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-sm hover:shadow-md transition-all duration-200 h-9 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm min-w-0"
                       >

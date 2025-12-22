@@ -66,25 +66,25 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
 
       {/* Patient Information Card */}
       <Card className="bg-white/90 backdrop-blur-sm border-2 border-slate-200 shadow-lg">
-        <CardHeader className="bg-gradient-to-r from-brand-50 to-accent-50 border-b border-slate-200">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="h-16 w-16 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center">
-                <User className="h-8 w-8 text-white" />
+        <CardHeader className="bg-gradient-to-r from-brand-50 to-accent-50 border-b border-slate-200 px-4 py-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center flex-shrink-0">
+                <User className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
               </div>
-              <div>
-                <CardTitle className="text-2xl text-slate-900">{patient.name}</CardTitle>
-                <div className="flex items-center gap-3 mt-1 text-sm text-slate-600">
-                  <span>{patient.age} years old</span>
-                  <span>•</span>
-                  <span>{patient.gender}</span>
-                  <span>•</span>
-                  <span className="font-mono text-xs">{patient.mrn}</span>
+              <div className="min-w-0">
+                <CardTitle className="text-lg sm:text-2xl text-slate-900 truncate">{patient.name}</CardTitle>
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-1 text-xs sm:text-sm text-slate-600">
+                  <span className="whitespace-nowrap">{patient.age} years old</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span className="whitespace-nowrap">{patient.gender}</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span className="font-mono text-[10px] sm:text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">{patient.mrn}</span>
                 </div>
               </div>
             </div>
-            <Badge variant="outline" className="bg-white">
-              <Calendar className="mr-2 h-3 w-3" />
+            <Badge variant="outline" className="bg-white w-fit self-start sm:self-auto text-xs sm:text-sm py-1">
+              <Calendar className="mr-1.5 sm:mr-2 h-3 w-3" />
               {formatDate(patient.admissionDate)}
             </Badge>
           </div>
@@ -104,11 +104,11 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
 
           {/* Vital Signs */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-              <Activity className="h-5 w-5 text-brand-600" />
+            <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2 text-sm sm:text-base">
+              <Activity className="h-4 w-4 sm:h-5 sm:w-5 text-brand-600" />
               Vital Signs
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
               <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
                 <div className="flex items-center gap-2 mb-1">
                   <Heart className="h-4 w-4 text-red-500" />
@@ -194,11 +194,11 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
       </Card>
 
       {/* Action Buttons */}
-      <div className="flex justify-center gap-4">
+      <div className="flex flex-col-reverse sm:flex-row justify-center gap-3 sm:gap-4 pt-2">
         <Button
           variant="outline"
           size="lg"
-          className="min-w-[150px]"
+          className="w-full sm:w-auto min-w-[150px]"
         >
           <FileText className="mr-2 h-4 w-4" />
           View Guidelines
@@ -206,7 +206,7 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
         <Button
           size="lg"
           onClick={onStartCase}
-          className="min-w-[200px] bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+          className="w-full sm:w-auto min-w-[200px] bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
         >
           <Play className="mr-2 h-5 w-5" />
           Start Case
