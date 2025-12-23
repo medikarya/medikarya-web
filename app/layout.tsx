@@ -55,9 +55,8 @@ export const metadata: Metadata = {
     creator: "@medikarya", // Replace with actual handle
   },
   icons: {
-    icon: "https://www.medikarya.in/favicon.ico",
-    shortcut: "https://www.medikarya.in/medikarya.svg",
-    apple: "https://www.medikarya.in/medikarya.png",
+    icon: "/favicon.ico",
+    apple: "/medikarya.png",
   },
   generator: 'v0.app'
 }
