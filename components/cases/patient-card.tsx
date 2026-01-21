@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { formatPatientAge } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
@@ -17,6 +18,15 @@ import {
   Play,
   FileText
 } from "lucide-react"
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 interface PatientCardProps {
   patient: {
@@ -75,7 +85,7 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
               <div className="min-w-0">
                 <CardTitle className="text-lg sm:text-2xl text-slate-900 truncate">{patient.name}</CardTitle>
                 <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-1 text-xs sm:text-sm text-slate-600">
-                  <span className="whitespace-nowrap">{patient.age} years old</span>
+                  <span className="whitespace-nowrap">{formatPatientAge(patient.age)}</span>
                   <span className="hidden sm:inline">•</span>
                   <span className="whitespace-nowrap">{patient.gender}</span>
                   <span className="hidden sm:inline">•</span>
@@ -193,16 +203,58 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
         </CardContent>
       </Card>
 
+
       {/* Action Buttons */}
       <div className="flex flex-col-reverse sm:flex-row justify-center gap-3 sm:gap-4 pt-2">
-        <Button
-          variant="outline"
-          size="lg"
-          className="w-full sm:w-auto min-w-[150px]"
-        >
-          <FileText className="mr-2 h-4 w-4" />
-          View Guidelines
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto min-w-[150px]"
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              View Guidelines
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Clinical Guidelines</DialogTitle>
+              <DialogDescription>
+                Standard evaluation and management protocols.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 text-sm text-slate-700">
+              <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <h4 className="font-semibold text-slate-900 mb-2">General Assessment</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Assess airway, breathing, and circulation immediately upon presentation.</li>
+                  <li>Obtain a detailed history including onset, duration, and progression of symptoms.</li>
+                  <li>Perform a comprehensive physical examination with focus on the affected systems.</li>
+                </ul>
+              </div>
+
+              <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <h4 className="font-semibold text-slate-900 mb-2">Diagnostic Approach</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Order investigations based on clinical suspicion and pre-test probability.</li>
+                  <li>Avoid unnecessary testing to reduce cost and patient discomfort.</li>
+                  <li>Review vital signs and red flags before ruling out serious pathology.</li>
+                </ul>
+              </div>
+
+              <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <h4 className="font-semibold text-slate-900 mb-2">Management Principles</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Prioritize stabilization of unstable patients.</li>
+                  <li>Provide symptomatic relief while awaiting confirmatory diagnosis.</li>
+                  <li>Involve specialists early for complex or rapidly deteriorating cases.</li>
+                </ul>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
         <Button
           size="lg"
           onClick={onStartCase}

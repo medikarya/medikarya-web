@@ -27,18 +27,21 @@ import {
   Activity
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useUser } from "@clerk/nextjs" // Import useUser
 
 export function Profile() {
+  const { user, isLoaded, isSignedIn } = useUser();
+
   const userProfile = {
-    name: "Dr. Jane Doe",
-    title: "Medical Student",
-    email: "jane.doe@email.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
-    institution: "Stanford University School of Medicine",
-    graduationYear: "2025",
-    joinDate: "January 2024",
-    bio: "Passionate medical student focused on improving clinical reasoning through AI-powered education. Currently in my third year of medical school with a special interest in cardiology and emergency medicine.",
+    name: user?.fullName || "",
+    title: "",
+    email: user?.primaryEmailAddress?.emailAddress || "",
+    phone: user?.primaryPhoneNumber?.phoneNumber || "",
+    location: "",
+    institution: "",
+    graduationYear: "",
+    joinDate: user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : "",
+    bio: "",
     stats: {
       casesCompleted: 47,
       totalXP: 2840,
@@ -55,6 +58,10 @@ export function Profile() {
     { id: 3, action: "Completed case", details: "Pediatric Fever - 6F", time: "2 days ago", xp: 120 },
     { id: 4, action: "Started new streak", details: "7-day streak milestone", time: "5 days ago", xp: 50 }
   ]
+
+  if (!isLoaded) {
+    return <div className="p-8 text-center">Loading profile...</div>;
+  }
 
   return (
     <div className="p-4 lg:p-8 space-y-8">
@@ -73,7 +80,7 @@ export function Profile() {
             <CardContent className="p-6 text-center space-y-4">
               <div className="relative mx-auto">
                 <Avatar className="h-24 w-24 mx-auto ring-4 ring-brand-200">
-                  <AvatarImage src="/placeholder-user.jpg" alt={userProfile.name} />
+                  <AvatarImage src={user?.imageUrl || "/placeholder-user.jpg"} alt={userProfile.name} />
                   <AvatarFallback className="bg-gradient-to-br from-brand-100 to-accent-100 text-slate-600 text-2xl font-semibold">
                     {userProfile.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>

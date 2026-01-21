@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { formatPatientAge } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -196,7 +197,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
               <div className="min-w-0 flex-1">
                 <h2 className="font-semibold text-slate-900 text-xs sm:text-sm md:text-base truncate">{caseData.patient.name}</h2>
                 <p className="text-[10px] sm:text-xs text-slate-600 truncate">
-                  {caseData.patient.age}y • {caseData.patient.gender}
+                  {formatPatientAge(caseData.patient.age).replace(/ old/g, '')} • {caseData.patient.gender}
                   <span className="hidden md:inline"> • {caseData.patient.chiefComplaint}</span>
                 </p>
               </div>

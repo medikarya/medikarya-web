@@ -1,0 +1,239 @@
+{
+    "id": "neonatal-jaundice-breastmilk",
+    "title": "Prolonged Neonatal Jaundice due to Breastmilk Jaundice",
+    "category": "Pediatrics",
+    "difficulty": "Beginner",
+    "estimatedTime": 20,
+    "tags": [
+        "neonatal jaundice",
+        "breastmilk jaundice",
+        "exclusive breastfeeding",
+        "pediatrics"
+    ],
+    "patient": {
+        "name": "Mohd. Ahzad",
+        "age": 0.08,
+        "gender": "Male",
+        "mrn": "MRN-2024-003",
+        "chiefComplaint": "Yellow eyes and face",
+        "vitalSigns": {},
+        "allergies": [],
+        "currentMedications": [],
+        "socioeconomic_status": "Not available",
+        "history_of_present_illness": {
+            "jaundice": {
+                "onset": "Gradual",
+                "duration": "4 weeks",
+                "progression": "Progressive till 2 weeks, improving since then",
+                "character": {
+                    "color": "Lemon yellow",
+                    "distribution": "Eyes and face",
+                    "severity": "Mild (Kramer grade 1)",
+                    "stool_color": "Normal",
+                    "urine_color": "Normal"
+                },
+                "associated_symptoms": []
+            },
+            "aggravating_factors": [
+                "Exclusive breastfeeding"
+            ],
+            "relieving_factors": [
+                "Temporary interruption of breastfeeding"
+            ],
+            "medication": "No self medication",
+            "past_episodes": true
+        },
+        "review_of_systems": {
+            "general": [
+                "No fever",
+                "No fatigue",
+                "No weakness",
+                "No appetite loss",
+                "No weight loss"
+            ],
+            "respiratory": [
+                "No cough",
+                "No breathlessness",
+                "No wheezing"
+            ],
+            "cardiac": [
+                "No palpitations",
+                "No chest pain"
+            ],
+            "GIT": [
+                "No nausea",
+                "No vomiting",
+                "No diarrhea",
+                "No constipation",
+                "No abdominal pain"
+            ],
+            "neurological": [
+                "No headache",
+                "No dizziness",
+                "No vision issues"
+            ],
+            "genitourinary": [
+                "No dysuria",
+                "No frequency",
+                "No discharge"
+            ]
+        },
+        "past_history": {
+            "chronic_illnesses": false,
+            "surgeries": false,
+            "recent_hospitalizations": false,
+            "allergies": false,
+            "drug_history": "Not significant",
+            "family_history": "Not significant"
+        },
+        "birth_history": {
+            "nicu_stay": false,
+            "immediate_cry": true,
+            "faulty_feeding": false,
+            "term_baby": true,
+            "birth_complications": false,
+            "mode_of_delivery": "Normal vaginal delivery",
+            "delayed_cord_clamping": true,
+            "order_of_birth": 2
+        },
+        "personal_social_history": {
+            "diet": "Exclusive breastfeeding",
+            "sleep": "Normal",
+            "water_intake": "Not applicable"
+        },
+        "red_flags": {
+            "lethargy": false,
+            "poor_feeding": false,
+            "vomiting": false,
+            "fever": false,
+            "dehydration": false,
+            "pale_stools": false,
+            "dark_urine": false
+        },
+        "differential_diagnosis": [
+            "Breastmilk jaundice",
+            "Breastfeeding jaundice"
+        ],
+        "investigations": {
+            "specimen": "Blood",
+            "tests": [
+                {
+                    "name": "Diagnosis of exclusion",
+                    "results": {
+                        "summary": "No investigations required initially",
+                        "interpretation": "Follow-up testing only if jaundice progresses beyond expected distribution.",
+                        "values": [],
+                        "criticalFindings": []
+                    }
+                }
+            ]
+        },
+        "final_diagnosis": "Prolonged neonatal jaundice due to breastmilk jaundice",
+        "treatment_plan": [
+            "Continue exclusive breastfeeding",
+            "Observe for progression",
+            "Educate caregivers about danger signs",
+            "No drug therapy required"
+        ],
+        "keywords": [
+            "Neonatal jaundice",
+            "Breastmilk jaundice",
+            "Exclusive breastfeeding",
+            "Prolonged jaundice"
+        ]
+    },
+    "patient_text_brief": "[MAIN PROBLEM]\n- My baby's eyes and face look yellow.\n- It is NOT on his chest, belly, arms, or legs.\n- It started slowly about 4 weeks ago.\n- It was worse at 2 weeks, but looks a bit better now.\n\n[OTHER SYMPTOMS]\n- No fever.\n- No vomiting.\n- He feeds very well (breastmilk only).\n- His poop is normal yellow color.\n- His pee is normal clear/pale.\n- No cold, cough, or trouble breathing.\n\n[HISTORY]\n- Born on time (full term).\n- Normal delivery, no ICU stay.\n- I only breastfeed him, nothing else.\n- I have never stopped breastfeeding him.\n- No medicines given.\n- No other health problems.",
+    "patient_facts": {
+        "identity": {
+            "name": "Mohd. Ahzad",
+            "age_weeks": 4,
+            "gender": "male"
+        },
+        "chief_complaint": "yellow eyes and face",
+        "jaundice": {
+            "present": true,
+            "duration_weeks": 4,
+            "onset": "gradual",
+            "progression": "improving",
+            "severity": "mild",
+            "kramer_grade": 1,
+            "stool_color": "normal",
+            "urine_color": "normal"
+        },
+        "feeding": {
+            "exclusive_breastfeeding": true
+        },
+        "general": {
+            "fever": false,
+            "poor_feeding": false,
+            "weight_loss": false
+        },
+        "birth_history": {
+            "term": true,
+            "nicu": false,
+            "complications": false
+        },
+        "red_flags": {
+            "pale_stools": false,
+            "dark_urine": false,
+            "lethargy": false,
+            "vomiting": false
+        }
+    },
+    "ai_personality": {
+        "role": "Mother of a 4-week-old baby",
+        "communication_style": "Calm but concerned. Short answers only.",
+        "tone": "Worried, attentive.",
+        "rules": {
+            "must": [
+                "Keep answers extremely short (under 20 words).",
+                "Only answer exactly what is asked.",
+                "Do not volunteer extra information."
+            ],
+            "do_not": [
+                "Do not use medical terms.",
+                "Do not explain unless asked."
+            ]
+        }
+    },
+    "questions": [
+        {
+            "id": "etiology",
+            "text": "What is the most likely cause of jaundice in this baby?",
+            "type": "single-best-answer",
+            "options": [
+                {
+                    "id": "a",
+                    "text": "Hemolytic disease"
+                },
+                {
+                    "id": "b",
+                    "text": "Breastmilk jaundice",
+                    "correct": true,
+                    "explanation": "Breastmilk jaundice presents as prolonged mild jaundice in exclusively breastfed, otherwise healthy infants."
+                },
+                {
+                    "id": "c",
+                    "text": "Biliary atresia"
+                },
+                {
+                    "id": "d",
+                    "text": "Neonatal sepsis"
+                }
+            ]
+        }
+    ],
+    "discussion": {
+        "keyPoints": [
+            "Breastmilk jaundice is a benign cause of prolonged neonatal jaundice.",
+            "It occurs in otherwise healthy, exclusively breastfed infants.",
+            "Stool and urine color remain normal.",
+            "No treatment is required apart from observation and reassurance."
+        ],
+        "references": []
+    },
+    "createdAt": "2025-11-01T00:00:00Z",
+    "updatedAt": "2025-11-30T19:05:05.941Z",
+    "status": "in-progress",
+    "startedAt": "2025-11-30T19:05:05.936Z"
+}
