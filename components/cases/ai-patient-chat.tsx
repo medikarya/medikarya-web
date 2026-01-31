@@ -22,9 +22,9 @@ interface AIPatientChatProps {
 
 export function AIPatientChat({ caseData, onMessageSent, chatHistory }: AIPatientChatProps) {
   const isGuardian =
-    caseData.ai_personality?.role?.toLowerCase().includes("mother") ||
-    caseData.ai_personality?.role?.toLowerCase().includes("father") ||
-    caseData.ai_personality?.role?.toLowerCase().includes("guardian")
+    caseData.ai_role?.speaker?.toLowerCase().includes("mother") ||
+    caseData.ai_role?.speaker?.toLowerCase().includes("father") ||
+    caseData.ai_role?.speaker?.toLowerCase().includes("guardian")
 
   const welcomeMessage = isGuardian
     ? `Hello Doctor. I'm ${caseData.patient.name}'s mother.`
