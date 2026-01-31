@@ -25,6 +25,15 @@ export interface CaseData extends CaseMetadata {
   patient_facts: any; // Structured object with variable keys
   questions: any[];
   discussion: any;
+  ai_role?: {
+    speaker: string;
+    first_person_description: string;
+    age_group: string;
+    can_speak_for_self: boolean;
+    language_style: string;
+    emotional_tone: string;
+    key_constraints: string[];
+  };
 }
 
 const CASES_DIR = path.join(process.cwd(), 'data/cases');

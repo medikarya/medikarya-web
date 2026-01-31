@@ -22,7 +22,8 @@ import {
   Droplets,
   Activity,
   Eye,
-  AlertCircle
+  AlertCircle,
+  Lightbulb
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
@@ -126,6 +127,13 @@ export function TestOrdering({ orderedTests, testResults, onOrderTest, caseData 
 
   return (
     <div className="h-[500px] sm:h-[550px] md:h-[600px] flex flex-col min-h-0">
+      {caseData?.patient?.investigations?.tips?.map((tip: any, index: number) => (
+        <div key={index} className="mb-2 mx-2 sm:mx-3 md:mx-4 mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-start gap-3">
+          <Lightbulb className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-blue-800">{tip.text}</p>
+        </div>
+      ))}
+
       <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="flex-1 flex flex-col min-h-0">
 
         <div className="border-b border-slate-200 bg-slate-50/50 px-2 sm:px-3 md:px-4 py-2 sm:py-3 flex-shrink-0">

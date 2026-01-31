@@ -1,10 +1,15 @@
-
 import { CaseData } from '../data/cases/index';
 import { getCaseModule } from '../cases/registry';
 import { CaseResponse } from '../cases/types';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Groq } from "groq-sdk";
 
 export class ChatEngine {
+
+    // Store history per user (array of {role, content} objects)
+    private static sessionHistories: Map<string, Array<{ role: 'user' | 'assistant'; content: string }>> = new Map();
+
+    // Optional: max turns to keep (prevents context window overflow)
+    private static readonly MAX_HISTORY_TURNS = 6; // 3 user + 3 assistant = last ~3 exchanges
 
     static async processRequest(
         message: string,
@@ -43,8 +48,8 @@ export class ChatEngine {
             // const isRedFlag = module.detectRedFlag(message);
         }
 
-        // 4. LLM Fallback (Gemini)
-        return await this.generateLLMResponse(message, caseData);
+        // 4. LLM Fallback (Groq)
+        return await this.generateLLMResponse(message, caseData, userId);
     }
 
     // Helper from route.ts
@@ -66,79 +71,116 @@ export class ChatEngine {
         return questionStarters.some(starter => q.startsWith(starter));
     }
 
-    private static async generateLLMResponse(message: string, caseData: CaseData): Promise<CaseResponse | { error: string, status: number }> {
-        // Dynamic Prompt Construction
-        const patientName = caseData.patient_facts?.identity?.name || "the patient";
-        const patientAge = caseData.patient_facts?.identity?.age_years ?
-            `${caseData.patient_facts.identity.age_years} years old` :
-            (caseData.patient_facts?.identity?.age_weeks + " weeks old");
+    private static async generateLLMResponse(
+        message: string,
+        caseData: CaseData,
+        userId: string
+    ): Promise<CaseResponse | { error: string, status: number }> {
+        const aiRole = caseData.ai_role || {
+            speaker: "patient",
+            first_person_description: "the patient",
+            age_group: "adult",
+            can_speak_for_self: true,
+            language_style: "simple layperson",
+            emotional_tone: "worried",
+            key_constraints: []
+        };
 
-        const role = caseData.patient?.ai_personality?.role || "Mother of the patient";
-        const communicationStyle = caseData.patient?.ai_personality?.communication_style || "Calm but concerned.";
-        const tone = caseData.patient?.ai_personality?.tone || "Worried.";
+        const speakerDesc = aiRole.first_person_description || "the patient";
+        const speaker = aiRole.speaker || "the patient";
+        const tone = aiRole.emotional_tone || "worried";
+        const style = aiRole.language_style || "simple layperson language";
+        const goal = aiRole.can_speak_for_self
+            ? "Describe your symptoms clearly and seek help."
+            : "Get help for your child/family member. You are worried.";
 
         const systemPrompt = `
-You are the ${role} of a ${patientAge} named ${patientName}.
-You are speaking directly to a doctor in a consultation.
+You are ${speakerDesc}.
+You are speaking directly to a doctor or medical student in a consultation.
 
-YOUR GOAL: To get help for your child. You are worried.
+YOUR GOAL: ${goal}
 
-STRICT SPEAKING RULES (Follow these exactly):
-1.  **KEEP IT SHORT**: Use 1-2 short sentences maximum. No long paragraphs.
-2.  **LAYMAN LANGUAGE**: You are NOT a doctor. You do NOT know medical terms.
-    -   NEVER say "jaundice" -> Say "yellow skin" or "yellow eyes".
-    -   NEVER say "lethargic" -> Say "he is tired" or "sleepy".
-    -   NEVER say "stools" -> Say "poop".
-3.  **DIRECT ANSWERS**: If asked a Yes/No question, start with "Yes" or "No".
-4.  **STAY IN CHARACTER**: You are ${communicationStyle}. You are ${tone}.
-5.  **DON'T KNOW?**: If the answer isn't in the background info below, say "I don't know" or "No". Do not guess.
+STRICT RULES - FOLLOW EVERY TIME:
+1. Respond ONLY as ${speaker} in first person. NEVER break character, NEVER explain medicine, NEVER act as doctor or AI.
+2. Use very simple, everyday words – NO medical terms whatsoever.
+   - Say "yellow eyes/face" instead of jaundice, "sleepy/tired" instead of lethargic, "poop" instead of stools.
+3. Keep responses VERY SHORT: 1–3 short sentences maximum.
+4. Yes/No questions → Start with "Yes" or "No".
+5. Base EVERY answer STRICTLY on the BACKGROUND below only. Do NOT add, guess, invent, assume, or recall external knowledge. 
+   If the information is not in the background → say "I don't know doctor saab", "Mujhe nahi pata", "That's why I'm asking you", or similar.
+6. NEVER suggest, recommend, name, or discuss medicine, tests, diagnosis, treatment, or prognosis — always defer: "Please tell me doctor", "I don't know, aap hi batao", "Mujhe kuch nahi pata".
+7. Speak with a ${tone} tone. Use natural ${style} (e.g., doctor saab, beta, mujhe dar lag raha hai when it fits).
+8. Carefully track what "it" or "this" refers to from previous messages. If the doctor asks about symptom duration/onset/progression, ALWAYS refer to the jaundice/yellow color timing from the background — NEVER confuse it with the baby's current age. Example: If doctor asks "did it start exactly 4 weeks ago?", answer based on when the yellow started (around day 5-7 / about 3 weeks ago), not the baby's age.
 
-BACKGROUND INFORMATION (This is your only memory):
-${caseData.patient_text_brief}
+BACKGROUND (this is your only memory – memorize it exactly):
+${caseData.patient_text_brief || "No additional background available."}
 
-INSTRUCTIONS FOR HANDLING QUESTIONS:
--   If asked "What is the problem?", describe the "MAIN PROBLEM" from the background in your own words.
--   If asked about feeding/poop/pee, use the info in "OTHER SYMPTOMS".
--   If asked about pregnancy/birth, use "HISTORY".
--   If asked "Who are you?", say "I am his mother."
-
-Remember: Be brief, be simple, be worried.
+Remember: Be brief, simple, and stay in character.
 `.trim();
 
+        const historyKey = `${userId}:${caseData.id}`; // per case + user
+        let history = this.sessionHistories.get(historyKey) || [];
+
+        // Filter any bad entries
+        history = history.filter(h => h.content?.trim());
+
+        // Build messages: system + recent history + current user message
+        const messages: Array<{ role: "system" | "user" | "assistant"; content: string }> = [
+            { role: "system", content: systemPrompt },
+            ...history.map(msg => ({ role: msg.role, content: msg.content })),
+            { role: "user", content: message }
+        ];
+
         try {
-            const apiKey = process.env.GEMINI_API_KEY;
+            const apiKey = process.env.GROQ_API_KEY;
             if (!apiKey) {
-                console.error("Missing GEMINI_API_KEY");
+                console.error("Missing GROQ_API_KEY");
                 return { error: "Configuration Error: Missing API Key", status: 500 };
             }
 
-            const genAI = new GoogleGenerativeAI(apiKey);
+            const groq = new Groq({ apiKey });
 
-            // Per 2026 docs: 1.5 is deprecated/shutdown. Using 2.5 Flash Stable.
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-            const result = await model.generateContent({
-                contents: [{ role: "user", parts: [{ text: message }] }],
-                systemInstruction: systemPrompt,
-                generationConfig: { maxOutputTokens: 150, temperature: 0.1 }
+            const chatCompletion = await groq.chat.completions.create({
+                messages,
+                model: "llama-3.3-70b-versatile",
+                temperature: 0.2,
+                top_p: 0.9,
+                max_completion_tokens: 150,
+                stream: false
             });
-            const response = await result.response;
-            const responseText = response.text();
 
-            let text = responseText;
+            let text = chatCompletion.choices[0]?.message?.content?.trim() || "I don't know.";
 
             // Defensive cleanup
             text = text.split("\n")[0].trim();
-            text = text.replace(/^mother\s*:\s*/i, "").trim();
-            text = text.replace(/^guardian\s*:\s*/i, "").trim();
+            // Remove potential prefix like "Mother: " or "Patient: "
+            text = text.replace(new RegExp(`^${aiRole.speaker}\\s*:\\s*`, "i"), "").trim();
+
+            const finalResponse = text || "I don't know.";
+
+            // 3. Save to history
+            history.push({ role: "user", content: message });
+            history.push({ role: "assistant", content: finalResponse });
+
+            // 4. Keep only the last N turns (important for context window)
+            if (history.length > this.MAX_HISTORY_TURNS * 2) {
+                history = history.slice(-this.MAX_HISTORY_TURNS * 2);
+            }
+
+            this.sessionHistories.set(historyKey, history);
 
             return {
-                response: text || "I don't know.",
+                response: finalResponse,
                 timestamp: new Date().toISOString(),
                 source: "ai"
             };
 
         } catch (error) {
-            console.error("Error in patient chat API (Gemini):", error);
+            console.error("Groq error:", error);
+            // Defensive logging for detailed Groq errors
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
             return { error: "Internal server error", status: 500 };
         }
     }

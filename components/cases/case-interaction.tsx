@@ -59,7 +59,13 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
         if (parsed.activeTab) setActiveTab(parsed.activeTab)
         if (parsed.orderedTests) setOrderedTests(parsed.orderedTests)
         if (parsed.testResults) setTestResults(parsed.testResults)
-        if (parsed.chatHistory) setChatHistory(parsed.chatHistory)
+        if (parsed.chatHistory) {
+          // Deduplicate loaded history
+          const uniqueHistory = parsed.chatHistory.filter((msg: any, index: number, self: any[]) =>
+            index === self.findIndex((m: any) => m.id === msg.id)
+          )
+          setChatHistory(uniqueHistory)
+        }
         if (parsed.diagnosisSubmitted) setDiagnosisSubmitted(parsed.diagnosisSubmitted)
         if (parsed.feedback) setFeedback(parsed.feedback)
       }
@@ -140,7 +146,11 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
   }
 
   const handleChatMessage = (message: any) => {
-    setChatHistory(prev => [...prev, message])
+    setChatHistory(prev => {
+      // Prevent duplicates based on ID
+      if (prev.some(m => m.id === message.id)) return prev
+      return [...prev, message]
+    })
   }
 
   if (diagnosisSubmitted && feedback) {

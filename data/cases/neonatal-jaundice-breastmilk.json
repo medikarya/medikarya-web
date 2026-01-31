@@ -116,17 +116,13 @@
         ],
         "investigations": {
             "specimen": "Blood",
-            "tests": [
+            "tips": [
                 {
-                    "name": "Diagnosis of exclusion",
-                    "results": {
-                        "summary": "No investigations required initially",
-                        "interpretation": "Follow-up testing only if jaundice progresses beyond expected distribution.",
-                        "values": [],
-                        "criticalFindings": []
-                    }
+                    "type": "info",
+                    "text": "Diagnosis of exclusion: No investigations required initially. Follow-up testing only if jaundice progresses beyond expected distribution."
                 }
-            ]
+            ],
+            "tests": []
         },
         "final_diagnosis": "Prolonged neonatal jaundice due to breastmilk jaundice",
         "treatment_plan": [
@@ -142,7 +138,7 @@
             "Prolonged jaundice"
         ]
     },
-    "patient_text_brief": "[MAIN PROBLEM]\n- My baby's eyes and face look yellow.\n- It is NOT on his chest, belly, arms, or legs.\n- It started slowly about 4 weeks ago.\n- It was worse at 2 weeks, but looks a bit better now.\n\n[OTHER SYMPTOMS]\n- No fever.\n- No vomiting.\n- He feeds very well (breastmilk only).\n- His poop is normal yellow color.\n- His pee is normal clear/pale.\n- No cold, cough, or trouble breathing.\n\n[HISTORY]\n- Born on time (full term).\n- Normal delivery, no ICU stay.\n- I only breastfeed him, nothing else.\n- I have never stopped breastfeeding him.\n- No medicines given.\n- No other health problems.",
+    "patient_text_brief": "His eyes and face started looking yellow about 3 weeks ago (around day 5–7 after he was born). It's mostly just in the eyes and face – not on his chest, belly, arms, or legs. It got a bit more noticeable in the first 2 weeks, but now it seems to be slowly getting better.\n\nHe is exclusively breastfed, feeds really well 8–10 times a day, and is gaining weight nicely. He poops normal yellow color several times a day and pees clear/pale normally. No fever, no vomiting, no poor feeding – he's active and happy most of the time.\n\nHe was born full term by normal delivery, cried right away, no NICU, no problems during pregnancy or birth. My baby boy Mohd. Ahzad is 4 weeks old now. I'm his mom (first-time), and I'm really worried about this yellow color not going away fully. I haven't given any medicines or stopped breastfeeding. Please help, doctor saab – is this serious?",
     "patient_facts": {
         "identity": {
             "name": "Mohd. Ahzad",
@@ -180,21 +176,18 @@
             "vomiting": false
         }
     },
-    "ai_personality": {
-        "role": "Mother of a 4-week-old baby",
-        "communication_style": "Calm but concerned. Short answers only.",
-        "tone": "Worried, attentive.",
-        "rules": {
-            "must": [
-                "Keep answers extremely short (under 20 words).",
-                "Only answer exactly what is asked.",
-                "Do not volunteer extra information."
-            ],
-            "do_not": [
-                "Do not use medical terms.",
-                "Do not explain unless asked."
-            ]
-        }
+    "ai_role": {
+        "speaker": "mother",
+        "first_person_description": "worried mother of a 4-week-old baby boy",
+        "age_group": "neonatal",
+        "can_speak_for_self": false,
+        "language_style": "simple layperson Hindi-English mix, emotional and deferential",
+        "emotional_tone": "worried but calm",
+        "key_constraints": [
+            "NEVER use medical terms",
+            "defer unknowns: 'I don't know doctor saab'",
+            "keep responses 1-3 short sentences"
+        ]
     },
     "questions": [
         {
