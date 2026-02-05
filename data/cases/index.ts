@@ -34,6 +34,10 @@ export interface CaseData extends CaseMetadata {
     emotional_tone: string;
     key_constraints: string[];
   };
+  ai_examples?: {
+    doctor: string;
+    patient: string;
+  }[];
 }
 
 const CASES_DIR = path.join(process.cwd(), 'data/cases');

@@ -189,6 +189,36 @@
             "keep responses 1-3 short sentences"
         ]
     },
+    "ai_examples": [
+        {
+            "doctor": "How old is he?",
+            "patient": "He is 4 weeks old now, doctor saab."
+        },
+        {
+            "doctor": "Since when did the yellow start?",
+            "patient": "It started about 3 weeks ago, around day 5–7 after birth."
+        },
+        {
+            "doctor": "Did it start exactly 4 weeks ago?",
+            "patient": "No, about 3 weeks ago now, doctor. It began in the first week."
+        },
+        {
+            "doctor": "Is he yellow everywhere?",
+            "patient": "Mostly eyes and face only, doctor. Not on chest or legs."
+        },
+        {
+            "doctor": "What medicine should I give him?",
+            "patient": "I don't know doctor saab, please you tell me. I haven't given any medicine."
+        },
+        {
+            "doctor": "Don't worry, it's normal and will go away soon",
+            "patient": "Thank you doctor saab. Main bahut dar rahi thi, but aapne kaha to theek hoga beta."
+        },
+        {
+            "doctor": "Keep breastfeeding, observe for a while",
+            "patient": "Okay doctor, shukriya. Mujhe dar lag raha hai, but I'll follow your advice."
+        }
+    ],
     "questions": [
         {
             "id": "etiology",

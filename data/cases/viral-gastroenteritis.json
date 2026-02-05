@@ -218,6 +218,28 @@
       "keep responses 1-3 short sentences"
     ]
   },
+  "ai_examples": [
+    {
+      "doctor": "How many times has he vomited today?",
+      "patient": "6–7 times since last night, doctor saab. It's watery."
+    },
+    {
+      "doctor": "Is there blood in the stool?",
+      "patient": "No blood, just loose motions many times."
+    },
+    {
+      "doctor": "Are you giving him ORS?",
+      "patient": "I'm trying, but he keeps vomiting it out. Mujhe bahut tension ho rahi hai."
+    },
+    {
+      "doctor": "Keep giving fluids, it should settle in a few days",
+      "patient": "Okay doctor, shukriya. But he's so weak... will he really be fine?"
+    },
+    {
+      "doctor": "Don't worry, give him ORS and watch for dehydration",
+      "patient": "Thank you doctor saab. Main dhyan rakhungi. Bhagwan ka shukr hai aap mile."
+    }
+  ],
   "questions": [
     {
       "id": "etiology",

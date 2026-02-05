@@ -1,26 +1,23 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Separator } from "@/components/ui/separator"
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   CheckCircle2,
   XCircle,
-  AlertCircle,
   Activity,
-  Award,
-  ClipboardCheck,
   FlaskConical,
+  Brain,
   ArrowRight,
-  Home,
+  ArrowLeft,
+  Award,
   RotateCcw,
-  FileText,
-  History,
-  Info
-} from "lucide-react"
-import { cn } from "@/lib/utils"
+  Home,
+  BookOpen,
+  PartyPopper
+} from "lucide-react";
 
 interface CaseFeedbackProps {
   feedback: any
@@ -30,250 +27,360 @@ interface CaseFeedbackProps {
   onReset?: () => void
 }
 
-export function CaseFeedback({ feedback, caseData, orderedTests, onExit, onReset }: CaseFeedbackProps) {
-  const isCorrect = feedback.isCorrect
-  const score = feedback.score
-
+function ProgressHeader({ step, total }: { step: number; total: number }) {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div
-        className="h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent hover:scrollbar-thumb-slate-400"
-        data-lenis-prevent
-      >
-        <div className="container mx-auto px-4 md:px-6 py-8 max-w-5xl pb-20">
-
-          {/* Top Navigation / Breadcrumb Look */}
-          <div className="mb-6 flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <Activity className="h-4 w-4" />
-              <span>Case Evaluation</span>
-              <span className="text-slate-300">/</span>
-              <span className="font-medium text-slate-900">{caseData.patient.name}</span>
-            </div>
-            <Badge variant="outline" className="bg-white text-slate-600 border-slate-200">
-              {new Date().toLocaleDateString()}
-            </Badge>
-          </div>
-
-          {/* Header Section */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900 tracking-tight mb-2">Performance Report</h1>
-              <p className="text-slate-600 max-w-2xl">
-                Evaluation of clinical reasoning, history taking, and test ordering efficiency for the presented case.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-4 bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-              <div className="text-right">
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Score</div>
-                <div className="text-3xl font-bold text-brand-600">{score}/100</div>
-              </div>
-              <div className="h-12 w-12 rounded-full bg-brand-50 flex items-center justify-center border-2 border-brand-100">
-                <Award className="h-6 w-6 text-brand-600" />
-              </div>
-            </div>
-          </div>
-
-          {/* Key Metrics Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <Card className="border-slate-200 shadow-sm">
-              <CardContent className="p-4 flex items-center gap-4">
-                <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center", isCorrect ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700")}>
-                  <ClipboardCheck className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-slate-500">Diagnosis Status</div>
-                  <div className={cn("text-lg font-bold", isCorrect ? "text-green-700" : "text-amber-700")}>
-                    {isCorrect ? "Correct" : "Incorrect"}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-slate-200 shadow-sm">
-              <CardContent className="p-4 flex items-center gap-4">
-                <div className="h-10 w-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center">
-                  <FlaskConical className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-slate-500">Tests Ordered</div>
-                  <div className="text-lg font-bold text-slate-900">
-                    {orderedTests.length} <span className="text-xs font-normal text-slate-500">tests</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-slate-200 shadow-sm">
-              <CardContent className="p-4 flex items-center gap-4">
-                <div className="h-10 w-10 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center">
-                  <Activity className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-slate-500">XP Gained</div>
-                  <div className="text-lg font-bold text-slate-900">+{caseData.xpReward} XP</div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-            {/* Left Column: Detailed Clinical Feedback */}
-            <div className="lg:col-span-2 space-y-8">
-
-              {/* Diagnosis Analysis */}
-              <section>
-                <div className="flex items-center gap-2 mb-4">
-                  <FileText className="h-5 w-5 text-slate-500" />
-                  <h3 className="text-lg font-semibold text-slate-900">Diagnostic Accuracy</h3>
-                </div>
-                <Card className="border-slate-200 shadow-sm overflow-hidden">
-                  <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
-                    <div className="p-5 bg-slate-50/50">
-                      <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Submitted Diagnosis</div>
-                      <div className="font-medium text-slate-900 text-lg">{feedback.studentDiagnosis || "No diagnosis provided"}</div>
-                    </div>
-                    <div className="p-5 bg-green-50/30">
-                      <div className="text-xs font-semibold text-green-700 uppercase tracking-wider mb-2">Final Diagnosis</div>
-                      <div className="font-medium text-slate-900 text-lg flex items-center gap-2">
-                        {feedback.correctDiagnosis}
-                        <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </section>
-
-              {/* Clinical Evaluation */}
-              <section>
-                <div className="flex items-center gap-2 mb-4">
-                  <History className="h-5 w-5 text-slate-500" />
-                  <h3 className="text-lg font-semibold text-slate-900">Clinical Evaluation</h3>
-                </div>
-
-                <Card className="border-slate-200 shadow-sm">
-                  <CardHeader className="pb-2 border-b border-slate-100">
-                    <CardTitle className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Strengths & Observations</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-4 space-y-4">
-                    {feedback.feedback.strengths.length > 0 ? (
-                      <div className="space-y-3">
-                        {feedback.feedback.strengths.map((str: string, i: number) => (
-                          <div key={i} className="flex gap-3 text-sm text-slate-700">
-                            <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
-                            <span className="leading-relaxed">{str.replace(/✅/g, '').trim()}</span>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-slate-500 italic">No specific strengths noted.</p>
-                    )}
-
-                    {feedback.feedback.improvements.length > 0 && (
-                      <>
-                        <Separator className="my-2" />
-                        <div className="space-y-3">
-                          {feedback.feedback.improvements.map((imp: string, i: number) => (
-                            <div key={i} className="flex gap-3 text-sm text-slate-700">
-                              <AlertCircle className="h-5 w-5 text-amber-500 shrink-0" />
-                              <span className="leading-relaxed">{imp.replace(/❌/g, '').trim()}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </CardContent>
-                </Card>
-              </section>
-
-              {/* Learning Points */}
-              <section>
-                <Card className="bg-slate-50 border-slate-200 border-l-4 border-l-brand-500 shadow-sm">
-                  <CardContent className="p-5">
-                    <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                      <Info className="h-4 w-4 text-brand-600" />
-                      Clinical Takeaway
-                    </h4>
-                    <p className="text-sm text-slate-600 leading-relaxed">
-                      This case demonstrates the importance of systematic evaluation in {caseData.patient.age}-year-old patients presenting with {caseData.patient.chiefComplaint}.
-                      Accurate diagnosis relies on distinguishing between similar presentations through detailed history taking and targeted investigations.
-                    </p>
-                  </CardContent>
-                </Card>
-              </section>
-
-            </div>
-
-            {/* Right Column: Testing Stats */}
-            <div className="space-y-6">
-              <section>
-                <div className="flex items-center gap-2 mb-4">
-                  <FlaskConical className="h-5 w-5 text-slate-500" />
-                  <h3 className="text-lg font-semibold text-slate-900">Testing Efficiency</h3>
-                </div>
-
-                <Card className="border-slate-200 shadow-sm">
-                  <CardContent className="p-0">
-                    <div className="p-4 border-b border-slate-100">
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm font-medium text-slate-700">Ordered Appropriate</span>
-                        <span className="text-sm font-bold text-green-600">{feedback.feedback.testingEfficiency.appropriateTests}</span>
-                      </div>
-                      <Progress value={Math.min(100, (feedback.feedback.testingEfficiency.appropriateTests * 20))} className="h-1.5 bg-slate-100" indicatorClassName="bg-green-500" />
-                    </div>
-                    <div className="p-4 border-b border-slate-100">
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm font-medium text-slate-700">Unnecessary</span>
-                        <span className="text-sm font-bold text-amber-600">{feedback.feedback.testingEfficiency.unnecessaryTests}</span>
-                      </div>
-                      <Progress value={Math.min(100, (feedback.feedback.testingEfficiency.unnecessaryTests * 20))} className="h-1.5 bg-slate-100" indicatorClassName="bg-amber-500" />
-                    </div>
-                    <div className="p-4 bg-slate-50">
-                      <div className="text-sm font-medium text-slate-700 mb-3">Missed Opportunities</div>
-                      {feedback.feedback.testingEfficiency.missedTests && feedback.feedback.testingEfficiency.missedTests.length > 0 ? (
-                        <div className="flex flex-wrap gap-1.5">
-                          {feedback.feedback.testingEfficiency.missedTests.map((test: string, i: number) => (
-                            <Badge key={i} variant="secondary" className="bg-white border-slate-200 text-slate-600 font-normal hover:bg-white text-xs">
-                              {test}
-                            </Badge>
-                          ))}
-                        </div>
-                      ) : (
-                        <span className="text-xs text-slate-400 italic">None</span>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </section>
-            </div>
-          </div>
-
-          {/* Action Footer */}
-          <div className="mt-12 pt-6 border-t border-slate-200">
-            <div className="flex flex-col sm:flex-row gap-3 justify-end items-center">
-              <Button
-                variant="ghost"
-                onClick={onExit}
-                className="w-full sm:w-auto text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-              >
-                <Home className="mr-2 h-4 w-4" />
-                Return to Dashboard
-              </Button>
-              <Button
-                size="lg"
-                onClick={onReset || (() => window.location.reload())}
-                className="w-full sm:w-auto min-w-[200px] h-11 text-base font-medium bg-slate-900 text-white hover:bg-slate-800 shadow-sm"
-              >
-                <RotateCcw className="mr-2 h-4 w-4" />
-                Retry Case
-              </Button>
-            </div>
-          </div>
-
-        </div>
+    <div className="mb-8">
+      <div className="flex items-center justify-between mb-3 text-sm font-medium text-slate-500">
+        <span>Clinical Reasoning Replay</span>
+        <span>Step {step + 1} of {total}</span>
+      </div>
+      <div className="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
+        <motion.div
+          className="h-full bg-slate-900"
+          initial={{ width: 0 }}
+          animate={{ width: `${((step + 1) / total) * 100}%` }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        />
       </div>
     </div>
-  )
+  );
 }
+
+function Nav({ onPrev, onNext, isFirst, isLast, onExit, onReset }: {
+  onPrev: () => void;
+  onNext: () => void;
+  isFirst: boolean;
+  isLast: boolean;
+  onExit: () => void;
+  onReset?: () => void;
+}) {
+  return (
+    <div className="flex items-center justify-between mt-10">
+      <Button
+        variant="outline"
+        onClick={onPrev}
+        disabled={isFirst}
+        className="gap-2 text-slate-600"
+      >
+        <ArrowLeft className="w-4 h-4" /> Back
+      </Button>
+
+      {isLast ? (
+        <div className="flex gap-2">
+          <Button variant="ghost" onClick={onExit} className="gap-2">
+            <Home className="w-4 h-4" /> Dashboard
+          </Button>
+          <Button onClick={onReset || (() => window.location.reload())} className="gap-2 bg-slate-900 hover:bg-slate-800 text-white">
+            <RotateCcw className="w-4 h-4" /> Try Again
+          </Button>
+        </div>
+      ) : (
+        <Button onClick={onNext} className="gap-2 bg-slate-900 hover:bg-slate-800 text-white">
+          Next <ArrowRight className="w-4 h-4" />
+        </Button>
+      )}
+    </div>
+  );
+}
+
+function Section({ icon: Icon, title, children }: { icon: any; title: string; children: React.ReactNode }) {
+  return (
+    <Card className="shadow-lg shadow-slate-200/50 border-0 rounded-2xl bg-white overflow-hidden">
+      <CardContent className="p-6 md:p-10">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-slate-900">
+            <Icon className="w-6 h-6" />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h2>
+        </div>
+        <div className="text-slate-600 leading-relaxed text-[16px] md:text-lg">
+          {children}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function TimelineItem({ good, children }: { good?: boolean; children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      className={`flex gap-4 p-4 rounded-xl border ${good
+          ? "bg-emerald-50/50 border-emerald-100"
+          : "bg-rose-50/50 border-rose-100"
+        }`}
+    >
+      <div className={`mt-1 p-1 rounded-full ${good ? "bg-emerald-100 text-emerald-600" : "bg-rose-100 text-rose-600"}`}>
+        {good ? (
+          <CheckCircle2 className="w-4 h-4" />
+        ) : (
+          <XCircle className="w-4 h-4" />
+        )}
+      </div>
+      <div className="text-base text-slate-800 font-medium leading-relaxed">{children}</div>
+    </motion.div>
+  );
+}
+
+// Simple celebration component using framer-motion
+function Celebration() {
+  const particles = Array.from({ length: 20 });
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-50 flex justify-center items-center">
+      {particles.map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
+          animate={{
+            opacity: 0,
+            scale: Math.random() * 1 + 0.5,
+            x: (Math.random() - 0.5) * 400,
+            y: (Math.random() - 0.5) * 400
+          }}
+          transition={{ duration: 1, ease: "easeOut", delay: Math.random() * 0.2 }}
+          className="absolute w-3 h-3 rounded-full"
+          style={{
+            backgroundColor: ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'][Math.floor(Math.random() * 5)]
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+export function CaseFeedback({ feedback, caseData, orderedTests, onExit, onReset }: CaseFeedbackProps) {
+  const [step, setStep] = useState(0);
+  const [showCelebration, setShowCelebration] = useState(false);
+
+  // Filter out ELISA and any empty strings
+  const missedTestsStart = feedback.feedback.testingEfficiency.missedTests || [];
+  const filteredMissedTests = missedTestsStart
+    .filter((t: string) => !t.toLowerCase().includes("elisa"))
+    .filter(Boolean);
+
+  // Trigger celebration if score is good (> 70) and we are on the first or result step
+  useEffect(() => {
+    if (feedback.score >= 70 && step === 0) {
+      setShowCelebration(true);
+      const timer = setTimeout(() => setShowCelebration(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [feedback.score, step]);
+
+  // Construct steps based on feedback data
+  const steps = [
+    {
+      title: "Case Outcome",
+      icon: Activity,
+      content: (
+        <div className="space-y-6">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+            <p className="text-slate-500 text-sm uppercase tracking-wide font-semibold mb-1">You Suspected</p>
+            <p className="text-xl font-medium text-slate-900">
+              {feedback.studentDiagnosis || "No diagnosis provided"}
+            </p>
+          </div>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+            <p className="text-slate-500 text-sm uppercase tracking-wide font-semibold mb-1">Actual Diagnosis</p>
+            <p className="text-xl font-medium text-brand-600 flex items-center gap-2">
+              {feedback.correctDiagnosis}
+              {feedback.isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-500" />}
+            </p>
+          </div>
+          <p className="text-slate-500 italic mt-4">
+            Let’s calmly walk through how your reasoning unfolded and identify key decision points.
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "What You Did Well",
+      icon: CheckCircle2,
+      content: (
+        feedback.feedback.strengths && feedback.feedback.strengths.length > 0 ? (
+          <ul className="space-y-4">
+            {feedback.feedback.strengths.map((str: string, i: number) => (
+              <li key={i} className="flex gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-1 shrink-0" />
+                <span className="text-slate-700">{str.replace(/✅/g, '').trim()}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No specific strengths noted, but that's okay! We learn from every case.</p>
+        )
+      ),
+    },
+    {
+      title: "Your Decision Timeline",
+      icon: Brain,
+      content: (
+        <div className="space-y-3">
+          {/* Mixing strengths and improvements to simulate a timeline of good/bad decisions */}
+          {feedback.feedback.strengths?.slice(0, 2).map((str: string, i: number) => (
+            <TimelineItem key={`good-${i}`} good>
+              {str.replace(/✅/g, '').trim()}
+            </TimelineItem>
+          ))}
+          {feedback.feedback.improvements?.map((imp: string, i: number) => (
+            <TimelineItem key={`bad-${i}`}>
+              {imp.replace(/❌/g, '').trim()}
+            </TimelineItem>
+          ))}
+        </div>
+      ),
+    },
+    {
+      title: "Clinical Takeaway",
+      icon: BookOpen,
+      content: (
+        <div className="space-y-4">
+          {caseData.discussion?.keyPoints?.length > 0 ? (
+            <ul className="space-y-3">
+              {caseData.discussion.keyPoints.map((point: string, i: number) => (
+                <li key={i} className="flex gap-3 text-slate-700 leading-relaxed">
+                  <div className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <>
+              <p>
+                This case demonstrates the importance of systematic evaluation in <strong>{caseData.patient.age}-year-old</strong> patients presenting with <strong>{caseData.patient.chiefComplaint}</strong>.
+              </p>
+              <p>
+                Accurate diagnosis relies on distinguishing between similar presentations through detailed history taking and targeted investigations.
+              </p>
+            </>
+          )}
+        </div>
+      ),
+    },
+    {
+      title: "Tests You Should Have Considered",
+      icon: FlaskConical,
+      content: (
+        filteredMissedTests.length > 0 ? (
+          <div className="space-y-4">
+            <p>Consider ordering these tests to narrow down your differential:</p>
+            <div className="flex flex-wrap gap-2">
+              {filteredMissedTests.map((test: string, i: number) => (
+                <div key={i} className="px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 font-medium border border-indigo-100">
+                  {test}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center text-center p-6 bg-emerald-50 rounded-xl border border-emerald-100">
+            <CheckCircle2 className="w-8 h-8 text-emerald-500 mb-2" />
+            <p className="text-emerald-800 font-medium">Great job! You ordered all the relevant tests.</p>
+          </div>
+        )
+      ),
+    },
+    {
+      title: "Performance Summary",
+      icon: Award,
+      content: (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex flex-col items-center text-center relative overflow-hidden">
+              {/* Mini confetti for high score inside card */}
+              {feedback.score >= 80 && (
+                <div className="absolute top-0 right-0 p-2 opacity-20"><PartyPopper className="w-12 h-12 text-yellow-500" /></div>
+              )}
+              <span className="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-2">Total Score</span>
+              <span className="text-5xl font-bold text-slate-900">{feedback.score}</span>
+              <span className="text-slate-400 text-sm mt-1">out of 100</span>
+            </div>
+            <div className="bg-brand-50 p-6 rounded-2xl border border-brand-100 flex flex-col items-center text-center">
+              <span className="text-brand-600 text-sm font-semibold uppercase tracking-wider mb-2">XP Gained</span>
+              <span className="text-5xl font-bold text-brand-700">+{caseData.xpReward}</span>
+              <span className="text-brand-400 text-sm mt-1">experience points</span>
+            </div>
+          </div>
+
+          <div className="space-y-2 mt-4">
+            <div className="flex justify-between text-sm font-medium text-slate-600">
+              <span>Testing Efficiency</span>
+              <span>
+                {feedback.feedback.testingEfficiency.appropriateTests} Appropriate / {feedback.feedback.testingEfficiency.unnecessaryTests} Unnecessary
+              </span>
+            </div>
+            <div className="h-2.5 rounded-full bg-slate-100 overflow-hidden flex">
+              <div
+                className="h-full bg-emerald-500"
+                style={{ width: `${(feedback.feedback.testingEfficiency.appropriateTests / (feedback.feedback.testingEfficiency.appropriateTests + feedback.feedback.testingEfficiency.unnecessaryTests + 0.1)) * 100}%` }}
+              />
+              <div
+                className="h-full bg-amber-400"
+                style={{ width: `${(feedback.feedback.testingEfficiency.unnecessaryTests / (feedback.feedback.testingEfficiency.appropriateTests + feedback.feedback.testingEfficiency.unnecessaryTests + 0.1)) * 100}%` }}
+              />
+            </div>
+          </div>
+
+          {/* References Section */}
+          {caseData.discussion?.references && caseData.discussion.references.length > 0 && (
+            <div className="mt-8 pt-6 border-t border-slate-100">
+              <h4 className="text-sm font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-slate-400" />
+                References
+              </h4>
+              <ul className="space-y-2">
+                {caseData.discussion.references.slice(0, 2).map((ref: string, i: number) => (
+                  <li key={i} className="text-xs text-slate-500 leading-normal pl-2 border-l-2 border-slate-200">
+                    {ref}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ),
+    },
+  ];
+
+  const totalSteps = steps.length;
+  const next = () => setStep((s) => Math.min(s + 1, totalSteps - 1));
+  const prev = () => setStep((s) => Math.max(s - 1, 0));
+
+  return (
+    <div className="min-h-screen bg-slate-50/50 flex flex-col items-center justify-center p-4 md:p-8 relative">
+      <AnimatePresence>
+        {showCelebration && <Celebration key="celebration" />}
+      </AnimatePresence>
+
+      <div className="w-full max-w-2xl relative z-10">
+        <ProgressHeader step={step} total={totalSteps} />
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={step}
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <Section icon={steps[step].icon} title={steps[step].title}>
+              {steps[step].content}
+            </Section>
+          </motion.div>
+        </AnimatePresence>
+
+        <Nav
+          onPrev={prev}
+          onNext={next}
+          isFirst={step === 0}
+          isLast={step === totalSteps - 1}
+          onExit={onExit}
+          onReset={onReset}
+        />
+      </div>
+    </div>
+  );
+}
+

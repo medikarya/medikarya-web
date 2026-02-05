@@ -365,117 +365,23 @@ async function generateTestResult(test: any, caseData: any) {
   }
 }
 
-// Helper function to generate feedback (will be replaced with API call)
-// Helper function to generate feedback manually based on rules
-// Helper function to generate feedback manually based on rules
+// Helper function to generate feedback manually based on rules -> REPLACED BY SERVER ACTION in handleDiagnosisSubmit
+// Only keeping this as a type definition or fallback if needed, but primarily we use the API now.
 async function generateFeedback(diagnosis: any, tests: any[], chatHistory: any[], caseData: any) {
-  const feedback = {
-    strengths: [] as string[],
-    improvements: [] as string[],
-    testingEfficiency: {
-      appropriateTests: 0,
-      unnecessaryTests: 0,
-      missedTests: [] as string[]
-    }
-  }
-
-  // Scoring Weights
-  let historyScore = 0
-  let testingScore = 0
-  let diagnosisScore = 0
-
-  // --- 1. HISTORY TAKING FEEDBACK (Max 40 points) ---
-  const facts = caseData.patient_facts || {}
-  const allUserMessages = chatHistory
-    .filter(m => m.role === 'user')
-    .map(m => m.content.toLowerCase())
-    .join(' ')
-
-  // Rule: Duration (Critical - 15pts)
-  if (facts.vomiting?.duration_days && (allUserMessages.includes('long') || allUserMessages.includes('duration') || allUserMessages.includes('start') || allUserMessages.includes('since') || allUserMessages.includes('when'))) {
-    feedback.strengths.push("✅ Asked duration of symptoms")
-    historyScore += 15
-  } else {
-    feedback.improvements.push("❌ Did not ask about duration of symptoms (Critical)")
-  }
-
-  // Rule: Blood (Red Flag - 15pts)
-  if ((facts.vomiting?.blood !== undefined || facts.diarrhea?.bloody !== undefined) && (allUserMessages.includes('blood') || allUserMessages.includes('red'))) {
-    feedback.strengths.push("✅ Checked for blood in stool/vomit")
-    historyScore += 15
-  } else {
-    feedback.improvements.push("❌ Did not ask about blood in stool/vomit (Red Flag)")
-  }
-
-  // Rule: Hydration/Output (Important - 10pts)
-  if (allUserMessages.includes('wet') || allUserMessages.includes('urine') || allUserMessages.includes('pee') || allUserMessages.includes('diaper') || allUserMessages.includes('drink') || allUserMessages.includes('fluid')) {
-    feedback.strengths.push("✅ Assessed hydration status")
-    historyScore += 10
-  } else {
-    feedback.improvements.push("❌ Did not assess hydration status")
-  }
-
-  // Rule: Premature Diagnosis penalty
-  if (chatHistory.filter(m => m.role === 'user').length < 3) {
-    feedback.improvements.push("❌ Asked diagnosis before finishing thorough history")
-    historyScore -= 10
-  }
-
-  // --- 2. TEST ORDERING FEEDBACK (Max 20 points) ---
-  const requiredTestKeywords = ["microscopy", "elisa", "stool", "culture"]
-  const orderedNames = tests.map(t => t.name.toLowerCase())
-
-  // Check for required tests
-  let hasStoolTest = false
-  for (const test of tests) {
-    const name = test.name.toLowerCase()
-    if (requiredTestKeywords.some(k => name.includes(k))) {
-      hasStoolTest = true
-      feedback.testingEfficiency.appropriateTests++
-      testingScore += 10 // +10 per correct test type (capped later)
-    } else {
-      // If it's imaging (CT/X-ray) for simple gastro, it's likely unnecessary
-      if (name.includes('scan') || name.includes('x-ray') || name.includes('mri')) {
-        feedback.testingEfficiency.unnecessaryTests++
-        feedback.improvements.push(`❌ Ordered unnecessary imaging: ${test.name}`)
-        testingScore -= 5 // Penalty
+  // Fallback / Placeholder if API fails generally handled in the component
+  return {
+    correctDiagnosis: caseData.patient.final_diagnosis,
+    studentDiagnosis: diagnosis.primaryDiagnosis,
+    isCorrect: false,
+    score: 0,
+    feedback: {
+      strengths: ["Evaluation not available"],
+      improvements: ["Please check internet connection"],
+      testingEfficiency: {
+        appropriateTests: 0,
+        unnecessaryTests: 0,
+        missedTests: []
       }
     }
-  }
-
-  // Cap testing score bonuses
-  if (testingScore > 20) testingScore = 20
-
-  if (hasStoolTest) {
-    feedback.strengths.push("✅ Ordered appropriate stool analysis")
-  } else {
-    feedback.improvements.push("❌ Missed ordering stool tests for gastroenteritis")
-    feedback.testingEfficiency.missedTests.push("Stool Microscopy / ELISA")
-    testingScore -= 10 // Significant penalty for missing standard of care
-  }
-
-  // --- 3. DIAGNOSIS (Max 40 points) ---
-  const correctDx = caseData.patient?.final_diagnosis || "Viral Gastroenteritis"
-  const userDx = diagnosis.primaryDiagnosis || ""
-  const isCorrect = userDx.toLowerCase().includes("viral") || userDx.toLowerCase().includes("gastroenteritis") || userDx.toLowerCase().includes("rotavirus")
-
-  if (isCorrect) {
-    diagnosisScore = 40
-  } else {
-    diagnosisScore = 0
-  }
-
-  // Calculate Final Score
-  // Ensure we don't go below 0
-  let totalScore = Math.max(0, historyScore + testingScore + diagnosisScore)
-  // Cap at 100
-  totalScore = Math.min(100, totalScore)
-
-  return {
-    correctDiagnosis: correctDx,
-    studentDiagnosis: userDx,
-    isCorrect: isCorrect,
-    score: totalScore,
-    feedback: feedback
   }
 }
