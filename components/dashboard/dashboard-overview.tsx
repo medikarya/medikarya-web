@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useUser } from "@clerk/nextjs"
+import Link from "next/link"
 import {
   Trophy,
   Target,
@@ -105,10 +106,12 @@ export function DashboardOverview() {
           <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl md:text-3xl lg:text-4xl tracking-tight">Welcome back, {getDisplayName()}!</h1>
           <p className="text-slate-600 mt-1 sm:mt-2 text-sm sm:text-base leading-relaxed">Ready to continue your medical education journey?</p>
         </div>
-        <Button className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11">
-          <Play className="mr-2 h-4 w-4" />
-          <span className="hidden sm:inline">Start New Case</span>
-          <span className="sm:hidden">Start Case</span>
+        <Button asChild className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11">
+          <Link href="/dashboard/cases">
+            <Play className="mr-2 h-4 w-4" />
+            <span className="hidden sm:inline">Start New Case</span>
+            <span className="sm:hidden">Start Case</span>
+          </Link>
         </Button>
       </div>
 

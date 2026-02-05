@@ -23,8 +23,11 @@ export class EvaluationEngine {
         chatHistory: any[],
         caseData: any
     ): Promise<EvaluationResult> {
+        console.log("EvaluationEngine: Starting evaluation...");
+
         const apiKey = process.env.GROQ_API_KEY;
         if (!apiKey) {
+            console.error("EvaluationEngine Error: Missing GROQ_API_KEY");
             throw new Error("Missing GROQ_API_KEY");
         }
 
@@ -34,6 +37,8 @@ export class EvaluationEngine {
         const relevantChat = chatHistory
             .map(m => `${m.role === 'user' ? 'Student' : 'Patient'}: ${m.content}`)
             .join("\n");
+
+        console.log(`EvaluationEngine: Chat history length: ${relevantChat.length} chars`);
 
         const orderedTestNames = orderedTests.map(t => t.name).join(", ");
 
@@ -64,7 +69,7 @@ Patient: ${caseData.patient.name}, ${caseData.patient.age}y
 Chief Complaint: ${caseData.patient.chiefComplaint}
 Correct Diagnosis: ${caseData.patient.final_diagnosis}
 Facts: ${JSON.stringify(caseData.patient_facts)}
-Allowed/Relevant Tests: ${caseData.patient.investigations.allowed_tests.join(", ")}
+Allowed/Relevant Tests: ${caseData.patient.investigations.allowed_tests?.join(", ") || caseData.patient.investigations.tests?.map((t: any) => t.name).join(", ") || "Standard Panel"}
 
 STUDENT PERFORMANCE:
 Diagnosis Submitted: ${diagnosis.primaryDiagnosis}
@@ -75,6 +80,7 @@ ${relevantChat}
 `.trim();
 
         try {
+            console.log("EvaluationEngine: Sending request to Groq...");
             const completion = await groq.chat.completions.create({
                 messages: [
                     { role: "system", content: systemPrompt },
@@ -85,21 +91,36 @@ ${relevantChat}
                 response_format: { type: "json_object" }
             });
 
+            console.log("EvaluationEngine: Received response from Groq");
             const content = completion.choices[0]?.message?.content;
-            if (!content) throw new Error("Empty response from AI");
 
-            const result = JSON.parse(content);
+            if (!content) {
+                console.error("EvaluationEngine Error: Empty response content");
+                throw new Error("Empty response from AI");
+            }
 
-            return {
-                correctDiagnosis: caseData.patient.final_diagnosis,
-                studentDiagnosis: diagnosis.primaryDiagnosis,
-                isCorrect: result.isCorrect,
-                score: result.score,
-                feedback: result.feedback
-            };
+            try {
+                const result = JSON.parse(content);
+                console.log("EvaluationEngine: Successfully parsed JSON");
+                return {
+                    correctDiagnosis: caseData.patient.final_diagnosis,
+                    studentDiagnosis: diagnosis.primaryDiagnosis,
+                    isCorrect: result.isCorrect,
+                    score: result.score,
+                    feedback: result.feedback
+                };
+            } catch (jsonError) {
+                console.error("EvaluationEngine Error: Failed to parse JSON", content);
+                throw new Error("Failed to parse JSON response");
+            }
 
-        } catch (error) {
-            console.error("AI Evaluation Failed:", error);
+        } catch (error: any) {
+            console.error("EvaluationEngine Error Detailed:", {
+                message: error.message,
+                status: error.status,
+                type: error.type,
+                code: error.code
+            });
             // Fallback to basic result
             return {
                 correctDiagnosis: caseData.patient.final_diagnosis,
@@ -108,7 +129,7 @@ ${relevantChat}
                 score: 0,
                 feedback: {
                     strengths: ["Evaluation failed - please try again"],
-                    improvements: ["System error"],
+                    improvements: [`System error: ${error.message}`],
                     testingEfficiency: { appropriateTests: 0, unnecessaryTests: 0, missedTests: [] }
                 }
             };

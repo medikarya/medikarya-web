@@ -9,6 +9,7 @@ import { AIPatientChat } from "./ai-patient-chat"
 import { TestOrdering } from "./test-ordering"
 import { DiagnosisSubmission } from "./diagnosis-submission"
 import { CaseFeedback } from "./case-feedback"
+import { evaluateCase } from "@/app/actions/evaluate"
 import { PatientPresentation } from "./patient-presentation"
 import {
   MessageSquare,
@@ -137,12 +138,23 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
     }, 2000) // Simulate processing time
   }
 
+  const [isEvaluating, setIsEvaluating] = useState(false)
+
   const handleDiagnosisSubmit = async (diagnosis: any) => {
+    setIsEvaluating(true)
     setDiagnosisSubmitted(true)
 
-    // TODO: Replace with actual API call to get AI feedback
-    const aiFeedback = await generateFeedback(diagnosis, orderedTests, chatHistory, caseData)
-    setFeedback(aiFeedback)
+    try {
+      // API call to get AI feedback
+      const aiFeedback = await evaluateCase(diagnosis, orderedTests, chatHistory, caseData)
+      setFeedback(aiFeedback)
+    } catch (error) {
+      console.error("Evaluation failed", error)
+      const fallback = await generateFeedback(diagnosis, orderedTests, chatHistory, caseData)
+      setFeedback(fallback)
+    } finally {
+      setIsEvaluating(false)
+    }
   }
 
   const handleChatMessage = (message: any) => {

@@ -100,6 +100,19 @@
       "Traveller's diarrhea (ETEC)"
     ],
     "investigations": {
+      "allowed_tests": [
+        "Complete Blood Count (CBC)",
+        "Serum Electrolytes",
+        "Renal Function Test (RFT)",
+        "Stool Routine & Microscopy",
+        "Stool Culture",
+        "Stool ELISA for Rotavirus",
+        "Ultrasound Abdomen",
+        "X-Ray Abdomen",
+        "CT Scan Abdomen",
+        "Blood Culture",
+        "Urine Routine"
+      ],
       "specimen": "Feces",
       "tests": [
         {

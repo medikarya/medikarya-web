@@ -115,6 +115,18 @@
             "Breastfeeding jaundice"
         ],
         "investigations": {
+            "allowed_tests": [
+                "Total Serum Bilirubin (TSB)",
+                "Direct Coombs Test (DCT)",
+                "Complete Blood Count (CBC)",
+                "Blood Group & Rh Typing",
+                "Reticulocyte Count",
+                "G6PD Assay",
+                "Thyroid Profile (T3, T4, TSH)",
+                "Sepsis Screen",
+                "Liver Function Test (LFT)",
+                "Ultrasound Abdomen"
+            ],
             "specimen": "Blood",
             "tips": [
                 {
