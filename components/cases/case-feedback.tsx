@@ -18,6 +18,7 @@ import {
   BookOpen,
   PartyPopper
 } from "lucide-react";
+import { trackEvent } from "@/lib/clarity";
 
 interface CaseFeedbackProps {
   feedback: any
@@ -107,8 +108,8 @@ function TimelineItem({ good, children }: { good?: boolean; children: React.Reac
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       className={`flex gap-4 p-4 rounded-xl border ${good
-          ? "bg-emerald-50/50 border-emerald-100"
-          : "bg-rose-50/50 border-rose-100"
+        ? "bg-emerald-50/50 border-emerald-100"
+        : "bg-rose-50/50 border-rose-100"
         }`}
     >
       <div className={`mt-1 p-1 rounded-full ${good ? "bg-emerald-100 text-emerald-600" : "bg-rose-100 text-rose-600"}`}>
@@ -153,6 +154,10 @@ function Celebration() {
 export function CaseFeedback({ feedback, caseData, orderedTests, onExit, onReset }: CaseFeedbackProps) {
   const [step, setStep] = useState(0);
   const [showCelebration, setShowCelebration] = useState(false);
+
+  useEffect(() => {
+    trackEvent("Evaluation_Viewed");
+  }, []);
 
   // Filter out ELISA and any empty strings
   const missedTestsStart = feedback.feedback.testingEfficiency.missedTests || [];

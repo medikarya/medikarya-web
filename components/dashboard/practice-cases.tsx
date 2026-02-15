@@ -24,6 +24,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CaseMetadata } from "@/data/cases"
+import { trackEvent } from "@/lib/clarity"
 
 export function PracticeCases() {
   const router = useRouter()
@@ -167,7 +168,7 @@ export function PracticeCases() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-3 py-2 rounded-lg border border-slate-200 bg-white/70 text-sm h-10 sm:h-11 min-w-[160px]"
+                className="cursor-pointer px-3 py-2 rounded-lg border border-slate-200 bg-white/70 text-sm h-10 sm:h-11 min-w-[160px]"
               >
                 <option value="all">All Categories</option>
                 {Object.entries(categoryMap).map(([name, { id }]) => (
@@ -177,7 +178,7 @@ export function PracticeCases() {
               <select
                 value={selectedDifficulty}
                 onChange={(e) => setSelectedDifficulty(e.target.value)}
-                className="px-3 py-2 rounded-lg border border-slate-200 bg-white/70 text-sm h-10 sm:h-11 min-w-[140px]"
+                className="cursor-pointer px-3 py-2 rounded-lg border border-slate-200 bg-white/70 text-sm h-10 sm:h-11 min-w-[140px]"
               >
                 <option value="all">All Difficulties</option>
                 <option value="beginner">Beginner</option>
@@ -268,7 +269,10 @@ export function PracticeCases() {
                       </div>
 
                       <Button
-                        onClick={() => router.push(`/dashboard/cases/${case_.id}`)}
+                        onClick={() => {
+                          trackEvent("Case_Started")
+                          router.push(`/dashboard/cases/${case_.id}`)
+                        }}
                         className="bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white shadow-sm hover:shadow-md transition-all duration-200 h-9 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm min-w-0"
                       >
                         <Play className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />

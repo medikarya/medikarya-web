@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
+import { getCaseModule } from "@/cases/registry"
 
 export async function POST(request: NextRequest) {
   try {
     // Authenticate the user
     const { userId } = await auth()
-    
+
     if (!userId) {
       return NextResponse.json(
         { error: "Unauthorized" },
@@ -14,49 +15,43 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { test, caseData } = body
+    const { test, caseData, chatHistory } = body
 
-    // TODO: Replace with actual AI API call to generate realistic test results
-    // based on the patient's actual condition
-    
-    // Example: Call AI to generate test results
-    /*
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: `You are a medical laboratory system. Generate realistic test results for a patient with the following condition:
-            Diagnosis: ${caseData.correctDiagnosis || "Acute Myocardial Infarction"}
-            Patient: ${caseData.patient.age}y ${caseData.patient.gender}
-            Chief Complaint: ${caseData.patient.chiefComplaint}
-            Vital Signs: ${JSON.stringify(caseData.patient.vitalSigns)}
-            
-            Generate realistic results for: ${test.name}
-            Return results in JSON format with: summary, values (array of {parameter, value, unit, normalRange, status}), interpretation, and criticalFindings (array).`
-          },
-          {
-            role: "user",
-            content: `Generate results for ${test.name}`
+    // 1. Try to get logic from case module
+    const caseId = caseData.id || caseData.patient?.id || "unknown"
+    const caseModule = getCaseModule(caseId)
+
+    let results = null
+
+    if (caseModule) {
+      const investigationLogic = caseModule.getInvestigationLogic()
+      const testId = test.id || test.name // flexible match
+
+      // Try to find a matching rule by ID or Name
+      // We look for partial matches or exact matches in the rules keys
+      const ruleKey = Object.keys(investigationLogic).find(key =>
+        test.name.toLowerCase().includes(key.toLowerCase()) ||
+        (test.id && typeof test.id === "string" && test.id.includes(key))
+      )
+
+      if (ruleKey) {
+        const rule = investigationLogic[ruleKey]
+        if (typeof rule === "function") {
+          try {
+            results = rule(test, { caseData, chatHistory: chatHistory || [] })
+          } catch (e) {
+            console.error("Rule execution failed:", e)
           }
-        ],
-        temperature: 0.7,
-        response_format: { type: "json_object" }
-      })
-    })
+        } else {
+          results = rule
+        }
+      }
+    }
 
-    const data = await response.json()
-    const results = JSON.parse(data.choices[0].message.content)
-    */
-
-    // Mock results for now
-    const results = generateMockTestResults(test, caseData)
+    // 2. Fallback to mock generator if no specific case logic found
+    if (!results) {
+      results = generateMockTestResults(test, caseData)
+    }
 
     return NextResponse.json({
       results,

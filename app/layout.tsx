@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import "./globals.css"
 import NextTopLoader from 'nextjs-toploader';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Script from "next/script"
 import { LayoutClient } from "@/components/LayoutClient"
 import { SmoothScroller } from "@/components/smooth-scroller"
 import { Toaster } from "@/components/ui/toaster"
@@ -80,6 +81,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             speed={200}
             shadow="0 0 10px #2563EB,0 0 5px #2563EB"
           />
+          <Script id="clarity-script" strategy="afterInteractive">
+            {`
+              (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "vhuxiqi1u5");
+            `}
+          </Script>
           {/* Script to clean up browser extension attributes */}
           <script
             dangerouslySetInnerHTML={{

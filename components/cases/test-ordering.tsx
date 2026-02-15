@@ -51,8 +51,12 @@ export function TestOrdering({ orderedTests, testResults, onOrderTest, caseData 
     const investigations = caseData.patient.investigations
 
     // Map explicit tests list
-    if (investigations.tests && Array.isArray(investigations.tests)) {
-      investigations.tests.forEach((testItem: any, index: number) => {
+    const sourceTests = (investigations.tests && investigations.tests.length > 0)
+      ? investigations.tests
+      : (investigations.allowed_tests || []);
+
+    if (Array.isArray(sourceTests)) {
+      sourceTests.forEach((testItem: any, index: number) => {
         let testName = ""
         let extraProps: any = {}
 
@@ -410,9 +414,9 @@ export function TestOrdering({ orderedTests, testResults, onOrderTest, caseData 
                                   View Report
                                 </Button>
                               </div>
-                              <p className="text-xs sm:text-sm text-slate-700 mb-2 leading-relaxed line-clamp-2">{result.results.summary}</p>
-                              <p className="text-xs text-slate-600 line-clamp-1 italic">{result.results.interpretation}</p>
-                              {result.results.criticalFindings && result.results.criticalFindings.length > 0 && (
+                              <p className="text-xs sm:text-sm text-slate-700 mb-2 leading-relaxed line-clamp-2">{result.summary || result.results?.summary || "Results pending..."}</p>
+                              <p className="text-xs text-slate-600 line-clamp-1 italic">{result.interpretation || result.results?.interpretation}</p>
+                              {(result.criticalFindings?.length > 0 || result.results?.criticalFindings?.length > 0) && (
                                 <div className="mt-2 bg-red-50 border border-red-200 rounded-lg px-3 py-2 animate-pulse">
                                   <p className="text-xs font-medium text-red-900 flex items-center gap-1.5">
                                     <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />

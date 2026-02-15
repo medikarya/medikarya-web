@@ -121,8 +121,35 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
     // Simulate test processing and get results
     setTimeout(async () => {
       try {
-        // TODO: Replace with actual API call to get AI-generated results
-        const result = await generateTestResult(newTest, caseData)
+        const response = await fetch("/api/tests/generate-result", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            test: newTest,
+            caseData: {
+              ...caseData,
+              id: caseId // Ensure ID is passed
+            },
+            chatHistory
+          }),
+        })
+
+        if (!response.ok) {
+          throw new Error("Failed to generate test results")
+        }
+
+        const data = await response.json()
+        const result = {
+          ...data.results,
+          id: Date.now(),
+          testId: newTest.id,
+          testName: newTest.name,
+          category: newTest.category,
+          completedAt: new Date().toISOString(),
+        }
+
         setTestResults(prev => [...prev, result])
 
         // Update test status
@@ -145,8 +172,15 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
     setDiagnosisSubmitted(true)
 
     try {
+      // Sanitize orderedTests to remove React components (icons) before passing to server action
+      const sanitizedOrderedTests = orderedTests.map(test => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { icon, ...rest } = test
+        return rest
+      })
+
       // API call to get AI feedback
-      const aiFeedback = await evaluateCase(diagnosis, orderedTests, chatHistory, caseData)
+      const aiFeedback = await evaluateCase(diagnosis, sanitizedOrderedTests, chatHistory, caseData)
       setFeedback(aiFeedback)
     } catch (error) {
       console.error("Evaluation failed", error)

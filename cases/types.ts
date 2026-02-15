@@ -17,7 +17,8 @@ export interface DiagnosisRules {
 
 export interface InvestigationRules {
     // To be defined - ensuring decision of IF and WHEN a test is indicated
-    [key: string]: any;
+    // Can be a static object or a function that returns the result
+    [key: string]: any | ((test: any, context: { caseData: any, chatHistory: any[] }) => any);
 }
 
 export interface CaseModule {

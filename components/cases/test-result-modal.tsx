@@ -105,7 +105,7 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
                 <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5" />
                 Summary
               </h3>
-              <p className="text-brand-800 text-xs sm:text-sm leading-relaxed">{result.results.summary}</p>
+              <p className="text-brand-800 text-xs sm:text-sm leading-relaxed">{result.summary || result.results?.summary || "Results pending..."}</p>
             </div>
 
             {/* Test Image */}
@@ -129,11 +129,11 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
             )}
 
             {/* Test Values */}
-            {result.results.values && result.results.values.length > 0 && (
+            {(result.values?.length > 0 || result.results?.values?.length > 0) && (
               <div>
                 <h3 className="font-semibold text-slate-900 mb-2 sm:mb-3 text-base sm:text-lg">Test Results</h3>
                 <div className="space-y-2">
-                  {result.results.values.map((value: any, index: number) => (
+                  {(result.values || result.results?.values || []).map((value: any, index: number) => (
                     <div
                       key={index}
                       className={cn(
@@ -185,20 +185,20 @@ export function TestResultModal({ isOpen, onClose, test, result }: TestResultMod
               </h3>
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 sm:p-4">
                 <p className="text-slate-700 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
-                  {result.results.interpretation}
+                  {result.interpretation || result.results?.interpretation || "No interpretation available."}
                 </p>
               </div>
             </div>
 
             {/* Critical Findings */}
-            {result.results.criticalFindings && result.results.criticalFindings.length > 0 && (
+            {(result.criticalFindings?.length > 0 || result.results?.criticalFindings?.length > 0) && (
               <div className="bg-red-50 border-2 border-red-300 rounded-lg p-3 sm:p-4">
                 <h3 className="font-semibold text-red-900 mb-2 sm:mb-3 text-base sm:text-lg flex items-center gap-1.5 sm:gap-2">
                   <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
                   Critical Findings
                 </h3>
                 <ul className="space-y-1.5 sm:space-y-2">
-                  {result.results.criticalFindings.map((finding: string, index: number) => (
+                  {(result.criticalFindings || result.results?.criticalFindings || []).map((finding: string, index: number) => (
                     <li key={index} className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm text-red-800">
                       <AlertTriangle className="h-3.5 w-3.5 sm:h-4 sm:w-4 mt-0.5 flex-shrink-0" />
                       <span>{finding}</span>

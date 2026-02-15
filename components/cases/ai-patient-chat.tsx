@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Send, Loader2, User, Mic, MicOff } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { trackEvent } from "@/lib/clarity"
 
 interface Message {
   id: string
@@ -151,6 +152,7 @@ export function AIPatientChat({ caseData, onMessageSent, chatHistory }: AIPatien
 
     setMessages(prev => [...prev, userMessage])
     onMessageSent(userMessage)
+    trackEvent("Message_Sent")
     setInput("")
     setIsLoading(true)
 
@@ -268,7 +270,10 @@ export function AIPatientChat({ caseData, onMessageSent, chatHistory }: AIPatien
           {SUGGESTED_QUESTIONS.map((question, index) => (
             <button
               key={index}
-              onClick={() => setInput(question)}
+              onClick={() => {
+                setInput(question)
+                trackEvent("Suggested_Question_Clicked")
+              }}
               className="whitespace-nowrap rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600 hover:bg-brand-50 hover:text-brand-600 transition-colors border border-slate-200"
             >
               {question}

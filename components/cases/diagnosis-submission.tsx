@@ -18,6 +18,7 @@ import {
   FileText,
   Pill
 } from "lucide-react"
+import { trackEvent } from "@/lib/clarity"
 
 interface DiagnosisSubmissionProps {
   orderedTests: any[]
@@ -50,6 +51,7 @@ export function DiagnosisSubmission({
     }
 
     onSubmit(diagnosis)
+    trackEvent("Diagnosis_Submitted")
   }
 
   const completedTests = orderedTests.filter(t => t.status === "completed")
