@@ -260,9 +260,11 @@ export function DashboardOverview() {
                 </div>
               </div>
             ))}
-            <Button variant="outline" className="w-full mt-3 sm:mt-4 border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 h-9 sm:h-10 text-sm sm:text-base touch-manipulation">
-              View All Cases
-              <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+            <Button asChild variant="outline" className="w-full mt-3 sm:mt-4 border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 h-9 sm:h-10 text-sm sm:text-base touch-manipulation">
+              <Link href="/dashboard/cases">
+                View All Cases
+                <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+              </Link>
             </Button>
           </CardContent>
         </Card>
@@ -315,17 +317,22 @@ export function DashboardOverview() {
             </div>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
               <Button
+                asChild
                 variant="secondary"
                 className="bg-white/15 text-white hover:bg-white/25 border-white/30 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11 text-sm sm:text-base touch-manipulation"
               >
-                <BookOpen className="mr-2 h-4 w-4" />
-                <span className="hidden sm:inline">Browse Cases</span>
-                <span className="sm:hidden">Browse</span>
+                <Link href="/dashboard/cases">
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  <span className="hidden sm:inline">Browse Cases</span>
+                  <span className="sm:hidden">Browse</span>
+                </Link>
               </Button>
-              <Button className="bg-white text-brand-600 hover:bg-brand-50 shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11 text-sm sm:text-base touch-manipulation">
-                <Play className="mr-2 h-4 w-4" />
-                <span className="hidden sm:inline">Start Random Case</span>
-                <span className="sm:hidden">Start Case</span>
+              <Button asChild className="bg-white text-brand-600 hover:bg-brand-50 shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-auto h-10 sm:h-11 text-sm sm:text-base touch-manipulation">
+                <Link href="/dashboard/cases">
+                  <Play className="mr-2 h-4 w-4" />
+                  <span className="hidden sm:inline">Start Random Case</span>
+                  <span className="sm:hidden">Start Case</span>
+                </Link>
               </Button>
             </div>
           </div>
