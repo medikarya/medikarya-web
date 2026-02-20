@@ -36,6 +36,7 @@ export function DiagnosisSubmission({
   onExit
 }: DiagnosisSubmissionProps) {
   const [primaryDiagnosis, setPrimaryDiagnosis] = useState("")
+  const [managementPlan, setManagementPlan] = useState("")
   const [caseSummary, setCaseSummary] = useState("")
 
   const handleSubmit = () => {
@@ -46,6 +47,10 @@ export function DiagnosisSubmission({
 
     const diagnosis = {
       primaryDiagnosis: primaryDiagnosis.trim(),
+      // Split by newlines so EvaluationEngine receives a string[] of steps
+      managementPlan: managementPlan.trim()
+        ? managementPlan.trim().split(/\n+/).map(s => s.trim()).filter(Boolean)
+        : [],
       caseSummary: caseSummary.trim(),
       submittedAt: new Date().toISOString()
     }
@@ -104,6 +109,26 @@ export function DiagnosisSubmission({
           />
           <p className="text-[10px] sm:text-xs text-slate-600">
             What is your main diagnosis based on the patient's presentation?
+          </p>
+        </div>
+
+        <Separator />
+
+        {/* Management Plan */}
+        <div className="space-y-1.5 sm:space-y-2">
+          <Label htmlFor="management-plan" className="text-xs sm:text-sm font-semibold flex items-center gap-1.5 sm:gap-2">
+            <Pill className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-purple-600" />
+            Management Plan (Optional)
+          </Label>
+          <Textarea
+            id="management-plan"
+            placeholder={`Enter each step on a new line, e.g.\nIV Iron Sucrose as per Ganzoni formula\nDietary counselling for iron-rich foods\nRepeat Hb after 3 weeks`}
+            value={managementPlan}
+            onChange={(e) => setManagementPlan(e.target.value)}
+            className="min-h-[100px] sm:min-h-[120px] resize-none text-xs sm:text-sm font-mono"
+          />
+          <p className="text-[10px] sm:text-xs text-slate-500">
+            One step per line. Leave blank if you haven&apos;t decided yet.
           </p>
         </div>
 

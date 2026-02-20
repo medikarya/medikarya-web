@@ -16,7 +16,8 @@ import {
   RotateCcw,
   Home,
   BookOpen,
-  PartyPopper
+  PartyPopper,
+  AlertTriangle
 } from "lucide-react";
 import { trackEvent } from "@/lib/clarity";
 
@@ -287,6 +288,32 @@ export function CaseFeedback({ feedback, caseData, orderedTests, onExit, onReset
         )
       ),
     },
+    ...(feedback.missedRedFlags && feedback.missedRedFlags.length > 0 ? [{
+      title: "Critical Misses (Red Flags)",
+      icon: AlertTriangle,
+      content: (
+        <div className="space-y-4">
+          <div className="p-4 rounded-xl bg-rose-50 border border-rose-100">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-semibold text-rose-900 mb-1">Safety Penalty Applied</h4>
+                <p className="text-sm text-rose-700 leading-relaxed mb-3">
+                  You failed to ask about critical "red flag" symptoms that were essential to rule out life-threatening conditions. A 5-point penalty was applied for each missed flag.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {feedback.missedRedFlags.map((flag: string, i: number) => (
+                    <div key={i} className="px-3 py-1.5 rounded-lg bg-white text-rose-700 font-medium border border-rose-200 shadow-sm text-sm capitalize">
+                      {flag.replace(/_/g, " ")}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }] : []),
     {
       title: "Performance Summary",
       icon: Award,
@@ -306,6 +333,39 @@ export function CaseFeedback({ feedback, caseData, orderedTests, onExit, onReset
               <span className="text-brand-600 text-sm font-semibold uppercase tracking-wider mb-2">XP Gained</span>
               <span className="text-5xl font-bold text-brand-700">+{caseData.xpReward}</span>
               <span className="text-brand-400 text-sm mt-1">experience points</span>
+            </div>
+          </div>
+
+          {/* Score Breakdown Table */}
+          <div className="mt-6 bg-white rounded-xl border border-slate-100 overflow-hidden px-4 py-3">
+            <h4 className="text-sm font-semibold text-slate-800 mb-3">Score Breakdown</h4>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm py-1.5 border-b border-slate-50">
+                <span className="text-slate-600">Clinical Reasoning</span>
+                <span className="font-medium text-slate-900">{feedback.reasoningScore} <span className="text-slate-400 text-xs font-normal">/30</span></span>
+              </div>
+              <div className="flex justify-between text-sm py-1.5 border-b border-slate-50">
+                <span className="text-slate-600">History Taking</span>
+                <span className="font-medium text-slate-900">{feedback.historyScore} <span className="text-slate-400 text-xs font-normal">/25</span></span>
+              </div>
+              <div className="flex justify-between text-sm py-1.5 border-b border-slate-50">
+                <span className="text-slate-600">Diagnostic Accuracy</span>
+                <span className="font-medium text-slate-900">{feedback.diagnosisScore} <span className="text-slate-400 text-xs font-normal">/15</span></span>
+              </div>
+              <div className="flex justify-between text-sm py-1.5 border-b border-slate-50">
+                <span className="text-slate-600">Test Ordering Strategy</span>
+                <span className="font-medium text-slate-900">{feedback.testingScore} <span className="text-slate-400 text-xs font-normal">/20</span></span>
+              </div>
+              <div className="flex justify-between text-sm py-1.5 border-b border-slate-50">
+                <span className="text-slate-600">Management Plan</span>
+                <span className="font-medium text-slate-900">{feedback.managementScore} <span className="text-slate-400 text-xs font-normal">/10</span></span>
+              </div>
+              {(feedback.safetyPenalty > 0) && (
+                <div className="flex justify-between text-sm py-1.5 pt-2">
+                  <span className="text-rose-600 font-medium">Safety Penalties (Red Flags / Dangerous Tests)</span>
+                  <span className="font-bold text-rose-600">-{feedback.safetyPenalty}</span>
+                </div>
+              )}
             </div>
           </div>
 

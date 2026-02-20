@@ -93,7 +93,9 @@
             "blood_transfusion_history": false,
             "worm_infestation": false,
             "lymphadenopathy": false,
-            "chronic_illness": false
+            "chronic_illness": false,
+            "chest_pain": false,
+            "syncope": false
         },
         "differential_diagnosis": [
             "Iron Deficiency Anemia",
@@ -107,15 +109,11 @@
                 "Serum Ferritin",
                 "Serum Iron",
                 "Transferrin Saturation",
-                "Hemoglobin Electrophoresis"
+                "Hemoglobin Electrophoresis",
+                "D-dimer",
+                "CT Pulmonary Angiography"
             ],
             "specimen": "Blood",
-            "tips": [
-                {
-                    "type": "info",
-                    "text": "Microcytic hypochromic anemia in pregnancy with low ferritin strongly suggests iron deficiency anemia."
-                }
-            ],
             "tests": [
                 {
                     "id": "cbc",
@@ -127,7 +125,30 @@
                         "hemoglobin": "8.2 g/dL",
                         "mcv": "72 fL",
                         "mchc": "28 g/dL"
-                    }
+                    },
+                    "parameters": [
+                        {
+                            "name": "Hemoglobin",
+                            "value": "8.2",
+                            "unit": "g/dL",
+                            "normalRange": "11–15",
+                            "status": "low"
+                        },
+                        {
+                            "name": "MCV",
+                            "value": "72",
+                            "unit": "fL",
+                            "normalRange": "80–100",
+                            "status": "low"
+                        },
+                        {
+                            "name": "MCHC",
+                            "value": "28",
+                            "unit": "g/dL",
+                            "normalRange": "32–36",
+                            "status": "low"
+                        }
+                    ]
                 },
                 {
                     "id": "peripheral-smear",
@@ -135,8 +156,7 @@
                     "category": "laboratory",
                     "cost": 150,
                     "duration": "4 hours",
-                    "result": "Microcytic hypochromic RBCs, pencil cells, target cells",
-                    "imageUrl": "/cases/iron-deficiency-anemia-in-pregnancy/peripheral-smear.png"
+                    "result": "Microcytic hypochromic RBCs, pencil cells, target cells. Suggestive of Iron Deficiency Anemia."
                 },
                 {
                     "id": "serum-ferritin",
@@ -144,7 +164,16 @@
                     "category": "laboratory",
                     "cost": 200,
                     "duration": "1 day",
-                    "result": "10 µg/L (Low)"
+                    "result": "10 µg/L (Low)",
+                    "parameters": [
+                        {
+                            "name": "Ferritin",
+                            "value": "10",
+                            "unit": "µg/L",
+                            "normalRange": "15–200",
+                            "status": "low"
+                        }
+                    ]
                 },
                 {
                     "id": "serum-iron",
@@ -152,7 +181,16 @@
                     "category": "laboratory",
                     "cost": 150,
                     "duration": "1 day",
-                    "result": "30 µg/L (Low)"
+                    "result": "30 µg/L (Low)",
+                    "parameters": [
+                        {
+                            "name": "Serum Iron",
+                            "value": "30",
+                            "unit": "µg/dL",
+                            "normalRange": "50–170",
+                            "status": "low"
+                        }
+                    ]
                 },
                 {
                     "id": "transferrin-saturation",
@@ -160,7 +198,16 @@
                     "category": "laboratory",
                     "cost": 200,
                     "duration": "1 day",
-                    "result": "10% (Low)"
+                    "result": "10% (Low)",
+                    "parameters": [
+                        {
+                            "name": "Transferrin Saturation",
+                            "value": "10",
+                            "unit": "%",
+                            "normalRange": "20–50",
+                            "status": "low"
+                        }
+                    ]
                 },
                 {
                     "id": "hb-electrophoresis",
@@ -168,7 +215,48 @@
                     "category": "laboratory",
                     "cost": 400,
                     "duration": "2 days",
-                    "result": "Normal"
+                    "result": "Normal — HbA >95%, HbA2 <3.5%. Excludes Thalassemia trait.",
+                    "parameters": [
+                        {
+                            "name": "HbA",
+                            "value": ">95",
+                            "unit": "%",
+                            "normalRange": ">95",
+                            "status": "normal"
+                        },
+                        {
+                            "name": "HbA2",
+                            "value": "<3.5",
+                            "unit": "%",
+                            "normalRange": "<3.5",
+                            "status": "normal"
+                        }
+                    ]
+                },
+                {
+                    "id": "d-dimer",
+                    "name": "D-dimer",
+                    "category": "laboratory",
+                    "cost": 500,
+                    "duration": "4 hours",
+                    "result": "Normal (<0.5 µg/mL FEU)",
+                    "parameters": [
+                        {
+                            "name": "D-dimer",
+                            "value": "<0.5",
+                            "unit": "µg/mL FEU",
+                            "normalRange": "<0.5",
+                            "status": "normal"
+                        }
+                    ]
+                },
+                {
+                    "id": "ctpa",
+                    "name": "CT Pulmonary Angiography",
+                    "category": "imaging",
+                    "cost": 5000,
+                    "duration": "1 day",
+                    "result": "No filling defect in pulmonary vasculature. No evidence of pulmonary embolism."
                 }
             ]
         },
@@ -229,33 +317,107 @@
             "Express concern about baby"
         ]
     },
-    "questions": [
-        {
-            "id": "diagnosis",
-            "text": "What is the most likely diagnosis?",
-            "type": "single-best-answer",
-            "options": [
-                {
-                    "id": "a",
-                    "text": "Iron Deficiency Anemia",
-                    "correct": true,
-                    "explanation": "Low hemoglobin with microcytic hypochromic indices and low ferritin confirms iron deficiency anemia."
-                },
-                {
-                    "id": "b",
-                    "text": "Thalassemia major"
-                },
-                {
-                    "id": "c",
-                    "text": "Anemia of chronic disease"
-                },
-                {
-                    "id": "d",
-                    "text": "Acute blood loss anemia"
-                }
+    "evaluation_config": {
+        "history": {
+            "required_questions": [
+                "duration of breathlessness",
+                "previous anemia history",
+                "dietary habits",
+                "iron supplementation compliance"
+            ],
+            "important_questions": [
+                "palpitations",
+                "menstrual history",
+                "fatigue severity"
+            ],
+            "red_flag_questions": [
+                "chest pain",
+                "syncope",
+                "active bleeding"
             ]
-        }
-    ],
+        },
+        "testing": {
+            "testing_required": true,
+            "core_tests": [
+                "cbc",
+                "serum-ferritin"
+            ],
+            "optional_tests": [
+                "peripheral-smear",
+                "serum-iron",
+                "transferrin-saturation",
+                "hb-electrophoresis"
+            ],
+            "distractor_tests": [
+                "d-dimer"
+            ],
+            "dangerous_tests": [
+                "ctpa"
+            ]
+        },
+        "diagnosis": {
+            "accepted_primary": [
+                "Iron Deficiency Anemia",
+                "Moderate Iron Deficiency Anemia in Pregnancy"
+            ],
+            "must_include_keywords": [
+                "iron",
+                "anemia"
+            ]
+        },
+        "management": {
+            "core_steps": [
+                "IV Iron",
+                "Ganzoni formula",
+                "Dietary counselling",
+                "Repeat Hb"
+            ],
+            "dangerous_steps": [
+                "no treatment",
+                "unnecessary blood transfusion"
+            ]
+        },
+        "red_flags": [
+            {
+                "intent": "chest_pain",
+                "keywords": [
+                    "chest pain",
+                    "chest tightness",
+                    "angina",
+                    "cardiac pain"
+                ],
+                "present_in_case": false,
+                "critical": true
+            },
+            {
+                "intent": "syncope",
+                "keywords": [
+                    "faint",
+                    "fainting",
+                    "blackout",
+                    "loss of consciousness",
+                    "passed out",
+                    "syncope"
+                ],
+                "present_in_case": false,
+                "critical": true
+            },
+            {
+                "intent": "active_bleeding",
+                "keywords": [
+                    "bleeding",
+                    "blood loss",
+                    "hemorrhage",
+                    "haemorrhage",
+                    "bloody",
+                    "per vaginal bleeding",
+                    "pv bleeding"
+                ],
+                "present_in_case": false,
+                "critical": true
+            }
+        ]
+    },
     "discussion": {
         "keyPoints": [
             "Microcytic hypochromic anemia with low ferritin is diagnostic of iron deficiency.",

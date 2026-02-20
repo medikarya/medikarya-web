@@ -112,7 +112,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
     // Add test to ordered tests
     const newTest = {
       ...test,
-      id: Date.now(),
+      _uid: Date.now(),      // UI-only unique key — does NOT overwrite test.id
       orderedAt: new Date().toISOString(),
       status: "processing"
     }
@@ -154,12 +154,12 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
 
         // Update test status
         setOrderedTests(prev =>
-          prev.map(t => t.id === newTest.id ? { ...t, status: "completed" } : t)
+          prev.map(t => t._uid === newTest._uid ? { ...t, status: "completed" } : t)
         )
       } catch (error) {
         console.error("Error getting test results:", error)
         setOrderedTests(prev =>
-          prev.map(t => t.id === newTest.id ? { ...t, status: "failed" } : t)
+          prev.map(t => t._uid === newTest._uid ? { ...t, status: "failed" } : t)
         )
       }
     }, 2000) // Simulate processing time

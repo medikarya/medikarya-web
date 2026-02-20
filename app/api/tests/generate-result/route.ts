@@ -24,27 +24,29 @@ export async function POST(request: NextRequest) {
     let results = null
 
     if (caseModule) {
-      const investigationLogic = caseModule.getInvestigationLogic()
-      const testId = test.id || test.name // flexible match
+      const investigationLogic = caseModule.getInvestigationLogic(caseData)
 
-      // Try to find a matching rule by ID or Name
-      // We look for partial matches or exact matches in the rules keys
-      const ruleKey = Object.keys(investigationLogic).find(key =>
-        test.name.toLowerCase().includes(key.toLowerCase()) ||
-        (test.id && typeof test.id === "string" && test.id.includes(key))
-      )
+      // Match by test.id — stable, exact, no substring tricks
+      const testId: string = test.id
 
-      if (ruleKey) {
-        const rule = investigationLogic[ruleKey]
+      if (!testId) {
+        console.warn("[generate-result] test.id is missing — cannot look up rule:", test)
+      }
+
+      const rule = testId ? investigationLogic[testId] : undefined
+
+      if (rule !== undefined) {
         if (typeof rule === "function") {
           try {
             results = rule(test, { caseData, chatHistory: chatHistory || [] })
           } catch (e) {
-            console.error("Rule execution failed:", e)
+            console.error("[generate-result] Rule function execution failed:", e)
           }
         } else {
           results = rule
         }
+      } else {
+        console.log(`[generate-result] No module rule for test.id="${testId}" — falling through to mock`)
       }
     }
 

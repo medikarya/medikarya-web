@@ -116,27 +116,156 @@
       "specimen": "Feces",
       "tests": [
         {
-          "name": "Immunoelectron Microscopy (Triple-shelled capsid, wheel appearance)",
-          "imageUrl": "/cases/viral-gastroenteritis/IEM.png"
+          "id": "iem",
+          "name": "Immunoelectron Microscopy",
+          "category": "imaging",
+          "cost": 800,
+          "duration": "1 day",
+          "imageUrl": "/cases/viral-gastroenteritis/IEM.png",
+          "result": "Triple-shelled capsid with wheel-like appearance — consistent with Rotavirus."
         },
         {
-          "name": "ELISA for Rotavirus",
-          "results": {
-            "summary": "Positive for Rotavirus Antigen",
-            "interpretation": "Stool ELISA is positive for Group A Rotavirus antigen.",
-            "values": [
-              {
-                "parameter": "Rotavirus Antigen",
-                "value": "Positive",
-                "unit": "",
-                "normalRange": "Negative",
-                "status": "critical"
-              }
-            ],
-            "criticalFindings": [
-              "Rotavirus Antigen Detected"
-            ]
-          }
+          "id": "stool-elisa-rotavirus",
+          "name": "Stool ELISA for Rotavirus",
+          "category": "laboratory",
+          "cost": 500,
+          "duration": "4 hours",
+          "result": "Positive for Rotavirus Antigen",
+          "parameters": [
+            {
+              "name": "Rotavirus Antigen",
+              "value": "Positive",
+              "unit": "",
+              "normalRange": "Negative",
+              "status": "critical"
+            }
+          ]
+        },
+        {
+          "id": "cbc",
+          "name": "Complete Blood Count (CBC)",
+          "category": "laboratory",
+          "cost": 100,
+          "duration": "2 hours",
+          "result": "WBC mildly elevated. No eosinophilia. Consistent with viral infection.",
+          "parameters": [
+            {
+              "name": "WBC",
+              "value": "11.2",
+              "unit": "×10³/µL",
+              "normalRange": "4–11",
+              "status": "high"
+            },
+            {
+              "name": "Haemoglobin",
+              "value": "11.8",
+              "unit": "g/dL",
+              "normalRange": "11–14",
+              "status": "normal"
+            },
+            {
+              "name": "Platelets",
+              "value": "220",
+              "unit": "×10³/µL",
+              "normalRange": "150–400",
+              "status": "normal"
+            }
+          ]
+        },
+        {
+          "id": "serum-electrolytes",
+          "name": "Serum Electrolytes",
+          "category": "laboratory",
+          "cost": 200,
+          "duration": "2 hours",
+          "result": "Mild hyponatraemia consistent with diarrhoeal illness.",
+          "parameters": [
+            {
+              "name": "Sodium",
+              "value": "132",
+              "unit": "mEq/L",
+              "normalRange": "135–145",
+              "status": "low"
+            },
+            {
+              "name": "Potassium",
+              "value": "3.4",
+              "unit": "mEq/L",
+              "normalRange": "3.5–5.0",
+              "status": "low"
+            },
+            {
+              "name": "Chloride",
+              "value": "98",
+              "unit": "mEq/L",
+              "normalRange": "98–107",
+              "status": "normal"
+            }
+          ]
+        },
+        {
+          "id": "rft",
+          "name": "Renal Function Test (RFT)",
+          "category": "laboratory",
+          "cost": 250,
+          "duration": "2 hours",
+          "result": "Mildly elevated urea, consistent with dehydration. No renal failure.",
+          "parameters": [
+            {
+              "name": "Urea",
+              "value": "42",
+              "unit": "mg/dL",
+              "normalRange": "10–40",
+              "status": "high"
+            },
+            {
+              "name": "Creatinine",
+              "value": "0.7",
+              "unit": "mg/dL",
+              "normalRange": "0.3–0.7",
+              "status": "normal"
+            }
+          ]
+        },
+        {
+          "id": "stool-routine",
+          "name": "Stool Routine & Microscopy",
+          "category": "laboratory",
+          "cost": 150,
+          "duration": "4 hours",
+          "result": "Watery stool. No RBCs. No WBCs on microscopy. No cysts or ova detected."
+        },
+        {
+          "id": "stool-culture",
+          "name": "Stool Culture",
+          "category": "laboratory",
+          "cost": 400,
+          "duration": "2 days",
+          "result": "No pathogenic bacteria isolated after 48 hours. Viral aetiology confirmed."
+        },
+        {
+          "id": "usg-abdomen",
+          "name": "Ultrasound Abdomen",
+          "category": "imaging",
+          "cost": 700,
+          "duration": "1 hour",
+          "result": "No organomegaly. No free fluid. No appendicitis. Normal bowel loops."
+        },
+        {
+          "id": "xray-abdomen",
+          "name": "X-Ray Abdomen",
+          "category": "imaging",
+          "cost": 300,
+          "duration": "30 mins",
+          "result": "No free air under diaphragm. Normal gas pattern."
+        },
+        {
+          "id": "ct-abdomen",
+          "name": "CT Scan Abdomen",
+          "category": "imaging",
+          "cost": 3000,
+          "duration": "1 day",
+          "result": "No obstruction. No perforation. No acute surgical pathology."
         }
       ]
     },
@@ -156,6 +285,115 @@
       "Fever",
       "Abdominal pain",
       "Hygiene"
+    ]
+  },
+  "evaluation_config": {
+    "history": {
+      "required_questions": [
+        "duration of vomiting",
+        "duration of diarrhoea",
+        "blood in stool",
+        "fever",
+        "dehydration signs",
+        "immunisation status",
+        "hygiene and water source"
+      ],
+      "important_questions": [
+        "frequency of stools",
+        "urine output",
+        "oral intake",
+        "contact history",
+        "previous episodes"
+      ],
+      "red_flag_questions": [
+        "blood in stool",
+        "bilious vomiting",
+        "seizures",
+        "altered consciousness"
+      ]
+    },
+    "testing": {
+      "testing_required": true,
+      "core_tests": [
+        "stool-routine",
+        "serum-electrolytes"
+      ],
+      "optional_tests": [
+        "stool-elisa-rotavirus",
+        "cbc",
+        "rft",
+        "stool-culture"
+      ],
+      "distractor_tests": [
+        "usg-abdomen",
+        "xray-abdomen",
+        "iem"
+      ],
+      "dangerous_tests": [
+        "ct-abdomen"
+      ]
+    },
+    "diagnosis": {
+      "accepted_primary": [
+        "Viral Gastroenteritis",
+        "Viral gastroenteritis due to Rotavirus",
+        "Rotavirus gastroenteritis",
+        "Acute gastroenteritis"
+      ],
+      "must_include_keywords": [
+        "viral",
+        "gastroenteritis"
+      ]
+    },
+    "management": {
+      "core_steps": [
+        "Oral rehydration solution (ORS)",
+        "Monitor hydration status",
+        "Continue feeding",
+        "Hygiene counselling",
+        "Rotavirus vaccination counselling"
+      ],
+      "dangerous_steps": [
+        "antibiotics without indication",
+        "antidiarrheal in children",
+        "IV fluids without assessing severity"
+      ]
+    },
+    "red_flags": [
+      {
+        "intent": "blood_in_stool",
+        "keywords": [
+          "blood in stool",
+          "bloody stool",
+          "bloody diarrhoea",
+          "blood in poop"
+        ],
+        "present_in_case": false,
+        "critical": true
+      },
+      {
+        "intent": "bilious_vomiting",
+        "keywords": [
+          "green vomit",
+          "bilious vomit",
+          "bile vomiting",
+          "yellow green vomit"
+        ],
+        "present_in_case": false,
+        "critical": true
+      },
+      {
+        "intent": "severe_dehydration",
+        "keywords": [
+          "no urine",
+          "sunken eyes",
+          "skin turgor",
+          "very dry",
+          "not passing urine"
+        ],
+        "present_in_case": false,
+        "critical": true
+      }
     ]
   },
   "patient_text_brief": "Child: Rohan Kumar, 2-year-old boy.\n\nMain problem:\n- He has been vomiting for the last 3 days.\n- It started suddenly and is getting a bit better.\n- The amount each time is moderate.\n\nOther problems (only if asked):\n- Loose watery stools for 2 days, about 5 to 10 times a day.\n- No blood in stools.\n- He has fever.\n- He complains of stomach pain.\n- He looks weak and is not eating well.\n- He has lost some weight.\n- He feels dizzy sometimes.\n\nPast history:\n- No similar illness before.\n- No known allergies.\n- No regular medicines.\n- No medicines given at home this time.\n- Vaccinations are not fully up to date.\n\nLifestyle:\n- Eats a mixed diet.\n- Hygiene at home is not very good.",
