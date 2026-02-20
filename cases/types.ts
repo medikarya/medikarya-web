@@ -23,9 +23,8 @@ export interface InvestigationRules {
 
 export interface CaseModule {
     handleFactQuestion(question: string, facts: PatientFacts): CaseResponse | null;
-    detectRedFlag(question: string): boolean;
     getDiagnosisLogic(): DiagnosisRules;
-    getInvestigationLogic(): InvestigationRules;
+    getInvestigationLogic(caseData: any): InvestigationRules;
     getAllowedTopics(): string[];
     getCaseId(): string;
 }

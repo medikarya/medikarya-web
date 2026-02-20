@@ -1,15 +1,12 @@
-
-import { CaseModule, PatientFacts, CaseResponse, DiagnosisRules, InvestigationRules } from '../types';
+import { CaseModule } from '../types';
 import { handleFactQuestion } from './facts.guard';
 import { getDiagnosisLogic } from './diagnosis.rules';
 import { getInvestigationLogic } from './investigations.rules';
-import { detectRedFlag } from './redFlags.rules';
 
 export const neonatalJaundiceModule: CaseModule = {
     handleFactQuestion,
-    detectRedFlag,
     getDiagnosisLogic,
-    getInvestigationLogic,
-    getAllowedTopics: () => ["jaundice", "feeding", "birth_history"], // Metadata
+    getInvestigationLogic: (caseData: any) => getInvestigationLogic(caseData),
+    getAllowedTopics: () => ["jaundice", "feeding", "birth_history"],
     getCaseId: () => "neonatal-jaundice-breastmilk"
 };
