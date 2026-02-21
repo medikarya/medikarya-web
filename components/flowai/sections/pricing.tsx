@@ -121,8 +121,8 @@ function Plan({
             : 'border-slate-200 hover:border-brand-200 hover:bg-brand-50 text-slate-700 hover:text-brand-700'
             } transition-all duration-300`}
         >
-          <Link href={contact ? "/contact" : "/waitlist"} className="flex items-center justify-center gap-2">
-            {contact ? "Contact Us" : "Join Waitlist"}
+          <Link href={contact ? "/contact" : "/login"} className="flex items-center justify-center gap-2">
+            {contact ? "Contact Us" : "Get Started"}
             {!contact && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
           </Link>
         </Button>

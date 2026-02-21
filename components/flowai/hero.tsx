@@ -181,8 +181,8 @@ export function Hero() {
               "hover:scale-[1.02] transition-all duration-300 ease-out border border-slate-800",
             )}
           >
-            <Link href="/waitlist" className="flex items-center justify-center gap-2">
-              Join the Waitlist
+            <Link href="/login" className="flex items-center justify-center gap-2">
+              Get Started
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
