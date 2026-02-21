@@ -10,17 +10,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   LayoutDashboard,
   Stethoscope,
-  Trophy,
-  Award,
-  Settings,
   HelpCircle,
   LogOut,
   Menu,
   X,
-  User,
-  Activity,
-  BookOpen,
-  TrendingUp
+  User
 } from "lucide-react"
 
 interface DashboardLayoutProps {
@@ -40,30 +34,7 @@ const sidebarItems = [
     icon: Stethoscope,
     description: "AI-powered test cases"
   },
-  {
-    title: "Rankings",
-    href: "/dashboard/rankings",
-    icon: Trophy,
-    description: "Coming Soon"
-  },
-  {
-    title: "Achievements",
-    href: "/dashboard/achievements",
-    icon: Award,
-    description: "Coming Soon"
-  },
-  {
-    title: "Progress",
-    href: "/dashboard/progress",
-    icon: TrendingUp,
-    description: "Coming Soon"
-  },
-  {
-    title: "Study Materials",
-    href: "/dashboard/study",
-    icon: BookOpen,
-    description: "Coming Soon"
-  },
+
   {
     title: "Profile",
     href: "/dashboard/profile",
