@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils"
 import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue, AnimatePresence, useReducedMotion } from "framer-motion"
 import { useRef, MouseEvent, useState } from "react"
-import { Activity, CheckCircle, MessageSquare, ArrowRight, User, Mic, MoreHorizontal, Settings, Wifi } from "lucide-react"
+import { Activity, CheckCircle, MessageSquare, ArrowRight, User } from "lucide-react"
 
 export default function FeaturesBento() {
     const shouldReduceMotion = useReducedMotion()
@@ -135,82 +135,14 @@ export default function FeaturesBento() {
                     </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(280px,auto)]">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
 
                     {/* BENTO 1: AI Patient Engine (Interactive Scenario) */}
                     <InteractivePatientCard />
 
-                    {/* BENTO 2: Diagnostic Panel (Technical/Monitor Style) */}
-                    <div className="md:col-span-1 md:row-span-2 rounded-[2rem] bg-slate-900 p-1.5 shadow-2xl overflow-hidden relative group transition-all">
-                        {/* Monitor Bezel */}
-                        <div className="h-full w-full bg-slate-950 rounded-[1.7rem] border-4 border-slate-800 overflow-hidden flex flex-col relative shadow-inner">
-                            {/* Screen Scanlines & Glare */}
-                            <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-[5] bg-[length:100%_2px,3px_100%] pointer-events-none opacity-20" />
-                            <div className="absolute top-0 right-0 w-full h-2/3 bg-gradient-to-b from-white/5 to-transparent pointer-events-none z-10" />
-
-                            {/* Header */}
-                            <div className="px-4 py-3 bg-slate-900 border-b border-slate-800 flex justify-between items-center z-10">
-                                <span className="text-[10px] font-mono font-bold text-slate-500 flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
-                                    VITAL_MONITOR_SYS
-                                </span>
-                                <Wifi className="w-3 h-3 text-slate-600" />
-                            </div>
-
-                            <div className="flex-1 relative p-4 flex flex-col gap-3 font-mono">
-                                {/* HR Module */}
-                                <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-lg relative overflow-hidden group/ecg">
-                                    <div className="flex justify-between items-baseline mb-1">
-                                        <span className="text-[10px] text-emerald-500 font-bold tracking-wider">HR</span>
-                                        <span className="text-[9px] text-slate-600">BPM</span>
-                                    </div>
-                                    <div className="text-3xl font-bold text-white tracking-tighter shadow-black drop-shadow-sm">88</div>
-                                    {/* CSS ECG Animation */}
-                                    <div className="h-10 w-full overflow-hidden relative mt-1">
-                                        <svg className="absolute inset-0 w-full h-full stroke-emerald-500 stroke-[1.5px] fill-none drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]" viewBox="0 0 300 50" preserveAspectRatio="none">
-                                            <path
-                                                d="M0 25 L30 25 L40 10 L50 40 L60 25 L100 25 L110 5 L120 45 L130 25 L180 25 L190 15 L200 35 L210 25 L300 25"
-                                                vectorEffect="non-scaling-stroke"
-                                            >
-                                                <animate attributeName="stroke-dasharray" from="0, 1000" to="1000, 0" dur="2s" repeatCount="indefinite" />
-                                                <animateTransform attributeName="transform" type="translate" from="0 0" to="-150 0" dur="2s" repeatCount="indefinite" />
-                                            </path>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                {/* SpO2 Module */}
-                                <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-lg">
-                                    <div className="flex justify-between items-baseline mb-1">
-                                        <span className="text-[10px] text-sky-500 font-bold tracking-wider">SpO2</span>
-                                        <span className="text-[9px] text-slate-600">%</span>
-                                    </div>
-                                    <div className="text-3xl font-bold text-sky-400 tracking-tighter">98</div>
-                                    {/* Pleth Wave */}
-                                    <div className="h-4 w-full overflow-hidden relative opacity-70 mt-1">
-                                        <svg className="w-full h-full stroke-sky-500 stroke-[1.5px] fill-none" viewBox="0 0 100 20" preserveAspectRatio="none">
-                                            <path d="M0 10 Q10 0 20 10 T40 10 T60 10 T80 10 T100 10" vectorEffect="non-scaling-stroke">
-                                                <animate attributeName="d" values="M0 10 Q10 0 20 10 T40 10 T60 10 T80 10 T100 10; M0 10 Q10 20 20 10 T40 10 T60 10 T80 10 T100 10; M0 10 Q10 0 20 10 T40 10 T60 10 T80 10 T100 10" dur="3s" repeatCount="indefinite" />
-                                            </path>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                {/* NIBP Module */}
-                                <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-lg flex items-center justify-between">
-                                    <div>
-                                        <span className="text-[10px] text-slate-500 font-bold tracking-wider block">NIBP</span>
-                                        <div className="text-xl font-bold text-slate-200 tracking-tight">120/80</div>
-                                    </div>
-                                    <div className="text-[8px] text-slate-600 border border-slate-800 px-1 py-0.5 rounded">AUTO</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* BENTO 3: Feedback (Premium Report Card) */}
-                    <div className="md:col-span-3 min-h-[250px] rounded-[2rem] bg-brand-50/50 border border-brand-100 p-2 shadow-lg relative overflow-hidden group hover:border-brand-200 transition-all">
-                        <div className="h-full w-full bg-white rounded-[1.5rem] border border-white/50 overflow-hidden flex flex-col md:flex-row items-stretch shadow-[inset_0_2px_4px_rgba(255,255,255,0.5)]">
+                    {/* BENTO 2: Feedback (Premium Report Card) — 1 col */}
+                    <div className="md:col-span-1 min-h-[480px] rounded-[2rem] bg-brand-50/50 border border-brand-100 p-2 shadow-lg relative overflow-hidden group hover:border-brand-200 transition-all">
+                        <div className="h-full w-full bg-white rounded-[1.5rem] border border-white/50 overflow-hidden flex flex-col items-stretch shadow-[inset_0_2px_4px_rgba(255,255,255,0.5)]">
 
                             {/* Left Text */}
                             <div className="p-8 md:p-10 flex-1 flex flex-col justify-center relative z-10">
@@ -308,7 +240,7 @@ function InteractivePatientCard() {
 
     return (
         <div className={cn(
-            "md:col-span-2 md:row-span-2 rounded-[2rem] border shadow-xl transition-all duration-700 p-3 relative overflow-hidden group",
+            "md:col-span-2 min-h-[480px] rounded-[2rem] border shadow-xl transition-all duration-700 p-3 relative overflow-hidden group",
             status === "success"
                 ? "bg-emerald-50/50 border-emerald-200 shadow-emerald-100"
                 : "bg-slate-50 border-slate-200 shadow-slate-200/50"

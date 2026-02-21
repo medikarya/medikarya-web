@@ -10,17 +10,8 @@ const FeaturesBento = dynamic(() => import("@/components/flowai/sections/feature
 const DashboardPreview = dynamic(() => import("@/components/flowai/dashboard-preview").then(mod => mod.DashboardPreview), {
   loading: () => <div className="h-[600px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
 })
-const PricingSection = dynamic(() => import("@/components/flowai/sections/pricing"), {
-  loading: () => <div className="h-[600px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
-})
-const TestimonialsSection = dynamic(() => import("@/components/flowai/sections/testimonials"), {
-  loading: () => <div className="h-[400px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
-})
 const FAQSection = dynamic(() => import("@/components/flowai/sections/faq"), {
   loading: () => <div className="h-[400px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
-})
-const NewsletterSection = dynamic(() => import("@/components/flowai/sections/newsletter"), {
-  loading: () => <div className="h-[300px] w-full bg-slate-200 animate-pulse rounded-3xl my-24 mx-auto max-w-7xl" />
 })
 const Footer = dynamic(() => import("@/components/flowai/footer").then(mod => mod.Footer), {
   loading: () => <div className="h-[300px] w-full bg-slate-900 animate-pulse" />
@@ -41,10 +32,7 @@ export default function Page() {
       <ProblemsSection />
       <FeaturesBento />
       <DashboardPreview />
-      <TestimonialsSection />
-      <PricingSection />
       <FAQSection />
-      <NewsletterSection />
       <Footer />
     </main>
   )
