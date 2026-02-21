@@ -155,11 +155,11 @@ export default function TestimonialsSection() {
         {/* CTA Button */}
         <motion.div variants={itemVariants} className="mt-12 text-center">
           <Link
-            href="/waitlist"
+            href="/login"
             className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white shadow-lg transition-all hover:bg-slate-800 hover:scale-105 hover:shadow-xl"
           >
             <Users className="h-4 w-4" />
-            <span>Join the Waitlist</span>
+            <span>Get Started</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
           <p className="mt-3 text-xs text-slate-500">

@@ -10,7 +10,7 @@ const isAuthRoute = createRouteMatcher([
     "/signup(.*)"
 ]);
 
-export const proxy = clerkMiddleware(async (auth, req) => {
+export default clerkMiddleware(async (auth, req) => {
     const { userId } = await auth();
 
     // Don't redirect if this is a Clerk OAuth callback or internal route

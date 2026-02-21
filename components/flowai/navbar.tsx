@@ -53,8 +53,8 @@ export function Navbar() {
               "shadow-lg hover:shadow-brand-500/20 hover:scale-[1.005] transition-all duration-300 ease-out",
             )}
           >
-            <Link href="/waitlist" aria-label="Join MediKarya Waitlist" className="flex items-center justify-center">
-              <span className="mr-1">Join Waitlist</span>
+            <Link href="/login" aria-label="Get started with MediKarya" className="flex items-center justify-center">
+              <span className="mr-1">Get Started</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
