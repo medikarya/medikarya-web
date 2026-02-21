@@ -50,6 +50,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
   const [diagnosisSubmitted, setDiagnosisSubmitted] = useState(false)
   const [feedback, setFeedback] = useState<any>(null)
   const [isPatientInfoOpen, setIsPatientInfoOpen] = useState(false)
+  const [startTime, setStartTime] = useState<number | null>(null)
 
   // Load from storage on mount
   useEffect(() => {
@@ -69,9 +70,20 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
         }
         if (parsed.diagnosisSubmitted) setDiagnosisSubmitted(parsed.diagnosisSubmitted)
         if (parsed.feedback) setFeedback(parsed.feedback)
+
+        // Load or initialize startTime
+        if (parsed.startTime) {
+          setStartTime(parsed.startTime)
+        } else {
+          setStartTime(Date.now())
+        }
+      } else {
+        // No saved case, initialize start time
+        setStartTime(Date.now())
       }
     } catch (e) {
       console.error("Failed to load case progress", e)
+      setStartTime(Date.now())
     } finally {
       setIsInitialized(true)
     }
@@ -95,13 +107,14 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
         chatHistory,
         diagnosisSubmitted,
         feedback,
+        startTime,
         lastSaved: new Date().toISOString()
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave))
     } catch (e) {
       console.error("Failed to save case progress", e)
     }
-  }, [activeTab, orderedTests, testResults, chatHistory, diagnosisSubmitted, feedback, isInitialized, STORAGE_KEY])
+  }, [activeTab, orderedTests, testResults, chatHistory, diagnosisSubmitted, feedback, startTime, isInitialized, STORAGE_KEY])
 
   const handleTestOrder = async (test: any) => {
     // Prevent duplicate orders
@@ -172,6 +185,9 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
     setDiagnosisSubmitted(true)
 
     try {
+      // Calculate time taken in seconds
+      const timeTakenSeconds = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+
       // Sanitize orderedTests to remove React components (icons) before passing to server action
       const sanitizedOrderedTests = orderedTests.map(test => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -180,7 +196,7 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
       })
 
       // API call to get AI feedback
-      const aiFeedback = await evaluateCase(diagnosis, sanitizedOrderedTests, chatHistory, caseData)
+      const aiFeedback = await evaluateCase(diagnosis, sanitizedOrderedTests, chatHistory, caseData, timeTakenSeconds)
       setFeedback(aiFeedback)
     } catch (error) {
       console.error("Evaluation failed", error)

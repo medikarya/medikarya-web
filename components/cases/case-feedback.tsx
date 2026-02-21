@@ -331,7 +331,7 @@ export function CaseFeedback({ feedback, caseData, orderedTests, onExit, onReset
             </div>
             <div className="bg-brand-50 p-6 rounded-2xl border border-brand-100 flex flex-col items-center text-center">
               <span className="text-brand-600 text-sm font-semibold uppercase tracking-wider mb-2">XP Gained</span>
-              <span className="text-5xl font-bold text-brand-700">+{caseData.xpReward}</span>
+              <span className="text-5xl font-bold text-brand-700">+{feedback.xpEarned !== undefined ? feedback.xpEarned : (feedback.isCorrect ? (caseData.xpReward || 50) : Math.floor((caseData.xpReward || 50) * 0.2))}</span>
               <span className="text-brand-400 text-sm mt-1">experience points</span>
             </div>
           </div>

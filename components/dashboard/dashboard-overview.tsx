@@ -14,6 +14,9 @@ import {
   ArrowRight
 } from "lucide-react"
 
+import { useState, useEffect } from "react"
+import { getDashboardStats } from "@/app/actions/dashboard"
+
 export function DashboardOverview() {
   const { user, isLoaded } = useUser()
 
@@ -37,21 +40,42 @@ export function DashboardOverview() {
     return "Doctor"
   }
 
-  // TODO: Replace with real data from API/database
-  const userStats = {
+  const [isLoadingStats, setIsLoadingStats] = useState(true)
+  const [userStats, setUserStats] = useState({
     totalXP: 0,
     casesSolved: 0,
     streakDays: 0,
-  }
+  })
 
-  // TODO: Replace with real recent cases from API/database
-  const recentCases: {
+  const [recentCases, setRecentCases] = useState<{
     id: number
     title: string
     score: number
     xpEarned: number
     timeTaken: string
-  }[] = []
+  }[]>([])
+
+  useEffect(() => {
+    async function fetchStats() {
+      if (!isLoaded) return
+
+      try {
+        const stats = await getDashboardStats()
+        setUserStats({
+          totalXP: stats.totalXP,
+          casesSolved: stats.casesSolved,
+          streakDays: stats.streakDays,
+        })
+        setRecentCases(stats.recentCases)
+      } catch (err) {
+        console.error("Failed to load stats", err)
+      } finally {
+        setIsLoadingStats(false)
+      }
+    }
+
+    fetchStats()
+  }, [isLoaded, user?.id])
 
   return (
     <div className="p-3 sm:p-4 md:p-6 lg:p-8 space-y-4 sm:space-y-6 md:space-y-8 bg-gradient-to-br from-slate-50/50 via-white to-brand-50/30 min-h-full">
