@@ -6,6 +6,9 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { CheckCircle2, Clock, Users } from "lucide-react"
 
+// Always re-run — never cache. Approve/revoke actions must reflect immediately.
+export const dynamic = "force-dynamic"
+
 export default async function AdminPage() {
     const { userId } = await auth()
 

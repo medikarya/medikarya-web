@@ -81,6 +81,11 @@ export function Footer() {
                   Dashboard
                 </Link>
               </li>
+              <li>
+                <Link href="/contribute" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Become a Contributor
+                </Link>
+              </li>
             </ul>
           </div>
 

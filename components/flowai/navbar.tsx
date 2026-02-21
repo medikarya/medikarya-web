@@ -40,6 +40,11 @@ export function Navbar() {
               Pricing
             </Link>
           </li>
+          <li>
+            <Link href="/contribute" className="transition-colors hover:text-foreground">
+              Contribute
+            </Link>
+          </li>
         </ul>
 
         <div className="flex items-center gap-2">
