@@ -2,6 +2,11 @@ import { auth, currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import { supabaseServer } from "@/lib/supabase/server"
 
+// Always re-run server-side — never serve from Next.js router cache.
+// Without this, client-side navigations (e.g. post-Clerk sign-in) can hit a
+// cached layout, skipping the Supabase beta check and the redirect to /pending.
+export const dynamic = "force-dynamic"
+
 export default async function DashboardRootLayout({
     children,
 }: {

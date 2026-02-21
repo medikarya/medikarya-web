@@ -1,8 +1,12 @@
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
+import { supabaseServer } from "@/lib/supabase/server"
 import { SignOutButton } from "@clerk/nextjs"
 import { Clock, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+// Always re-run — don't cache. Approved users must be redirected to dashboard immediately.
+export const dynamic = "force-dynamic"
 
 export default async function PendingPage() {
     const { userId } = await auth()
@@ -10,6 +14,17 @@ export default async function PendingPage() {
     // If not logged in at all, push to login
     if (!userId) {
         redirect("/login")
+    }
+
+    // If somehow an approved user lands here, send them to dashboard
+    const { data: betaUser } = await supabaseServer
+        .from("beta_users")
+        .select("approved")
+        .eq("clerk_user_id", userId)
+        .maybeSingle()
+
+    if (betaUser?.approved) {
+        redirect("/dashboard")
     }
 
     const user = await currentUser()
@@ -83,6 +98,17 @@ export default async function PendingPage() {
                             Sign back in and start practising cases
                         </li>
                     </ul>
+                </div>
+
+                {/* Contributor nudge */}
+                <div className="rounded-xl border border-brand-100 bg-brand-50/60 p-4 text-center space-y-1.5">
+                    <p className="text-sm font-medium text-brand-700">While you wait — help build MediKarya</p>
+                    <p className="text-xs text-brand-600/80">
+                        Are you a clinician or senior student? You can contribute cases and shape the platform.
+                    </p>
+                    <a href="/contribute" className="inline-block mt-1 text-xs font-semibold text-brand-700 underline underline-offset-2 hover:text-brand-800 transition-colors">
+                        Become a Contributor →
+                    </a>
                 </div>
 
                 {/* Sign out */}
