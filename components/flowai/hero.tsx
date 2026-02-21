@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowRight, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { motion, useMotionTemplate, useMotionValue, useScroll, useTransform, useSpring, Variants } from "framer-motion"
+import { motion, useMotionTemplate, useMotionValue, useScroll, useTransform, Variants } from "framer-motion"
 import { MouseEvent, useRef } from "react"
 
 export function Hero() {
@@ -14,31 +14,23 @@ export function Hero() {
   let mouseX = useMotionValue(0)
   let mouseY = useMotionValue(0)
 
-  // Grid Physics: Inverse movement for depth
-  const gridX = useSpring(useTransform(mouseX, [0, 1000], [0, -20]), { stiffness: 50, damping: 20 })
-  const gridY = useSpring(useTransform(mouseY, [0, 1000], [0, -20]), { stiffness: 50, damping: 20 })
-
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
     let { left, top } = currentTarget.getBoundingClientRect()
     mouseX.set(clientX - left)
     mouseY.set(clientY - top)
   }
 
-  // --- Story Bridge Logic (Parallax Exit) ---
+  // --- Parallax Exit (scroll out) ---
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   })
 
-  // --- Parallax & Motion Values ---
-  // Adjusted ranges (0.4 -> 0.9) to keep content visible longer on mobile
   const opacity = useTransform(scrollYProgress, [0.4, 0.9], [1, 0])
   const scale = useTransform(scrollYProgress, [0.4, 0.9], [1, 0.95])
-  const blur = useTransform(scrollYProgress, [0.4, 0.9], ["0px", "10px"])
   const y = useTransform(scrollYProgress, [0.4, 0.9], [0, -50])
 
-  // Create Motion Templates at top level (Rules of Hooks)
-  const blurFilter = useMotionTemplate`blur(${blur})`
+  // Spotlight
   const spotlightBackground = useMotionTemplate`
     radial-gradient(
         800px circle at ${mouseX}px ${mouseY}px,
@@ -65,54 +57,17 @@ export function Hero() {
       ref={containerRef}
       initial="hidden"
       animate="visible"
-      style={{ opacity, scale, filter: blurFilter, y }}
+      style={{ opacity, scale, y }}
       onMouseMove={handleMouseMove}
       className={cn(
         "relative mt-6 overflow-hidden rounded-[2.5rem] border border-slate-200/60 shadow-2xl shadow-brand-900/5 px-6 py-20 sm:py-24 md:py-32 group origin-top",
         "bg-white"
       )}
     >
-      {/* 1. Aurora Background (Breathing, Subtle) */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-60"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-          scale: [1, 1.05, 1]
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "linear"
-        }}
-        style={{
-          backgroundImage: `
-                        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 60%),
-                        conic-gradient(from 0deg at 50% 50%, var(--brand-50), var(--accent-50), #f0f9ff, var(--brand-50))
-                    `,
-          filter: "blur(60px)"
-        }}
-      />
-
-      {/* 2. Interactive Spotlight (Follows Mouse) */}
+      {/* Subtle spotlight that follows mouse */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 transition duration-500 group-hover:opacity-100"
-        style={{
-          background: spotlightBackground
-        }}
-      />
-
-      {/* 3. Silk Grid Physics (Moves opposite to mouse) */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute inset-[-50px] opacity-[0.15] mix-blend-multiply transition-transform duration-75 ease-out"
-        style={{
-          x: gridX,
-          y: gridY,
-          backgroundImage: "linear-gradient(#cbd5e1 1px, transparent 1px), linear-gradient(90deg, #cbd5e1 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          maskImage: "radial-gradient(100% 100% at 50% 30%, black, transparent)",
-        }}
+        style={{ background: spotlightBackground }}
       />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">

@@ -36,11 +36,6 @@ export function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="#pricing" className="transition-colors hover:text-foreground">
-              Pricing
-            </Link>
-          </li>
-          <li>
             <Link href="/contribute" className="transition-colors hover:text-foreground">
               Contribute
             </Link>
