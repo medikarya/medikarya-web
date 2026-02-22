@@ -30,3 +30,6 @@ next-env.d.ts
 
 # Migration scripts
 scripts/migrate-cases.ts
+
+# Case Templates
+data/cases/*.json
