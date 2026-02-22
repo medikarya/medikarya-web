@@ -22,12 +22,12 @@ interface PatientPresentationProps {
     gender: string
     mrn: string
     chiefComplaint: string
-    vitalSigns: {
-      bloodPressure: string
-      heartRate: string
-      temperature: string
-      respiratoryRate: string
-      oxygenSaturation: string
+    vitalSigns?: {
+      bloodPressure?: { systolic?: number; diastolic?: number; unit?: string }
+      heartRate?: { value?: number; unit?: string }
+      temperature?: { value?: number; unit?: string }
+      respiratoryRate?: { value?: number; unit?: string }
+      oxygenSaturation?: { value?: number; unit?: string }
     }
     allergies: string[]
     currentMedications: string[]
@@ -56,9 +56,9 @@ export function PatientPresentation({ patient }: PatientPresentationProps) {
           <div className="text-[10px] sm:text-xs text-slate-600">
             <span className="font-medium">MRN:</span> {patient.mrn}
           </div>
-          
+
           <Separator />
-          
+
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-2 sm:p-3">
             <div className="flex items-start gap-1.5 sm:gap-2">
               <AlertCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-amber-600 mt-0.5 flex-shrink-0" />
@@ -86,39 +86,49 @@ export function PatientPresentation({ patient }: PatientPresentationProps) {
                 <Heart className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-red-500 flex-shrink-0" />
                 <span>BP</span>
               </div>
-              <span className="font-medium text-slate-900">{patient.vitalSigns.bloodPressure}</span>
+              <span className="font-medium text-slate-900">
+                {patient.vitalSigns?.bloodPressure?.systolic ? `${patient.vitalSigns.bloodPressure.systolic}/${patient.vitalSigns.bloodPressure.diastolic} ${patient.vitalSigns.bloodPressure.unit || 'mmHg'}` : 'N/A'}
+              </span>
             </div>
-            
+
             <div className="flex items-center justify-between text-[10px] sm:text-xs">
               <div className="flex items-center gap-1.5 sm:gap-2 text-slate-600">
                 <Activity className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-pink-500 flex-shrink-0" />
                 <span>HR</span>
               </div>
-              <span className="font-medium text-slate-900">{patient.vitalSigns.heartRate}</span>
+              <span className="font-medium text-slate-900">
+                {patient.vitalSigns?.heartRate?.value ? `${patient.vitalSigns.heartRate.value} ${patient.vitalSigns.heartRate.unit || 'bpm'}` : 'N/A'}
+              </span>
             </div>
-            
+
             <div className="flex items-center justify-between text-[10px] sm:text-xs">
               <div className="flex items-center gap-1.5 sm:gap-2 text-slate-600">
                 <Thermometer className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-orange-500 flex-shrink-0" />
                 <span>Temp</span>
               </div>
-              <span className="font-medium text-slate-900">{patient.vitalSigns.temperature}</span>
+              <span className="font-medium text-slate-900">
+                {patient.vitalSigns?.temperature?.value ? `${patient.vitalSigns.temperature.value} ${patient.vitalSigns.temperature.unit || '°C'}` : 'N/A'}
+              </span>
             </div>
-            
+
             <div className="flex items-center justify-between text-[10px] sm:text-xs">
               <div className="flex items-center gap-1.5 sm:gap-2 text-slate-600">
                 <Wind className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-brand-500 flex-shrink-0" />
                 <span>RR</span>
               </div>
-              <span className="font-medium text-slate-900">{patient.vitalSigns.respiratoryRate}</span>
+              <span className="font-medium text-slate-900">
+                {patient.vitalSigns?.respiratoryRate?.value ? `${patient.vitalSigns.respiratoryRate.value} ${patient.vitalSigns.respiratoryRate.unit || 'breaths/min'}` : 'N/A'}
+              </span>
             </div>
-            
+
             <div className="flex items-center justify-between text-[10px] sm:text-xs">
               <div className="flex items-center gap-1.5 sm:gap-2 text-slate-600">
                 <Droplets className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-accent-500 flex-shrink-0" />
                 <span>SpO₂</span>
               </div>
-              <span className="font-medium text-slate-900">{patient.vitalSigns.oxygenSaturation}</span>
+              <span className="font-medium text-slate-900">
+                {patient.vitalSigns?.oxygenSaturation?.value ? `${patient.vitalSigns.oxygenSaturation.value}${patient.vitalSigns.oxygenSaturation.unit === '%' ? '%' : ` ${patient.vitalSigns.oxygenSaturation.unit || '%'}`}` : 'N/A'}
+              </span>
             </div>
           </div>
         </CardContent>

@@ -16,7 +16,29 @@
         "gender": "Male",
         "mrn": "MRN-2024-003",
         "chiefComplaint": "Yellow eyes and face",
-        "vitalSigns": {},
+        "vitalSigns": {
+            "bloodPressure": {
+                "systolic": 80,
+                "diastolic": 50,
+                "unit": "mmHg"
+            },
+            "heartRate": {
+                "value": 128,
+                "unit": "bpm"
+            },
+            "temperature": {
+                "value": 36.8,
+                "unit": "°C"
+            },
+            "respiratoryRate": {
+                "value": 38,
+                "unit": "breaths/min"
+            },
+            "oxygenSaturation": {
+                "value": 99,
+                "unit": "%"
+            }
+        },
         "allergies": [],
         "currentMedications": [],
         "socioeconomic_status": "Not available",
