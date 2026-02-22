@@ -1,12 +1,10 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
 import { supabaseServer } from "@/lib/supabase/server";
 import { getCases } from "@/data/cases";
 
-export async function getDashboardStats() {
+export async function getDashboardStats(userId: string) {
     try {
-        const { userId } = await auth();
         if (!userId) {
             return {
                 totalXP: 0,
@@ -43,14 +41,7 @@ export async function getDashboardStats() {
             totalXP: 0,
             casesSolved: 0,
             streakDays: profile?.current_streak || 0,
-            recentCases: [] as any[],
-            _debug: {
-                userId,
-                profileData: profile,
-                attemptsCount: attempts?.length || 0,
-                errorFromAttempts: error ? (error as any).message : null,
-                errorFromProfile: profileError ? (profileError as any).message : null
-            }
+            recentCases: [] as any[]
         };
 
         if (!attempts || attempts.length === 0) {
@@ -66,10 +57,14 @@ export async function getDashboardStats() {
         }
         stats.casesSolved = uniqueCases.size;
 
-        // Fetch metadata to map case_id to case title
-        const allLocalCases = await getCases();
+        // Fetch metadata to map case_id to case title (Optional, may fail in serverless if filesystem isn't bundled)
         const caseMap = new Map();
-        allLocalCases.forEach(c => caseMap.set(c.id, c.title));
+        try {
+            const allLocalCases = await getCases();
+            allLocalCases.forEach(c => caseMap.set(c.id, c.title));
+        } catch (metadataErr) {
+            console.error("Non-critical: Failed to load local case metadata for titles:", metadataErr);
+        }
 
         // Format recent cases (up to 5)
         const recentAttempts = attempts.slice(0, 5);
