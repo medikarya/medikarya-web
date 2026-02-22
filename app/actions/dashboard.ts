@@ -28,12 +28,16 @@ export async function getDashboardStats() {
             throw new Error("Failed to fetch dashboard stats");
         }
 
-        // Fetch streak data from user_profiles table
-        const { data: profile } = await supabaseServer
+        // Fetch streak data from user_profiles table safely
+        const { data: profile, error: profileError } = await supabaseServer
             .from("user_profiles")
             .select("current_streak")
             .eq("clerk_user_id", userId)
-            .single();
+            .maybeSingle();
+
+        if (profileError) {
+            console.error("Error fetching user profile for streak:", profileError);
+        }
 
         const stats = {
             totalXP: 0,
