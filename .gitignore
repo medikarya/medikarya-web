@@ -27,3 +27,6 @@ yarn-error.log*
 next-env.d.ts
 # clerk configuration (can include secrets)
 /.clerk/
+
+# Migration scripts
+scripts/migrate-cases.ts

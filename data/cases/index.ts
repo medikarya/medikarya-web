@@ -1,5 +1,4 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { supabaseServer } from '@/lib/supabase/server';
 
 export interface CaseMetadata {
   id: string;
@@ -40,57 +39,54 @@ export interface CaseData extends CaseMetadata {
   }[];
 }
 
-const CASES_DIR = path.join(process.cwd(), 'data/cases');
-
 export async function getCases(): Promise<CaseMetadata[]> {
-  const files = await fs.readdir(CASES_DIR);
-  const caseFiles = files.filter(file => file.endsWith('.json'));
+  const { data, error } = await supabaseServer
+    .from('cases')
+    .select('id, title, category, difficulty, estimated_time, status, created_at, updated_at, case_json')
+    .order('updated_at', { ascending: false });
 
-  const cases = await Promise.all(
-    caseFiles.map(async (file) => {
-      const filePath = path.join(CASES_DIR, file);
-      const fileContent = await fs.readFile(filePath, 'utf8');
-      const caseData: CaseData = JSON.parse(fileContent);
+  if (error) {
+    console.error("Error fetching cases metadata from Supabase:", error);
+    return [];
+  }
 
-      // Return only the metadata
-      const { patient, questions, discussion, ...metadata } = caseData;
-      return metadata;
-    })
-  );
+  // Map database columns back to the CaseMetadata format expected by the frontend
+  return data.map((row) => {
+    // Extract remaining metadata fields not explicitly broken out into columns from case_json
+    const { tags, description, xpReward, completionRate } = row.case_json || {};
 
-  return cases.sort((a, b) =>
-    new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-  );
+    return {
+      id: row.id,
+      title: row.title,
+      category: row.category,
+      difficulty: row.difficulty as 'Beginner' | 'Intermediate' | 'Advanced',
+      estimatedTime: row.estimated_time,
+      tags: tags || [],
+      description: description || '',
+      xpReward: xpReward || 50,
+      completionRate: completionRate,
+      createdAt: row.created_at || new Date().toISOString(),
+      updatedAt: row.updated_at || new Date().toISOString()
+    };
+  });
 }
 
 export async function getCaseById(id: string): Promise<CaseData | null> {
   try {
-    const filePath = path.join(CASES_DIR, `${id}.json`);
-    const fileContent = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(fileContent);
+    const { data, error } = await supabaseServer
+      .from('cases')
+      .select('case_json')
+      .eq('id', id)
+      .single();
+
+    if (error || !data) {
+      console.error(`Error fetching case ${id} from Supabase:`, error);
+      return null;
+    }
+
+    return data.case_json as CaseData;
   } catch (error) {
-    console.error(`Error reading case ${id}:`, error);
-    return null;
-  }
-}
-
-export async function updateCase(id: string, data: Partial<CaseData>): Promise<CaseData | null> {
-  try {
-    const filePath = path.join(CASES_DIR, `${id}.json`);
-
-    // Get existing data
-    const existingData = await getCaseById(id);
-    if (!existingData) return null;
-
-    // Merge with new data
-    const updatedData = { ...existingData, ...data, updatedAt: new Date().toISOString() };
-
-    // Write back to file
-    await fs.writeFile(filePath, JSON.stringify(updatedData, null, 2), 'utf8');
-
-    return updatedData;
-  } catch (error) {
-    console.error(`Error updating case ${id}:`, error);
+    console.error(`Unexpected error reading case ${id}:`, error);
     return null;
   }
 }

@@ -1,7 +1,6 @@
 "use server";
 
 import { supabaseServer } from "@/lib/supabase/server";
-import { getCases } from "@/data/cases";
 
 export async function getDashboardStats(userId: string) {
     try {
@@ -57,13 +56,20 @@ export async function getDashboardStats(userId: string) {
         }
         stats.casesSolved = uniqueCases.size;
 
-        // Fetch metadata to map case_id to case title (Optional, may fail in serverless if filesystem isn't bundled)
-        const caseMap = new Map();
+        // Fetch metadata to map case_id to case title (Optimized database query)
+        const caseMap = new Map<string, string>();
         try {
-            const allLocalCases = await getCases();
-            allLocalCases.forEach(c => caseMap.set(c.id, c.title));
+            const { data: casesData, error: casesError } = await supabaseServer
+                .from('cases')
+                .select('id, title');
+
+            if (casesError) {
+                console.error("Failed to load case titles for dashboard:", casesError);
+            } else if (casesData) {
+                casesData.forEach(c => caseMap.set(c.id, c.title));
+            }
         } catch (metadataErr) {
-            console.error("Non-critical: Failed to load local case metadata for titles:", metadataErr);
+            console.error("Failed to load case titles for dashboard:", metadataErr);
         }
 
         // Format recent cases (up to 5)
