@@ -45,7 +45,6 @@ export function DashboardOverview() {
     totalXP: 0,
     casesSolved: 0,
     streakDays: 0,
-    _debug: null as any
   })
 
   const [recentCases, setRecentCases] = useState<{
@@ -66,7 +65,6 @@ export function DashboardOverview() {
           totalXP: stats.totalXP,
           casesSolved: stats.casesSolved,
           streakDays: stats.streakDays,
-          _debug: (stats as any)._debug
         })
         setRecentCases(stats.recentCases)
       } catch (err) {
@@ -103,13 +101,7 @@ export function DashboardOverview() {
         </Button>
       </div>
 
-      {/* Temporary Debug Block */}
-      {userStats._debug && (
-        <div className="bg-red-50 border border-red-200 p-4 rounded-xl text-xs overflow-auto">
-          <h3 className="font-bold text-red-800 mb-2">DEBUG INFO (Temporary)</h3>
-          <pre className="text-red-900">{JSON.stringify(userStats._debug, null, 2)}</pre>
-        </div>
-      )}
+
 
       {/* Stats Grid */}
       <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 sm:grid-cols-3">

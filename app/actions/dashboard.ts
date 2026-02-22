@@ -10,8 +10,7 @@ export async function getDashboardStats(userId: string) {
                 totalXP: 0,
                 casesSolved: 0,
                 streakDays: 0,
-                recentCases: [],
-                _debug: null
+                recentCases: []
             };
         }
 
@@ -42,14 +41,7 @@ export async function getDashboardStats(userId: string) {
             totalXP: 0,
             casesSolved: 0,
             streakDays: profile?.current_streak || 0,
-            recentCases: [] as any[],
-            _debug: {
-                userId,
-                profileData: profile,
-                attemptsCount: attempts?.length || 0,
-                errorFromAttempts: error ? (error as any).message : null,
-                errorFromProfile: profileError ? (profileError as any).message : null
-            }
+            recentCases: [] as any[]
         };
 
         if (!attempts || attempts.length === 0) {
@@ -98,11 +90,7 @@ export async function getDashboardStats(userId: string) {
             totalXP: 0,
             casesSolved: 0,
             streakDays: 0,
-            recentCases: [],
-            _debug: {
-                error: (err as any)?.message || String(err),
-                where: "catch_block"
-            }
+            recentCases: []
         };
     }
 }
