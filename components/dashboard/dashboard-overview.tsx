@@ -58,10 +58,10 @@ export function DashboardOverview() {
 
   useEffect(() => {
     async function fetchStats() {
-      if (!isLoaded) return
+      if (!isLoaded || !user) return
 
       try {
-        const stats = await getDashboardStats()
+        const stats = await getDashboardStats(user.id)
         setUserStats({
           totalXP: stats.totalXP,
           casesSolved: stats.casesSolved,

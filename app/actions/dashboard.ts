@@ -1,18 +1,17 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
 import { supabaseServer } from "@/lib/supabase/server";
 import { getCases } from "@/data/cases";
 
-export async function getDashboardStats() {
+export async function getDashboardStats(userId: string) {
     try {
-        const { userId } = await auth();
         if (!userId) {
             return {
                 totalXP: 0,
                 casesSolved: 0,
                 streakDays: 0,
-                recentCases: []
+                recentCases: [],
+                _debug: null
             };
         }
 
