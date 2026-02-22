@@ -43,7 +43,14 @@ export async function getDashboardStats() {
             totalXP: 0,
             casesSolved: 0,
             streakDays: profile?.current_streak || 0,
-            recentCases: [] as any[]
+            recentCases: [] as any[],
+            _debug: {
+                userId,
+                profileData: profile,
+                attemptsCount: attempts?.length || 0,
+                errorFromAttempts: error ? (error as any).message : null,
+                errorFromProfile: profileError ? (profileError as any).message : null
+            }
         };
 
         if (!attempts || attempts.length === 0) {
