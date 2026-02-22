@@ -36,12 +36,12 @@ interface PatientCardProps {
     mrn: string
     admissionDate: string
     chiefComplaint: string
-    vitalSigns: {
-      bloodPressure: string
-      heartRate: string
-      temperature: string
-      respiratoryRate: string
-      oxygenSaturation: string
+    vitalSigns?: {
+      bloodPressure?: { systolic?: number; diastolic?: number; unit?: string }
+      heartRate?: { value?: number; unit?: string }
+      temperature?: { value?: number; unit?: string }
+      respiratoryRate?: { value?: number; unit?: string }
+      oxygenSaturation?: { value?: number; unit?: string }
     }
     allergies: string[]
     currentMedications: string[]
@@ -124,7 +124,9 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
                   <Heart className="h-4 w-4 text-red-500" />
                   <span className="text-xs text-slate-600 font-medium">Blood Pressure</span>
                 </div>
-                <p className="text-sm font-semibold text-slate-900">{patient.vitalSigns.bloodPressure}</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {patient.vitalSigns?.bloodPressure?.systolic ? `${patient.vitalSigns.bloodPressure.systolic}/${patient.vitalSigns.bloodPressure.diastolic} ${patient.vitalSigns.bloodPressure.unit || 'mmHg'}` : 'Not recorded'}
+                </p>
               </div>
 
               <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
@@ -132,7 +134,9 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
                   <Activity className="h-4 w-4 text-pink-500" />
                   <span className="text-xs text-slate-600 font-medium">Heart Rate</span>
                 </div>
-                <p className="text-sm font-semibold text-slate-900">{patient.vitalSigns.heartRate}</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {patient.vitalSigns?.heartRate?.value ? `${patient.vitalSigns.heartRate.value} ${patient.vitalSigns.heartRate.unit || 'bpm'}` : 'Not recorded'}
+                </p>
               </div>
 
               <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
@@ -140,7 +144,9 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
                   <Thermometer className="h-4 w-4 text-orange-500" />
                   <span className="text-xs text-slate-600 font-medium">Temperature</span>
                 </div>
-                <p className="text-sm font-semibold text-slate-900">{patient.vitalSigns.temperature}</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {patient.vitalSigns?.temperature?.value ? `${patient.vitalSigns.temperature.value} ${patient.vitalSigns.temperature.unit || '°C'}` : 'Not recorded'}
+                </p>
               </div>
 
               <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
@@ -148,7 +154,9 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
                   <Wind className="h-4 w-4 text-brand-500" />
                   <span className="text-xs text-slate-600 font-medium">Respiratory Rate</span>
                 </div>
-                <p className="text-sm font-semibold text-slate-900">{patient.vitalSigns.respiratoryRate}</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {patient.vitalSigns?.respiratoryRate?.value ? `${patient.vitalSigns.respiratoryRate.value} ${patient.vitalSigns.respiratoryRate.unit || 'breaths/min'}` : 'Not recorded'}
+                </p>
               </div>
 
               <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
@@ -156,7 +164,9 @@ export function PatientCard({ patient, caseTitle, onStartCase }: PatientCardProp
                   <Droplets className="h-4 w-4 text-accent-500" />
                   <span className="text-xs text-slate-600 font-medium">O₂ Saturation</span>
                 </div>
-                <p className="text-sm font-semibold text-slate-900">{patient.vitalSigns.oxygenSaturation}</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {patient.vitalSigns?.oxygenSaturation?.value ? `${patient.vitalSigns.oxygenSaturation.value}${patient.vitalSigns.oxygenSaturation.unit === '%' ? '%' : ` ${patient.vitalSigns.oxygenSaturation.unit || '%'}`}` : 'Not recorded'}
+                </p>
               </div>
             </div>
           </div>

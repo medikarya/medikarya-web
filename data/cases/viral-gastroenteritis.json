@@ -18,11 +18,27 @@
     "mrn": "MRN-2024-002",
     "chiefComplaint": "Vomiting (3 days), Watery diarrhea (2 days)",
     "vitalSigns": {
-      "bloodPressure": "90/60 mmHg",
-      "heartRate": "130 bpm",
-      "temperature": "38.5°C (101.3°F)",
-      "respiratoryRate": "30 breaths/min",
-      "oxygenSaturation": "98% on room air"
+      "bloodPressure": {
+        "systolic": 90,
+        "diastolic": 60,
+        "unit": "mmHg"
+      },
+      "heartRate": {
+        "value": 130,
+        "unit": "bpm"
+      },
+      "temperature": {
+        "value": 38.5,
+        "unit": "°C"
+      },
+      "respiratoryRate": {
+        "value": 30,
+        "unit": "breaths/min"
+      },
+      "oxygenSaturation": {
+        "value": 98,
+        "unit": "%"
+      }
     },
     "allergies": [],
     "currentMedications": [],

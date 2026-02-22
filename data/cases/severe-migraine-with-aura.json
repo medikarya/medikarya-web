@@ -17,7 +17,29 @@
         "gender": "Female",
         "mrn": "MRN-2024-021",
         "chiefComplaint": "Severe throbbing headache for 48 hours",
-        "vitalSigns": {},
+        "vitalSigns": {
+            "bloodPressure": {
+                "systolic": 118,
+                "diastolic": 76,
+                "unit": "mmHg"
+            },
+            "heartRate": {
+                "value": 96,
+                "unit": "bpm"
+            },
+            "temperature": {
+                "value": 36.9,
+                "unit": "°C"
+            },
+            "respiratoryRate": {
+                "value": 18,
+                "unit": "breaths/min"
+            },
+            "oxygenSaturation": {
+                "value": 99,
+                "unit": "%"
+            }
+        },
         "allergies": [],
         "currentMedications": [],
         "socioeconomic_status": "Student",

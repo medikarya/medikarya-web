@@ -17,7 +17,34 @@
         "gender": "Female",
         "mrn": "MRN-2024-028",
         "chiefComplaint": "Breathlessness on exertion for 5 days",
-        "vitalSigns": {},
+        "vitalSigns": {
+            "bloodPressure": {
+                "systolic": 110,
+                "diastolic": 70,
+                "unit": "mmHg",
+                "status": "normal"
+            },
+            "heartRate": {
+                "value": 98,
+                "unit": "bpm",
+                "status": "mildly_elevated"
+            },
+            "respiratoryRate": {
+                "value": 20,
+                "unit": "breaths/min",
+                "status": "normal"
+            },
+            "temperature": {
+                "value": 36.9,
+                "unit": "°C",
+                "status": "normal"
+            },
+            "oxygenSaturation": {
+                "value": 98,
+                "unit": "%",
+                "status": "normal"
+            }
+        },
         "allergies": [],
         "currentMedications": [],
         "socioeconomic_status": "Housemaker",
