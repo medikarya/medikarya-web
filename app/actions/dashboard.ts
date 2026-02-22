@@ -94,7 +94,11 @@ export async function getDashboardStats(userId: string) {
             totalXP: 0,
             casesSolved: 0,
             streakDays: 0,
-            recentCases: []
+            recentCases: [],
+            _debug: {
+                error: (err as any)?.message || String(err),
+                where: "catch_block"
+            }
         };
     }
 }
