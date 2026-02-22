@@ -1,35 +1,31 @@
 import { NextResponse } from 'next/server';
-import { getCaseById, updateCase } from '@/data/cases';
+import { getCaseById } from '@/data/cases';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const caseId = params.id;
-    
-    // Get the current case data
-    const caseData = await getCaseById(caseId);
-    
+    const { id } = await params;
+
+    // Get the case definition from the database
+    const caseData = await getCaseById(id);
+
     if (!caseData) {
       return NextResponse.json(
         { error: 'Case not found' },
         { status: 404 }
       );
     }
-    
-    // Update case status and add startedAt timestamp
-    const updatedCase = {
+
+    // We append the timestamp for the frontend state, 
+    // but we DO NOT save this to the global immutable database.
+    const sessionData = {
       ...caseData,
-      status: 'in-progress',
-      startedAt: new Date().toISOString(),
-      // Add any other fields you want to update when case starts
+      startedAt: new Date().toISOString()
     };
-    
-    // Save the updated case
-    await updateCase(caseId, updatedCase);
-    
-    return NextResponse.json(updatedCase);
+
+    return NextResponse.json(sessionData);
   } catch (error) {
     console.error('Error starting case:', error);
     return NextResponse.json(
