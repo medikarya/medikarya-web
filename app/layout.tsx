@@ -55,6 +55,17 @@ export const metadata: Metadata = {
     images: ["https://www.medikarya.in/og-image.png"],
     creator: "@medikarya", // Replace with actual handle
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: "/favicon.ico",
     apple: "/medikarya.png",
