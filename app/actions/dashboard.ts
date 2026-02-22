@@ -65,10 +65,14 @@ export async function getDashboardStats(userId: string) {
         }
         stats.casesSolved = uniqueCases.size;
 
-        // Fetch metadata to map case_id to case title
-        const allLocalCases = await getCases();
+        // Fetch metadata to map case_id to case title (Optional, may fail in serverless if filesystem isn't bundled)
         const caseMap = new Map();
-        allLocalCases.forEach(c => caseMap.set(c.id, c.title));
+        try {
+            const allLocalCases = await getCases();
+            allLocalCases.forEach(c => caseMap.set(c.id, c.title));
+        } catch (metadataErr) {
+            console.error("Non-critical: Failed to load local case metadata for titles:", metadataErr);
+        }
 
         // Format recent cases (up to 5)
         const recentAttempts = attempts.slice(0, 5);
