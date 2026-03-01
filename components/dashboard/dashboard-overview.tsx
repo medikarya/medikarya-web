@@ -60,7 +60,7 @@ export function DashboardOverview() {
       if (!isLoaded || !user) return
 
       try {
-        const stats = await getDashboardStats(user.id)
+        const stats = await getDashboardStats()
         setUserStats({
           totalXP: stats.totalXP,
           casesSolved: stats.casesSolved,
@@ -75,7 +75,7 @@ export function DashboardOverview() {
     }
 
     fetchStats()
-  }, [isLoaded, user?.id])
+  }, [isLoaded, user])
 
   return (
     <div className="p-3 sm:p-4 md:p-6 lg:p-8 space-y-4 sm:space-y-6 md:space-y-8 bg-gradient-to-br from-slate-50/50 via-white to-brand-50/30 min-h-full">

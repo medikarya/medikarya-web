@@ -3,6 +3,7 @@ import { Navbar } from "@/components/flowai/navbar"
 import { Hero } from "@/components/flowai/hero"
 import { SmoothScroller } from "@/components/smooth-scroller"
 import ProblemsSection from "@/components/flowai/sections/problems-section"
+import { SmoothScroller } from "@/components/smooth-scroller"
 
 // Lazy Load Heavy Sections (Below the fold)
 const FeaturesBento = dynamic(() => import("@/components/flowai/sections/features-bento"), {
