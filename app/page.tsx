@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic"
 import { Navbar } from "@/components/flowai/navbar"
 import { Hero } from "@/components/flowai/hero"
+import { SmoothScroller } from "@/components/smooth-scroller"
 import ProblemsSection from "@/components/flowai/sections/problems-section"
 
 // Lazy Load Heavy Sections (Below the fold)
@@ -19,21 +20,23 @@ const Footer = dynamic(() => import("@/components/flowai/footer").then(mod => mo
 
 export default function Page() {
   return (
-    <main className="min-h-dvh">
-      <div className="relative">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50" />
-        <div className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-          <Navbar />
-          <Hero />
+    <SmoothScroller>
+      <main className="min-h-dvh">
+        <div className="relative">
+          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50" />
+          <div className="mx-auto max-w-6xl px-4 py-6 md:py-8">
+            <Navbar />
+            <Hero />
+          </div>
         </div>
-      </div>
 
-      {/* sections */}
-      <ProblemsSection />
-      <FeaturesBento />
-      <DashboardPreview />
-      <FAQSection />
-      <Footer />
-    </main>
+        {/* sections */}
+        <ProblemsSection />
+        <FeaturesBento />
+        <DashboardPreview />
+        <FAQSection />
+        <Footer />
+      </main>
+    </SmoothScroller>
   )
 }

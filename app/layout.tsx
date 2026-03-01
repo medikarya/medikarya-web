@@ -8,7 +8,6 @@ import NextTopLoader from 'nextjs-toploader';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import { LayoutClient } from "@/components/LayoutClient"
-import { SmoothScroller } from "@/components/smooth-scroller"
 import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = Geist({
@@ -143,11 +142,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               `
             }}
           />
-          <SmoothScroller>
-            <LayoutClient>
-              {children}
-            </LayoutClient>
-          </SmoothScroller>
+          <LayoutClient>
+            {children}
+          </LayoutClient>
           <SpeedInsights />
           <Toaster />
         </body>
