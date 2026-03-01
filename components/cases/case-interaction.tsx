@@ -366,7 +366,6 @@ export function CaseInteraction({ caseData, onExit }: CaseInteractionProps) {
                     testResults={testResults}
                     chatHistory={chatHistory}
                     onSubmit={handleDiagnosisSubmit}
-                    onExit={onExit}
                   />
                 </TabsContent>
               </Tabs>

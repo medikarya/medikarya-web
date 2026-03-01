@@ -25,19 +25,16 @@ interface DiagnosisSubmissionProps {
   testResults: any[]
   chatHistory: any[]
   onSubmit: (diagnosis: any) => void
-  onExit: () => void
 }
 
 export function DiagnosisSubmission({
   orderedTests,
   testResults,
   chatHistory,
-  onSubmit,
-  onExit
+  onSubmit
 }: DiagnosisSubmissionProps) {
   const [primaryDiagnosis, setPrimaryDiagnosis] = useState("")
   const [managementPlan, setManagementPlan] = useState("")
-  const [caseSummary, setCaseSummary] = useState("")
 
   const handleSubmit = () => {
     if (!primaryDiagnosis.trim()) {
@@ -51,7 +48,6 @@ export function DiagnosisSubmission({
       managementPlan: managementPlan.trim()
         ? managementPlan.trim().split(/\n+/).map(s => s.trim()).filter(Boolean)
         : [],
-      caseSummary: caseSummary.trim(),
       submittedAt: new Date().toISOString()
     }
 
@@ -132,23 +128,6 @@ export function DiagnosisSubmission({
           </p>
         </div>
 
-        <Separator />
-
-        {/* Case Summary (Optional) */}
-        <div className="space-y-1.5 sm:space-y-2">
-          <Label htmlFor="summary" className="text-xs sm:text-sm font-semibold flex items-center gap-1.5 sm:gap-2">
-            <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-green-600" />
-            Case Summary (Optional)
-          </Label>
-          <Textarea
-            id="summary"
-            placeholder="Briefly summarize the case and your findings..."
-            value={caseSummary}
-            onChange={(e) => setCaseSummary(e.target.value)}
-            className="min-h-[100px] sm:min-h-[120px] resize-none text-xs sm:text-sm"
-          />
-        </div>
-
         {/* Warning if no tests */}
         {!hasResults && (
           <Card className="bg-amber-50 border-amber-200">
@@ -165,14 +144,7 @@ export function DiagnosisSubmission({
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row justify-between gap-3 pt-3 sm:pt-4">
-          <Button
-            variant="destructive"
-            onClick={onExit}
-            className="w-full sm:w-auto text-xs sm:text-sm h-9 sm:h-10"
-          >
-            End Case
-          </Button>
+        <div className="flex flex-col sm:flex-row justify-end gap-3 pt-3 sm:pt-4">
           <Button
             onClick={handleSubmit}
             disabled={!primaryDiagnosis.trim()}
