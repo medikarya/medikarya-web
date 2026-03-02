@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic"
 import { Navbar } from "@/components/flowai/navbar"
 import { Hero } from "@/components/flowai/hero"
-import { SmoothScroller } from "@/components/smooth-scroller"
 import ProblemsSection from "@/components/flowai/sections/problems-section"
 import { SmoothScroller } from "@/components/smooth-scroller"
 
