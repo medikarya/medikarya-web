@@ -5,12 +5,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     const routes = [
         '',
-        '/waitlist',
         '/blog',
         '/contact',
         '/privacy',
         '/terms',
+        '/cookies',
         '/tutorials',
+        '/case-studies',
+        '/contribute',
+        '/api-docs',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
