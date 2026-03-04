@@ -26,6 +26,11 @@ export function Navbar() {
 
         <ul className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
           <li>
+            <Link href="/about" className="transition-colors hover:text-foreground">
+              About
+            </Link>
+          </li>
+          <li>
             <Link href="#features" className="transition-colors hover:text-foreground">
               Features
             </Link>
@@ -33,6 +38,11 @@ export function Navbar() {
           <li>
             <Link href="#video-demo" className="transition-colors hover:text-foreground">
               How it Works
+            </Link>
+          </li>
+          <li>
+            <Link href="/blog" className="transition-colors hover:text-foreground">
+              Blog
             </Link>
           </li>
           <li>
