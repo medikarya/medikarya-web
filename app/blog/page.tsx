@@ -27,7 +27,7 @@ const articles = [
         categoryColor: "bg-blue-50 text-blue-700 border-blue-100",
         author: "MediKarya Team",
         date: "February 2025",
-        readTime: "6 min read",
+        readTime: "8 min read",
     },
     {
         slug: "feynman-technique-clinical-reasoning",
@@ -37,7 +37,7 @@ const articles = [
         categoryColor: "bg-emerald-50 text-emerald-700 border-emerald-100",
         author: "MediKarya Team",
         date: "January 2025",
-        readTime: "5 min read",
+        readTime: "7 min read",
     },
     {
         slug: "sepsis-case-based-approach",
@@ -47,7 +47,7 @@ const articles = [
         categoryColor: "bg-red-50 text-red-700 border-red-100",
         author: "MediKarya Team",
         date: "January 2025",
-        readTime: "8 min read",
+        readTime: "10 min read",
     },
     {
         slug: "why-medical-students-need-simulation",
