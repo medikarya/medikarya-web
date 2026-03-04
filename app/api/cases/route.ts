@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getCases } from '@/data/cases';
 
+// Cache responses for 1 hour — cases rarely change
+export const revalidate = 3600;
+
 export async function GET() {
   try {
     const cases = await getCases();
