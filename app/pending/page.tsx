@@ -1,4 +1,13 @@
+import type { Metadata } from "next"
 import { auth, currentUser } from "@clerk/nextjs/server"
+
+export const metadata: Metadata = {
+    title: "Approval Pending | MediKarya",
+    robots: {
+        index: false,
+        follow: false,
+    },
+}
 import { redirect } from "next/navigation"
 import { supabaseServer } from "@/lib/supabase/server"
 import { SignOutButton } from "@clerk/nextjs"
