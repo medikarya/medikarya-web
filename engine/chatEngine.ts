@@ -20,6 +20,55 @@ export class ChatEngine {
         return await this.generateLLMResponse(message, caseData, userId);
     }
 
+    static async generateOpening(caseData: CaseData): Promise<string> {
+        const compiledMemory = this.buildPatientMemory(caseData);
+        const isGuardian =
+            caseData.ai_role?.speaker?.toLowerCase().includes("mother") ||
+            caseData.ai_role?.speaker?.toLowerCase().includes("father") ||
+            caseData.ai_role?.speaker?.toLowerCase().includes("guardian");
+
+        const prompt = `
+You are roleplaying as a patient (or guardian) who has just walked into a doctor's consultation room.
+
+${compiledMemory}
+
+Write ONE short, emotional, natural sentence that you would say first thing — as if you just sat down across from the doctor.
+- Sound worried, scared, or distressed — like a real person, not a medical report.
+- Do NOT introduce yourself by name.
+- Do NOT list all your symptoms. Just express the most dominant feeling or complaint naturally.
+- Example style: "Doctor, please help — my chest hasn't stopped hurting since last night."
+- Example style: "I'm really scared, doctor. My little boy has been vomiting all day and he can't keep anything down."
+- Keep it to ONE sentence only.
+`.trim();
+
+        try {
+            const apiKey = process.env.GROQ_API_KEY;
+            if (!apiKey) return isGuardian
+                ? `Doctor, please help — something is wrong with my ${caseData.patient.name}.`
+                : "Doctor, I'm not feeling well at all.";
+
+            const groq = new Groq({ apiKey });
+            const result = await groq.chat.completions.create({
+                messages: [{ role: "user", content: prompt }],
+                model: "llama-3.3-70b-versatile",
+                temperature: 0.7,
+                max_completion_tokens: 80,
+                stream: false
+            });
+
+            let line = result.choices[0]?.message?.content?.trim() || "";
+            // Strip any roleplay prefix like "Patient:" or quotes
+            line = line.replace(/^(patient|mother|father|guardian|me)\s*:\s*/i, "").trim();
+            line = line.replace(/^["']|["']$/g, "").trim();
+            return line || (isGuardian ? "Doctor, please help my child." : "Doctor, I'm not feeling well.");
+        } catch {
+            return isGuardian
+                ? `Doctor, something's wrong with my ${caseData.patient.name}.`
+                : "Doctor, I really need your help.";
+        }
+    }
+
+
     // 🔥 THE BIG FIX — convert entire case into patient memory
     private static buildPatientMemory(caseData: CaseData): string {
         const facts = Object.entries(caseData.patient_facts || {})

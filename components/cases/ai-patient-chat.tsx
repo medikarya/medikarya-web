@@ -27,9 +27,7 @@ export function AIPatientChat({ caseData, onMessageSent, chatHistory }: AIPatien
     caseData.ai_role?.speaker?.toLowerCase().includes("father") ||
     caseData.ai_role?.speaker?.toLowerCase().includes("guardian")
 
-  const welcomeMessage = isGuardian
-    ? `Hello Doctor. I'm ${caseData.patient.name}'s mother.`
-    : `Hello Doctor. I'm ${caseData.patient.name}.`
+  const [openingLoading, setOpeningLoading] = useState(true)
 
   const SUGGESTED_QUESTIONS = [
     "Can you tell me more about your symptoms?",
@@ -42,18 +40,12 @@ export function AIPatientChat({ caseData, onMessageSent, chatHistory }: AIPatien
 
   const [messages, setMessages] = useState<Message[]>(() => {
     if (chatHistory && chatHistory.length > 0) {
-      // Rehydrate dates if they were serialized
       return chatHistory.map(m => ({
         ...m,
         timestamp: new Date(m.timestamp)
       }))
     }
-    return [{
-      id: "welcome",
-      role: "assistant",
-      content: welcomeMessage,
-      timestamp: new Date()
-    }]
+    return []
   })
 
   const [input, setInput] = useState("")
@@ -69,11 +61,40 @@ export function AIPatientChat({ caseData, onMessageSent, chatHistory }: AIPatien
     })
   }, [messages])
 
-  // Persist welcome message if it's a new chat
+  // Fetch LLM-generated emotional opening on mount
   useEffect(() => {
-    if ((!chatHistory || chatHistory.length === 0) && messages.length === 1 && messages[0].id === "welcome") {
-      onMessageSent(messages[0])
+    if (chatHistory && chatHistory.length > 0) {
+      setOpeningLoading(false)
+      return
     }
+    setOpeningLoading(true)
+    fetch("/api/chat/patient/opening", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ caseData })
+    })
+      .then(r => r.json())
+      .then(data => {
+        const openingMsg: Message = {
+          id: "welcome",
+          role: "assistant",
+          content: data.opening || "Doctor, I need your help.",
+          timestamp: new Date()
+        }
+        setMessages([openingMsg])
+        onMessageSent(openingMsg)
+      })
+      .catch(() => {
+        const fallback: Message = {
+          id: "welcome",
+          role: "assistant",
+          content: "Doctor, I really need your help.",
+          timestamp: new Date()
+        }
+        setMessages([fallback])
+        onMessageSent(fallback)
+      })
+      .finally(() => setOpeningLoading(false))
   }, [])
 
   /* ---------------- SPEECH TO TEXT ---------------- */
@@ -249,12 +270,20 @@ export function AIPatientChat({ caseData, onMessageSent, chatHistory }: AIPatien
             </div>
           ))}
 
-          {isLoading && (
-            <div className="flex gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <span className="text-sm text-slate-600">
-                Patient is typing…
-              </span>
+          {(isLoading || openingLoading) && (
+            <div className="flex gap-2 items-center">
+              <Avatar className="h-7 w-7">
+                <AvatarFallback className="bg-brand-500 text-white">
+                  <User className="h-4 w-4" />
+                </AvatarFallback>
+              </Avatar>
+              <div className="bg-slate-100 border rounded-lg px-3 py-2">
+                <span className="flex gap-1 items-center">
+                  <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                </span>
+              </div>
             </div>
           )}
 
